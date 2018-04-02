@@ -42,10 +42,17 @@ Last pre-trained model are using the smallest version 106x79x1, due to horrendou
 ### Achievements
 * Trained models with accuracy around 99% for 64x64x1 (grayscale) images with set colors of both background and dice
 * Models with accuracy over 98% for 64x64x1 (grayscale) and 64x64x3 (RGB) images with 15 different sets of colors.
-* First model with accuracy over 60% for 106x79x1 (grayscale) finally breaking the 64x64 initial size od learned images
+* First model with accuracy of 68.03% for 106x79x1 (grayscale) finally breaking the 64x64 initial size od learned images
+
 ### Training
 All neural network models are trained on AWS EC2 and  Google Compute Engine (so far mainly AWS)
 On AWS it's using p2.xlarge instance with Nvidia TESLA K80 GPU
+
+### Troubles with Keras
+* Different numbers of parameters in compiled models for both Sequential and Functional API model
+* Troubles with setting proper batch_size according to each images resolutions (number of parameters to store in GPU memory)
+* Almost not-learnable images with recognition greater than 64x64. The only success so far is with 106x79 images (68.03% accuracy). 
+With 160x120 the error/accuracy rate remains unchanged (marginal upgrades, can be treated as noise) 
 
 ### Frameworks
 As for now, almost all notebooks are based on Keras framework with Tensorflow backend, due to simplicity at the beginning.
@@ -53,6 +60,8 @@ As for now, almost all notebooks are based on Keras framework with Tensorflow ba
 The future will focus on changing tech-stack towards Tensorflow. More ambitious plans is to leave TF ans Keras and 
 create CNN from scratch, purely in C++ with further application of Nvidia CUDA support for speed.
 
+<img src="/photos/kolaz/png">
+##### updating README, to be continued...
 
 ## Below some models visualizations:
 
