@@ -60,7 +60,7 @@ As for now, almost all notebooks are based on Keras framework with Tensorflow ba
 The future will focus on changing tech-stack towards Tensorflow. More ambitious plans is to leave TF ans Keras and 
 create CNN from scratch, purely in C++ with further application of Nvidia CUDA support for speed.
 
-<img src="https://raw.githubusercontent.com/oziomek1/neural_network_dice/master/photos/kolaz/png">
+<img src="/photos/kolaz.png">
 ##### updating README, to be continued...
 
 ## Below some models visualizations:
