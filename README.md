@@ -66,8 +66,7 @@ create CNN from scratch, purely in C++ with further application of Nvidia CUDA s
 ## Below some models visualizations:
 
 #### These below are to exactly the same neural networks, one flattened and another one, deeper with substitutions in convolutional filters for faster computing 
-<img src="/model_plots/NON-substituting_160x120_plot.png" style="width: 400px;"/>
-<img src="/model_plots/substituting_160x120_plot.png" style="width: 400px;"/>
+<img src="/model_plots/merge_substitution.png" />
 
 
 #### Model with Adam optimizer:
