@@ -65,8 +65,13 @@ create CNN from scratch, purely in C++ with further application of Nvidia CUDA s
 
 ## Below some models visualizations:
 
-### Model with Adam optimizer:
+#### These below are to exactly the same neural networks, one flattened and another one, deeper with substitutions in convolutional filters for faster computing 
+<img src="/model_plots/NON-substituting_160x120_plot.png" style="width: 400px;"/>
+<img src="/model_plots/substituting_160x120_plot.png" style="width: 400px;"/>
+
+
+#### Model with Adam optimizer:
 <img src="https://raw.githubusercontent.com/oziomek1/neural_network_dice/master/model_plots/model2adam_plot.png">
 
-### Model with Adam optimizer but this is a functional model, not Sequential model:
+#### Model with Adam optimizer but this is a functional model, not Sequential model:
 <img src="https://raw.githubusercontent.com/oziomek1/neural_network_dice/master/model_plots/model2API_plot.png">
