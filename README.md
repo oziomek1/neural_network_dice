@@ -63,7 +63,7 @@ create CNN from scratch, purely in C++ with further application of Nvidia CUDA s
 <img src="/photos/kolaz.png" />
 
 ### Example of using 5 learned models combined with capture from camera to recognize dots on dices
-<img src="/photos/neural_network_recognition/png" />
+<img src="/photos/neural_network_recognition.png" />
 
 ##### updating README, to be continued...
 
@@ -74,4 +74,5 @@ create CNN from scratch, purely in C++ with further application of Nvidia CUDA s
 
 ### The deepest model so far, with 45 layers
 This is created via [this model](subst_LReLU_106x79.ipynb)
+
 <img src="/model_plots/subst_LReLU_106x79_plot.png" />
