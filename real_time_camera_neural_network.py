@@ -3,11 +3,11 @@ import numpy as np
 
 from keras.models import load_model
 
-model_RMSprop = load_model('../models/model2API-25-0.0871.h5')
-model_Adam = load_model('../models/model2API-25-0.0871.h5')
-model_generator = load_model('../models/comparison_gray-20-0.0402.h5')
-model_AlexNet = load_model('../models/dice_AlexNet-25-0.0644.h5')
-model_API = load_model('../models/model2API-25-0.0871.h5')
+model_RMSprop = load_model('models/model2rms_continue-08-0.1021.h5')
+model_Adam = load_model('models/model3adam-25-0.1604.h5')
+model_generator = load_model('models/comparison_gray-20-0.0402.h5')
+model_AlexNet = load_model('models/dice_AlexNet-25-0.0644.h5')
+model_API = load_model('models/model2API-25-0.0871.h5')
 
 
 def capture():
@@ -33,15 +33,15 @@ def capture():
         cv2.rectangle(second_frame, (x, y), (x+size, y+size), (255, 255, 255), 2)
 
         validation_frame = cropped_frame.reshape(1, 64, 64, 1).astype('float32')
+        validation_frame_reversed = cropped_frame.reshape(1, 1, 64, 64).astype('float32')
         # print('Validation_frame ', validation_frame.shape)
         validation_frame /= 255
-        prediction_rms = model_RMSprop.predict(validation_frame)
-        prediction_adam = model_Adam.predict(validation_frame)
+        prediction_rms = model_RMSprop.predict(validation_frame_reversed)
+        prediction_adam = model_Adam.predict(validation_frame_reversed)
         prediction_gen = model_generator.predict(validation_frame)
         prediction_alex = model_AlexNet.predict(validation_frame)
         prediction_api = model_API.predict(validation_frame)
 
-        results = '{} {}'.format(np.argmax(prediction_rms) + 1, np.argmax(prediction_adam) + 1)
         result_rms = 'RMS:{}'.format(np.argmax(prediction_rms) + 1)
         result_adam = 'Adam:{}'.format(np.argmax(prediction_adam) + 1)
         result_gen = 'Gen:{}'.format(np.argmax(prediction_gen) + 1)
