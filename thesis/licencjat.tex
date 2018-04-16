@@ -1,0 +1,118 @@
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass[a4paper,oneside,12pt]{report}
+
+\usepackage{titlesec}
+\usepackage[top=0cm, bottom=0cm, left=2cm, right=2cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\selectlanguage{polish}
+\makeatletter
+
+\renewcommand{\maketitle}{\begin{titlepage}
+	
+	\vspace*{ \stretch{1} }
+	\begin{center} \LARGE
+	Uniwersytet Jagielloński \\
+  	Wydział Fizyki, Astronomii i Informatyki Stosowanej
+	\end{center}
+	
+	\vspace{ \stretch{1} }
+	\begin{center} \Huge 
+		\textsc {\@title}
+	\end{center}
+			
+	\vspace{ \stretch{1} }
+	\begin{center}
+		\large \@author \\
+		\vspace{3mm}
+		\normalsize Nr albumu: 1124802
+	\end{center}
+	
+	\vspace{ \stretch{1.5} }
+	\begin{flushright}
+	\begin{minipage}{8cm}
+	\begin{center} \large
+	Praca wykonana pod kierunkiem \\
+	prof. dr hab. Piotra Białasa \\
+	kierownika Zakładu Technologii Gier \\
+	FAIS UJ
+	\end{center}
+	\end{minipage}
+	\end{flushright}
+	\vspace{ \stretch{1} }
+	\begin{center}
+	\@date
+	\end{center}
+\end{titlepage}
+}
+\makeatother
+
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries}{}{0pt}{\Huge}
+
+\renewcommand*\contentsname{Spis Treści}
+
+\author{Wojciech Ozimek}
+\title{Wykorzystanie sztucznych sieci neuronowych do analizy obrazów na przykładzie kostki do gry}
+\date{kwiecień 2018}
+
+\begin{document}
+\maketitle{}
+
+\tableofcontents
+\newpage
+
+
+\include{wstep}
+
+\paragraph {Lorem  ipsum  dolor  sit  amet,  consectetuer  adipiscing  
+elit.   Etiam  lobortisfacilisis sem.  Nullam nec mi et 
+neque pharetra sollicitudin.  Praesent imperdietmi nec ante. 
+Donec ullamcorper, felis non sodales...}
+
+
+\chapter {Technologie}
+
+\section {Język programowania i środowisko}
+
+\subsection {Python}
+
+\subsection {Jupyter Notebook}
+
+\section {Biblioteki}
+
+\subsection {OpenCV}
+
+\subsection {Tensorflow}
+
+\subsection {Keras}
+
+\subsection {Numpy}
+
+\subsection {Matplotlib}
+
+\subsection {LaTeX}
+
+\section {Technologie poza programistyczne}
+
+\subsection{Nvidia CUDA}
+
+\subsection {Amazon AWS EC2}
+
+\subsection {Google Compute Engine}
+
+
+\chapter {Założenia pracy}
+
+
+\chapter {Sieć neuronowa}
+
+\section {Czym jest sieć neuronowa}
+
+\section {Konwolucyjna sieć neuronowa}
+
+
+\end{document}
