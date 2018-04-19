@@ -4,9 +4,47 @@
 
 \section {Biologiczny neuron}
 
-Neuron to komórka nerwowa zdolna do przewodzenia i przetwarzania sygnału elektrycznego w którym zawarta jest informacja. Jest on podstawowym elementem układu nerwowego wszystkich zwierząt. Każdy neuron składa się z ciała komórki (soma, neurocyt) otaczającego jądro komórkowe, neurytu (akson) odpowiedzialny za przekazywanie informacji z ciała komórki do kolejnych neuronów oraz dendrytów służących do odbierania sygnałów i przesyłaniu ich do ciała komórkowego. Impuls elektryczny z jednego neuronu do drugiego przekazywany jest w synapsie, miejscu komunikacji danego neuronu z poprzednim. Synapsa składa się z części presynaptycznej (aksonu) i postsynaptycznej (dendrytu). Neuron przewodzi sygnał tylko w sytuacji kiedy suma potencjałów na wejściach od innych neuronów na jego dendrytach przekroczy określony poziom. W przeciwnym wypadku neuron nie przewodzi sygnału. Dodatkowo, zwiększenie potencjału na wejściach nie powoduje wzmocnienia potencjału na wyjściu neuronu. \\
-Neurony połączone i działające w ten sposób tworzą sieci neuronowe, którym dobrym przykładem może być mózg człowieka.  Przeciętnie posiada on około 100 miliardów neuronów, każdy z nich połączony jest z około 10 tysiącami innych neuronów przez połączenia synaptyczne. Liczba połączeń synaptycznych szacowana jest na około 10\textsuperscript{15}.
+Neuron to komórka nerwowa zdolna do przewodzenia i przetwarzania sygnału
+elektrycznego w którym zawarta jest informacja. Jest on podstawowym elementem
+układu nerwowego wszystkich zwierząt. Każdy neuron składa się z
+ciała komórki (soma, neurocyt) otaczającego jądro komórkowe, neurytu (akson)
+odpowiedzialny za przekazywanie informacji z ciała komórki do kolejnych neuronów
+oraz dendrytów służących do odbierania sygnałów i przesyłaniu ich do ciała
+komórkowego. Impuls elektryczny z jednego neuronu do drugiego przekazywany jest
+w synapsie, miejscu komunikacji danego neuronu z poprzednim. Synapsa składa się
+z części presynaptycznej (aksonu) i postsynaptycznej (dendrytu). Neuron
+przewodzi sygnał tylko w sytuacji kiedy suma potencjałów na wejściach od innych
+neuronów na jego dendrytach przekroczy określony poziom. W przeciwnym wypadku
+neuron nie przewodzi sygnału. Dodatkowo, zwiększenie potencjału na wejściach
+nie powoduje wzmocnienia potencjału na wyjściu neuronu. \\
+Neurony połączone i działające w ten sposób tworzą sieci neuronowe, których
+dobrym przykładem może być mózg człowieka. Przeciętnie posiada on około 100
+miliardów neuronów, każdy z nich połączony jest z około 10 tysiącami innych
+neuronów przez połączenia synaptyczne. Liczba połączeń synaptycznych szacowana
+jest na około 10\textsuperscript{15}.
 
 \section {Sztuczny neuron}
+
+Matematycznym modelem neuronu jest tzw. neuron McCullocha-Pittsa, nazywany
+również neuronem binarnym. Jest to prosta koncepcja zakładająca, że każdy neuron
+posiada wiele wejść, z których każde ma przypisaną wagę w postaci liczby
+rzeczywistej oraz jedno wyjście. Wyjściem neuronu jest wartość funkcji aktywacji
+dla argumentu którym jest suma wszystkich wag pomnożonych przez odpowiednie
+wartości wejściowe. Wyjście danego neuronu połączone jest z wejściami innych
+neuronów, tak jak ma to miejsce w przypadku biologicznego neuronu.
+Powyższy, sztuczny model neuronu jest podstawowym budulcem sztucznych sieci
+neuronowych z racji prostoty działania i łatwości implementacji.
+W rzeczywistych zastosowaniach używane są pojecia takie jak wektor wejściowy
+oraz wektor wag, które oznaczają odpowiednio wszystkie wartości wejścioweoraz
+wszystkie wagi dla danego neuronu.
+Pojedynczyn neuron pozwala na uzyskanie mocno ograniczonych rozwizań. Przykładowo
+korzystając z prostych funkcji logicznych ANR, OR, NOT, XOR okazuje się że
+pojedynczy neuron jest w stanie poprawnie rozwiązywać jedynie pierwsze trzy z
+podanych funkcji. Problem wiąże się z brakiem możliwości uzyskania poprawnych
+rezultatów dla zbiorów które nie są liniowo separowalne. W takich przypadkach
+konieczne jest użycie większej ilości neuronów, a więc tworzenie sieci neuronowych
+których możliwości adaptacyjnego do poszczególnych problemów są niejednokrotnie
+bardzo zaskakujące.
+
 
 \section {Historia}
