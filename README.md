@@ -45,7 +45,7 @@ Last pre-trained model are using the smallest version 106x79x1, due to horrendou
 * First model with accuracy of 68.03% for 106x79x1 (grayscale) finally breaking the 64x64 initial size od learned images
 
 ### Training
-All neural network models are trained on AWS EC2 and  Google Compute Engine (so far mainly AWS)
+All neural network models are trained on AWS EC2 and Google Compute Engine (so far mainly AWS)
 On AWS it's using p2.xlarge instance with Nvidia TESLA K80 GPU
 
 ### Troubles with Keras
@@ -53,6 +53,20 @@ On AWS it's using p2.xlarge instance with Nvidia TESLA K80 GPU
 * Troubles with setting proper batch_size according to each images resolutions (number of parameters to store in GPU memory)
 * Almost not-learnable images with recognition greater than 64x64. The only success so far is with 106x79 images (68.03% accuracy). 
 With 160x120 the error/accuracy rate remains unchanged (marginal upgrades, can be treated as noise) 
+
+There is actually the major idea that comes through from articles and scientific works which presents very good performance
+with neural model learned with higher number of epochs. I decided to train my network for usually 20 epochs as this is very
+time/money consuming. However the truth is the models should be learned about 100 epochs at least. In the examples where performance
+is good and accuracy is above 90% it's not so important but with examples as the last one, with 106x79 images it's worth trying.
+
+* The first attempt, with not 100 epochs but as for now - continuing training of a model, prelearned in 20 epochs, for the
+next 20 epochs (40 combined), and then apply 20 epochs again which makes all together 60 epochs
+The outcome with plots presenting accuracy and error rate are available [here](simple_NN_106x79_continue.ipynb)
+As a comparison [there](simple_NN_106x79.ipynb) is the notebook the same model during first 20 epochs.
+
+* Accuracy after 20 epochs: 68.03%
+* Accuracy after 40 epochs: 78.02%
+* Accuracy after 60 epochs: 81.59%
 
 ### Frameworks
 As for now, almost all notebooks are based on Keras framework with Tensorflow backend, due to simplicity at the beginning.
