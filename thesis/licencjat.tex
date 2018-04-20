@@ -3,11 +3,15 @@
 \documentclass[a4paper,oneside,12pt]{report}
 
 \usepackage{titlesec}
-\usepackage[top=0cm, bottom=0cm, left=2cm, right=2cm]{geometry}
+\usepackage[top=1cm, bottom=2cm, left=2cm, right=2cm]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage[polish]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\usepackage{setspace}
 \selectlanguage{polish}
 \makeatletter
 
@@ -68,41 +72,7 @@
 
 \include{wstep}
 
-\paragraph {Lorem  ipsum  dolor  sit  amet,  consectetuer  adipiscing
-elit.   Etiam  lobortisfacilisis sem.  Nullam nec mi et
-neque pharetra sollicitudin.  Praesent imperdietmi nec ante.
-Donec ullamcorper, felis non sodales...}
-
-
-\chapter {Technologie}
-
-\section {Język programowania i środowisko}
-
-\subsection {Python}
-
-\subsection {Jupyter Notebook}
-
-\section {Biblioteki}
-
-\subsection {OpenCV}
-
-\subsection {Tensorflow}
-
-\subsection {Keras}
-
-\subsection {Numpy}
-
-\subsection {Matplotlib}
-
-\subsection {LaTeX}
-
-\section {Technologie poza programistyczne}
-
-\subsection{Nvidia CUDA}
-
-\subsection {Amazon AWS EC2}
-
-\subsection {Google Compute Engine}
+\include{technologie}
 
 
 \chapter {Założenia pracy}

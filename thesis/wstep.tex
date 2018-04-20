@@ -1,8 +1,8 @@
 % !TEX encoding = UTF-8 Unicode
 
-\chapter {Wstęp}
+\chapter{Wstęp}
 
-\section {Biologiczny neuron}
+\section{Biologiczny neuron}
 
 Neuron to komórka nerwowa zdolna do przewodzenia i przetwarzania sygnału
 elektrycznego w którym zawarta jest informacja. Jest on podstawowym elementem
@@ -23,7 +23,7 @@ miliardów neuronów, każdy z nich połączony jest z około 10 tysiącami inny
 neuronów przez połączenia synaptyczne. Liczba połączeń synaptycznych szacowana
 jest na około 10\textsuperscript{15}.
 
-\section {Sztuczny neuron}
+\section{Sztuczny neuron}
 
 Matematycznym modelem neuronu jest tzw. neuron McCullocha-Pittsa, nazywany
 również neuronem binarnym. Jest to prosta koncepcja zakładająca, że każdy neuron
@@ -31,12 +31,12 @@ posiada wiele wejść, z których każde ma przypisaną wagę w postaci liczby
 rzeczywistej oraz jedno wyjście. Wyjściem neuronu jest wartość funkcji aktywacji
 dla argumentu którym jest suma wszystkich wag pomnożonych przez odpowiednie
 wartości wejściowe. Wyjście danego neuronu połączone jest z wejściami innych
-neuronów, tak jak ma to miejsce w przypadku biologicznego neuronu.
+neuronów, tak jak ma to miejsce w przypadku biologicznego neuronu. \\
 Powyższy, sztuczny model neuronu jest podstawowym budulcem sztucznych sieci
 neuronowych z racji prostoty działania i łatwości implementacji.
 W rzeczywistych zastosowaniach używane są pojecia takie jak wektor wejściowy
 oraz wektor wag, które oznaczają odpowiednio wszystkie wartości wejścioweoraz
-wszystkie wagi dla danego neuronu.
+wszystkie wagi dla danego neuronu. \\
 Pojedynczyn neuron pozwala na uzyskanie mocno ograniczonych rozwizań. Przykładowo
 korzystając z prostych funkcji logicznych ANR, OR, NOT, XOR okazuje się że
 pojedynczy neuron jest w stanie poprawnie rozwiązywać jedynie pierwsze trzy z
@@ -47,4 +47,24 @@ których możliwości adaptacyjnego do poszczególnych problemów są niejednokr
 bardzo zaskakujące.
 
 
-\section {Historia}
+\section{Historia}
+
+Rozpoczęciem prac nad sztucznymi neuronami można datować na rok 1943 kiedy to
+Warren McCulloch i Walt er Pitts przedstawili wspomniany już wcześniej model
+neuronu. Pierwsze sieci neurone używane były np do operacji bitowych i
+przewidywania kolejnych wystąpień bitów w ciągu. Mimo licznych prób zastosowania
+ich do realnych problemów nie zyskały one popularności. Powodem tego były prace
+naukowe sugerujące ograniczenia sieci takie jak brak możliwości rozszerzenia sieci
+do więcej niż jednej warstwy oraz jedynie jednokierunkowe połączenie między
+neuronami. W początkowym okresie rozwoju sieci neuronowych przyjmowano także wiele
+błędnych założeń które wraz z ograniczonymi możliwościami obliczeniowymi komputerów
+skutecznie zniechęcały naukowców do prac nad tym zagadnieniem. \\
+Przełomem okazał sie rok 1982 kiedy to John Hopfield przedstawił sieć asosjacyjną
+(zwaną siecią Hopfielda). Nowością było dwukierunkowe połączenie neuronów co
+zapewniało możliwość uczenia się danych wzorców. Kolejnymi przełomowymi odkryciami
+były zarówno wprowadzenie wielowarstwowych sieci neuronowych oraz wstecznej
+propagacji. Nowe odkrycia pozwoliły na zastosowanie sieci w wielu różnych
+dziedzinach, wymagając jednak dużych ilości obliczeń, obszernych zbiorów
+treningowych, wielu tysięcy iteracji i długiego czasu nauki. Korzyścią jest jednak
+fakt, że wytrenowany model można wykorzystać w praktycznie każdych warunkach
+i natychmiastowo bez konieczności uczenia.
