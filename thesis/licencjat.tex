@@ -3,13 +3,15 @@
 \documentclass[a4paper,oneside,12pt]{report}
 
 \usepackage{titlesec}
-\usepackage[top=1cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage[polish]{babel}
 \usepackage[utf8]{inputenc}
+\linespread{1.5}
 \usepackage{lmodern}
 \usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage{fixltx2e}
 
 \usepackage{setspace}
 \selectlanguage{polish}
@@ -72,10 +74,13 @@
 
 \include{wstep}
 
+\include{cel}
+
 \include{technologie}
 
+\include{slownik}
 
-\chapter {Założenia pracy}
+\include{zalozenia}
 
 
 \chapter {Sieć neuronowa}

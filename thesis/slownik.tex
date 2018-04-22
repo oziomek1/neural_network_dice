@@ -1,0 +1,156 @@
+% !TEX encoding = UTF-8 Unicode
+
+\chapter{Słownik pojęć}
+
+\paragraph{Zbiór danych} \mbox{}\\
+Zbiór danych lub obrazów to zbiór wszystkich zdjęć kości wykonanych na poczet
+pracy z wykorzystaniem kamery. Każde zdjęcie w zbiorze jest przetworzone w celu
+zmniejszenia czasu uczenia się sieci oraz potrzebnej pamięci. Zdjęcia były wykonywane
+kamerą o rozdzielczości 1600x1200 pikseli. Każde ze zdjeć w zbiorze zostało
+poddane procesowi skalowania oraz kadrowania w celu osiągnięcia odpowiedniego
+rozmiaru. W celu uzyskania większej liczebności zbioru wszystkie obrazy zostały
+dodatkowo poddane operacji obrotu o dany kąt.
+
+\paragraph{Neuron} \mbox{}\\
+Najmniejszy element sieci neuronowej, przyjmuje wiele wejść i jedno wyjście. Może
+zawierać także próg (ang. threshold), który może być zmieniony przez funkcje uczącą.
+Neuron wyposazony jest także w funkcję aktywacji, odpowiednio modyfikującą jego wyjście.
+Każde wyjście neuronu z poprzedniej warstwy połączone jest z wejściami innych neuronów
+w warstwie następnej.
+\begin{equation}
+f(x_{i}) = \sum_{i}w_{i}x_{i} + b \\
+\end{equation}
+
+\paragraph{Wagi neuronu} \mbox{}\\
+Połączenia w sieci realizowane są między wyjściem poprzedniego neuronu \textit{i}
+oraz wejściem następnego neuronu \textit{j}. Każde takie połączenie ma przypisaną
+wartość wagi \textit{w\textsubscript{ij}}. Podczas procesu uczenia wagi zmieniają
+się, dostosowując sieć neuronową do otrzymywanych danych, co skutkuje
+zmniejszeniem wartości błędu.
+
+\paragraph{Warstwa} \mbox{}\\
+Sieć neuronowa zorganizowana jest w warstwach. Neurony w danej warstwie nie są
+ze sobą w żaden sposób połączone, komunikacja odbywa się tylko między kolejnymi
+warstwami. Istnieje wiele rodzajów warstw, a sygnał który przechodzi przez całą
+sieć zaczyna się w tzw. warstwie wejściowej oraz kończy w tzw. warstwie wyjściowej.
+Istnieją sieci neuronowe (rekurencyjne sieci neuronowe, \textit{ang. RNN - Recurrent Neural Network})
+w ktorych sygnał może przechodzić przez warstwy kilkukrotnie w trakcie jednej epoki.
+
+\paragraph{Bias} \mbox{}\\
+
+\paragraph{Rodzaje warstw} \mbox{}\\
+Poniższe rodzaje warstw zostały użyte w modelach przedstawionych w tej pracy.
+
+\subparagraph{Wejściowa}  \mbox{}\\
+Input
+
+\subparagraph{Wyjściowa}  \mbox{}\\
+Output
+
+\subparagraph{Konwolucyjna}  \mbox{}\\
+Conv2D
+
+\subparagraph{Aktywacyjna}  \mbox{}\\
+Activation
+
+\subparagraph{W pełni połączona}  \mbox{}\\
+Fully connected
+
+\subparagraph{Flatten}  \mbox{}\\
+Flatten
+
+\subparagraph{Odrzucająca}  \mbox{}\\
+Dropout
+
+\subparagraph{MaxPooling}  \mbox{}\\
+MaxPooling2D
+
+
+\paragraph{Funkcja aktywacji} \mbox{}\\
+Przy pomocy funkcji aktywacji obliczana jest wartość wyjściowa neuronów w sieci
+neuronowej. Argumentem dostarczanym do funkcji aktywacji jest suma wejść neuronu
+pomnożonych przez przypisane im wartości wag. Zależnie od konkretnego rodzaju funkcji
+aktywacji, neuron po przekroczeniu danego progu wysyła sygnał wyjściowy, odbierany
+przez neurony znajdujące się w następnej warstwie.
+\begin{equation}
+f\Big(\sum_{i}w_{i}x_{i} + b\Big) \\
+\end{equation}
+
+\paragraph{Rodzaje funkcji aktywacji} \mbox{}\\
+Przedstawione poniżej funkcje aktywacji zostały użyte w modelach zaprezentowanych
+w tej pracy.
+
+\subparagraph{Sigmoid} \mbox{}\\
+\begin{equation}
+f(x) = \sigma(x) = \frac{1}{1 + e^{-x}} \\
+\end{equation}
+
+\subparagraph{Tanh} \mbox{}\\
+\begin{equation}
+f(x) = tanh(x) = \frac{(e^x - e^{-x})}{(e^x + e^{-x})} \\
+\end{equation}
+
+\subparagraph{ReLU} \mbox{}\\
+ReLU \textit{and. Rectified linear unit} jest najpopularniejszą funkcją aktywacji
+wykorzystywaną w sieciach neuronowych. Zasługą tego jest szybki czas uczenia sieci
+bez znaczącego kosztu w postaci generalizacji dokładności.
+\begin{equation}
+f(x) =
+\begin{cases}
+ x & \text{if } x > 0 \\
+ 0 & \text{if } x \leqslant 0 \\
+\end{cases}
+\end{equation}
+
+\subparagraph{LeakyReLU} \mbox{}\\
+LeakyReLU jest ulepszeniem ReLU dzięki zastosowaniu niewielkiego gradientu w sytuacji
+dla której ReLU jest nieaktywne. Zmiana ta pozwala na uniknięcie problemu zanikających ReLU
+co objawiało się sprowadzeniem sporej części wyjść neuronów do zera.
+\begin{equation}
+f(x) =
+\begin{cases}
+ x & \text{if } x > 0 \\
+ 0.01x & \text{if } x \leqslant 0 \\
+\end{cases}
+\end{equation}
+
+\paragraph{Funkcja kosztu} \mbox{}\\
+Funkcja kosztu lub funkcja błędu jest niezbędna do prawidłowego przeprowadzenia
+procesu uczenia. Daje ona informacje o różnicy między obecnym staniem sieci o
+optymalnym rozwiązaniem. Algorytm uczenia sieci analizuje wartość funkcji kosztu
+w kolejnych krokach w celu zminimalizowania jej.
+
+\paragraph{Propagacja wsteczna} \mbox{}\\
+Propagacja wsteczna lub wsteczna propagacja błędów \textit{ang. Backpropagation}
+jest jednym z najskuteczniejszych algorytmów uczenia sieci neuronowych. Polega
+na minimalizacji funkcji kosztu korzystając z metody najszybszego spadku lub
+bardziej zoptymalizowanych sposobów, o których napisane jest w PARAGRAPH OPTYMALIZATORY.
+Swoją nazwę zawdzięcza sposobowi w jaki propagowane są te błędy, od warstwy
+wyjściowej do wejściowej.
+
+\paragraph{Optymalizator} \mbox{}\\
+
+\subparagraph{Stochastic Gradient Descent} \mbox{}\\
+
+\subparagraph{RMSprop} \mbox{}\\
+
+\subparagraph{Adam} \mbox{}\\
+
+
+\paragraph{Sieć neuronowa} \mbox{}\\
+
+\paragraph{Konwolucja} \mbox{}\\
+
+\paragraph{Filtr konwolucyjny} \mbox{}\\
+
+\paragraph{Konwolucyjna sieć neuronowa} \mbox{}\\
+
+\paragraph{Paradygmaty uczenia} \mbox{}\\
+
+\paragraph{Epoka} \mbox{}\\
+
+\paragraph{Uczenie} \mbox{}\\
+
+\paragraph{Testowanie} \mbox{}\\
+
+\paragraph{Predykcja} \mbox{}\\
