@@ -9,7 +9,23 @@ zmniejszenia czasu uczenia się sieci oraz potrzebnej pamięci. Zdjęcia były w
 kamerą o rozdzielczości 1600x1200 pikseli. Każde ze zdjeć w zbiorze zostało
 poddane procesowi skalowania oraz kadrowania w celu osiągnięcia odpowiedniego
 rozmiaru. W celu uzyskania większej liczebności zbioru wszystkie obrazy zostały
-dodatkowo poddane operacji obrotu o dany kąt.
+dodatkowo poddane operacji obrotu o dany kąt. Każdy ze zbiorów został zduplikowany
+i poddany konwersji z trybu RGB na skalę szarości przez usunięcie informacji o barwie
+oraz nasyceniu kolorów, pozostawiając jedynie informację o jasności piksela. \\
+Po przeprowadzeniu całego procesu, każdy obraz miał wymiary 64x64, zarówno w wersji
+kolorowej i czarno białej, co skutkowało rzeczywistymi rozmiarami odpowiednio 64x64x3
+oraz 64x64x1.
+
+\paragraph{Zbiór treningowy} \mbox{}\\
+Część zbioru danych który wykorzystywany jest w procesie uczenia sieci określany
+jest mianem zbioru treningowego lub zbioru uczącego. Jego liczebność to zazwyczaj 60-80\% całego zbioru
+danych. Praktycznie we wszystkich zastosowaniach dane w tym zbiorze przed rozpoczęciem
+uczenia poddawane są losowej permutacji.
+
+\paragraph{Zbiór testowy} \mbox{}\\
+Zbiór testowy lub zbiór walidacyjny służy do oceny zdolności sieci do rozpoznawania
+danych. Celem rozdzielenia tego zbioru od danych testowych jest weryfikacja sieci
+na danych które wcześniej nie zostały przetworzone przez sieć.
 
 \paragraph{Neuron} \mbox{}\\
 Najmniejszy element sieci neuronowej, przyjmuje wiele wejść i jedno wyjście. Może
@@ -28,42 +44,81 @@ wartość wagi \textit{w\textsubscript{ij}}. Podczas procesu uczenia wagi zmieni
 się, dostosowując sieć neuronową do otrzymywanych danych, co skutkuje
 zmniejszeniem wartości błędu.
 
+\paragraph{Bias} \mbox{}\\
+Bias to dodatkowa waga wejściowa do neuronu umożliwiająca jego lepsze dopasowanie
+do danych treningowych. W sytuacji kiedy wszystkie wagi neuronu mają zerowe
+wartości, unikamy problemów podczas procesu wstecznej propagacji.
+
 \paragraph{Warstwa} \mbox{}\\
 Sieć neuronowa zorganizowana jest w warstwach. Neurony w danej warstwie nie są
 ze sobą w żaden sposób połączone, komunikacja odbywa się tylko między kolejnymi
 warstwami. Istnieje wiele rodzajów warstw, a sygnał który przechodzi przez całą
 sieć zaczyna się w tzw. warstwie wejściowej oraz kończy w tzw. warstwie wyjściowej.
-Istnieją sieci neuronowe (rekurencyjne sieci neuronowe, \textit{ang. RNN - Recurrent Neural Network})
+Istnieją sieci neuronowe (rekurencyjne sieci neuronowe, \textit{(ang. RNN - Recurrent Neural Network)})
 w ktorych sygnał może przechodzić przez warstwy kilkukrotnie w trakcie jednej epoki.
-
-\paragraph{Bias} \mbox{}\\
 
 \paragraph{Rodzaje warstw} \mbox{}\\
 Poniższe rodzaje warstw zostały użyte w modelach przedstawionych w tej pracy.
 
 \subparagraph{Wejściowa}  \mbox{}\\
-Input
+W pracy, gdzie zbiorami danych są zbiory obrazów, każdy pojedynczy piksel obrazu
+odpowiada jednej wartości liczbowej. W związku z tym rozmiar pierwszej warstwy
+wejściowej jest identyczny z wymiarami obrazu. Warstwa wejściowa charakteryzuje się
+brakiem wejść oraz biasu.
 
 \subparagraph{Wyjściowa}  \mbox{}\\
-Output
+Rozmiar warstwy wyjściowej odpowiada ilości klas do jakiej wejściowe dane miały
+zostać sklasyfikowne. Oczekiwanym wyjściem sieci w pracy była liczba oczek możliwych
+do wyrzucenia na kostce, co odpowiada 6 klasom, po jednej na każdą wartość na boku
+kostki. Wyjściem wszystkkich przedstawianych w tej pracy sieci był wektor o wymiarach
+6x1.
 
 \subparagraph{Konwolucyjna}  \mbox{}\\
-Conv2D
+Warstwa konwolucyjna służy do przetworzenia danych z poprzedniej warstwy do postaci
+filtrów konwolucyjnych o określonych wymiarach w celu znalezienia cech wśród dostarczonych
+danych. Więcej informacji na temat sposobu w jaki działa konwolucja, opisane jest w sekcji
+\textit{Konwolucja} oraz \textit{Konwolucyjna sieć neuronowa}.
 
 \subparagraph{Aktywacyjna}  \mbox{}\\
-Activation
+Jest to wydzielenie funkcji aktywacji do osobnej warstwy, które jest realizowane
+w niektórych bibliotekach. Celem takiego zabiegu jest możliwości podglądu danych
+na wyjściu neuronu, tuż przed zaaplikowaniem funkcji aktywacji.
 
 \subparagraph{W pełni połączona}  \mbox{}\\
-Fully connected
+Sieć neuronowa składa się z w pełni połączonych warstw \textit{(ang. Fully Connected, Dense)}.
+W konwolucyjnych sieciach neuronowych warstwy te występują po warstwach konwolucyjnych
+i służą do powiązania nieliniowych kombinacji które miały zostały wygenerowane przez
+warstwy konwolucyjne oraz ich klasyfikowania. Dodatkowo nie wymagają dużych nakładów
+obliczeniowych i są proste do zaaplikowania. Swoją nazwę biorą od sposobu w jaki
+realizowane sa połączenia między warstwami. Neurony z poprzedniej warstwy łączą się ze
+wszystkimi neuronami następnej warstwy.
 
 \subparagraph{Flatten}  \mbox{}\\
-Flatten
+Warstwa spłaszczająca \textit{(ang. Flatten)} stosowana jest w celu połączenia warstw
+konwolucyjnych lub aktywacji wraz z warstwami w pełni połączonymi. Realizowane jest
+to poprzez przekształcenie warstwy wejściowej do jednowymiarowego wektora który następnie
+służy za wejście do kolejnych warstw.
 
 \subparagraph{Odrzucająca}  \mbox{}\\
-Dropout
+Warstwa odrzucająca \textit{(ang. Dropout)} zapobiega przetrenowaniu \textit{(ang. Overfitting)}
+sieci. Proces ten polega na nie braniu pod uwagę wyjść pewnych neuronów, zarówno
+w przypadku przechodzenia w przeód oraz w tył. Stosuje się ją po warstwach w pełni
+połączonych, w celu zapobiegania rozległym zależnościom między neuronami. W warstwie
+tej określone jest prawdopodobieństwo \textit{p} z jakim neuron zostanie zachowany
+w warstwie oraz \textit{p - 1} z jakim zostanie odrzucony.
+
 
 \subparagraph{MaxPooling}  \mbox{}\\
-MaxPooling2D
+Warstwa tzw MaxPoolingu wykorzystywana jest do zmniejszenia rozmiaru pamięci oraz
+ilości obliczeń wymaganych przez sieć neuronową, jak również może zapobiegać przetrenowaniu.
+Operacja zmniejszenia polega na wybraniu jednego piksela z danego obszaru, w przypadku
+MaxPoolingu, takiego o największej wartości i przekazaniu go dalej. Obszar z jakiego
+wybieramy dany piksel jest zależy od danej warstwy, ale najczęściej jest to kwadrat
+o wymiarach 2x2 co oznacza znaczące ograniczenie zużycia pamięci i koniecznych obliczeń.
+MaxPooling jest krytykowany ponieważ nie zachowuje informacji o połozeniu piksela
+przekazanego na wyjście warstwy co może objawiać się błednymi interpretacjami
+podczas testowania sieci.
+
 
 
 \paragraph{Funkcja aktywacji} \mbox{}\\
@@ -91,26 +146,28 @@ f(x) = tanh(x) = \frac{(e^x - e^{-x})}{(e^x + e^{-x})} \\
 \end{equation}
 
 \subparagraph{ReLU} \mbox{}\\
-ReLU \textit{and. Rectified linear unit} jest najpopularniejszą funkcją aktywacji
+ReLU \textit{(and. Rectified linear unit)} jest najpopularniejszą funkcją aktywacji
 wykorzystywaną w sieciach neuronowych. Zasługą tego jest szybki czas uczenia sieci
 bez znaczącego kosztu w postaci generalizacji dokładności.
 \begin{equation}
-f(x) =
+f(x) = max(0, x) =
 \begin{cases}
- x & \text{if } x > 0 \\
- 0 & \text{if } x \leqslant 0 \\
+ x & \text{if } x \geqslant 0 \\
+ 0 & \text{if } x < 0 \\
 \end{cases}
 \end{equation}
 
 \subparagraph{LeakyReLU} \mbox{}\\
 LeakyReLU jest ulepszeniem ReLU dzięki zastosowaniu niewielkiego gradientu w sytuacji
-dla której ReLU jest nieaktywne. Zmiana ta pozwala na uniknięcie problemu zanikających ReLU
-co objawiało się sprowadzeniem sporej części wyjść neuronów do zera.
+dla której ReLU jest nieaktywne. Zmiana ta pozwala na uniknięcie problemu tzw
+umierającego neuronu. Sytuacja taka ma miejsce gdy wartość funkcji aktywacji dla
+wszystkich wejść danego neuronu wynosi zero. Jest równoznaczne z zaprzestaniem
+jego procesu uczenia, ponieważ gradient zera również wynosi zero.
 \begin{equation}
 f(x) =
 \begin{cases}
- x & \text{if } x > 0 \\
- 0.01x & \text{if } x \leqslant 0 \\
+ x & \text{if } x \geqslant 0 \\
+ 0.01x & \text{if } x < 0 \\
 \end{cases}
 \end{equation}
 
@@ -121,10 +178,10 @@ optymalnym rozwiązaniem. Algorytm uczenia sieci analizuje wartość funkcji kos
 w kolejnych krokach w celu zminimalizowania jej.
 
 \paragraph{Propagacja wsteczna} \mbox{}\\
-Propagacja wsteczna lub wsteczna propagacja błędów \textit{ang. Backpropagation}
+Propagacja wsteczna lub wsteczna propagacja błędów \textit{(ang. Backpropagation)}
 jest jednym z najskuteczniejszych algorytmów uczenia sieci neuronowych. Polega
 na minimalizacji funkcji kosztu korzystając z metody najszybszego spadku lub
-bardziej zoptymalizowanych sposobów, o których napisane jest w PARAGRAPH OPTYMALIZATORY.
+bardziej zoptymalizowanych sposobów, o których napisane jest w sekcji \textit{Optymalizator}.
 Swoją nazwę zawdzięcza sposobowi w jaki propagowane są te błędy, od warstwy
 wyjściowej do wejściowej.
 
@@ -135,7 +192,6 @@ wyjściowej do wejściowej.
 \subparagraph{RMSprop} \mbox{}\\
 
 \subparagraph{Adam} \mbox{}\\
-
 
 \paragraph{Sieć neuronowa} \mbox{}\\
 
@@ -154,3 +210,9 @@ wyjściowej do wejściowej.
 \paragraph{Testowanie} \mbox{}\\
 
 \paragraph{Predykcja} \mbox{}\\
+
+Tematy do uwzględnienia:
+softmax
+categorical crossentropy
+Liczebność zbioru (konkretne uzasadnienie konieczności duzej liczby danych)
+one-hot encoding
