@@ -135,7 +135,23 @@ f\Big(\sum_{i}w_{i}x_{i} + b\Big) \\
 Przedstawione poniżej funkcje aktywacji zostały użyte w modelach zaprezentowanych
 w tej pracy.
 
+\subparagraph{Liniowa} \mbox{}\\
+Funkcja ta jest praktycznie nie wykorzystywana w sieciach neuronowych. Połączenie
+wielu warstw których neurony posiadają liniową funkcję aktywacji można przedstawić
+za pomocą jednej warstwy,  ponieważ złożenie wielu funkcji liniowych również będzie
+funkcją liniową. Nieliniowość funkcji pozwala na klasyfikacje danych przechodzących
+przez sieć.
+\begin{equation}
+f(x) = x
+\end{equation}
+
+
 \subparagraph{Sigmoid} \mbox{}\\
+Największym problemem funkcji sigmoidalnej jest duże ryzyko zaniknięcia gradientu,
+co może prowadzić do problemu tzw umierającego neuronu. Zjawisko to ma miejsce
+gdy dla danej funkcji aktywacji, gradient staję się bardzo mały. Jest równoznaczne
+z zaprzestaniem procesu uczenia, ponieważ gradient zera również wynosi zero.
+W przypadku tej funkcji gradient może zanikać obustronnie.
 \begin{equation}
 f(x) = \sigma(x) = \frac{1}{1 + e^{-x}} \\
 \end{equation}
@@ -148,7 +164,9 @@ f(x) = tanh(x) = \frac{(e^x - e^{-x})}{(e^x + e^{-x})} \\
 \subparagraph{ReLU} \mbox{}\\
 ReLU \textit{(and. Rectified linear unit)} jest najpopularniejszą funkcją aktywacji
 wykorzystywaną w sieciach neuronowych. Zasługą tego jest szybki czas uczenia sieci
-bez znaczącego kosztu w postaci generalizacji dokładności.
+bez znaczącego kosztu w postaci generalizacji dokładności. Problem z zanikającym
+gradientem jest mniejszy niż w przypadku funkcji sigmoidalnej, ponieważ występuje
+on tylko z jednej strony.
 \begin{equation}
 f(x) = max(0, x) =
 \begin{cases}
@@ -160,9 +178,7 @@ f(x) = max(0, x) =
 \subparagraph{LeakyReLU} \mbox{}\\
 LeakyReLU jest ulepszeniem ReLU dzięki zastosowaniu niewielkiego gradientu w sytuacji
 dla której ReLU jest nieaktywne. Zmiana ta pozwala na uniknięcie problemu tzw
-umierającego neuronu. Sytuacja taka ma miejsce gdy wartość funkcji aktywacji dla
-wszystkich wejść danego neuronu wynosi zero. Jest równoznaczne z zaprzestaniem
-jego procesu uczenia, ponieważ gradient zera również wynosi zero.
+umierającego neuronu.
 \begin{equation}
 f(x) =
 \begin{cases}
@@ -186,12 +202,58 @@ Swoją nazwę zawdzięcza sposobowi w jaki propagowane są te błędy, od warstw
 wyjściowej do wejściowej.
 
 \paragraph{Optymalizator} \mbox{}\\
+Inne określenie algorytmu optymalizacyjnego wykorzystywanego do obliczania wag neuronów
+i biasu sieci neuronowej. Posiada kluczowe znaczenie podczas procesu uczenia sieci
+zarówno w kwestii czasu oraz skuteczności. Z tego powodu jest to jeden z kluczowych
+obszarów obecnych badań i rozwoju sieci neuronowych.
+
+\subparagraph{Metoda gradientu prostego} \mbox{}\\
+Metoda gradientu prostego \textit{(ang. Gradient Descent)} jest podstawowym algorytmem
+służacym do uaktualniania wartości wag oraz biasu podczas uczenia sieci. Wadą tej
+metody jest przeprowadzanie jednorazowej aktualizacji po wyliczeniu gradientu dla
+całego zestawu danych. Jest to bardzo wolne, w niektórych przypadkach może powodować
+problem z ilością zajmowanego miejsca w pamięci a przede wszystkim może prowadzić
+do pozostania w jednym z lokalnych minimów funkcji.
+\begin{equation}
+\theta = \theta - \eta * \nabla J(\theta)
+\end{equation}
 
 \subparagraph{Stochastic Gradient Descent} \mbox{}\\
+\textit{(nazwa w języku angielskim z powodu braku znalezienia polskiego odpowiednika)}
+Stochastic Gradient Descent \textit{(skrót. GDA)} jest rozwinięciem metody gradientu
+prostego, bardzo często wykorzystywana w praktyce. Ulepszenie polega na obliczaniu
+gradientu dla jednego lub niewielkiej ilości przykładów treningowych. Najczęsciej
+korzysta się z więcej niż jednego przykładu co zapewnia lepszą stabilność oraz
+wykorzystuje zrównoleglanie obliczeń. SGD zapewnia to większą rozbieżność niż metoda
+gradiento prostego, co umożliwia znajdowanie nowych lokalnych minimów ale wiąże się
+z koniecznością zastosowania mniejszego stopnia uczenia.
+\begin{equation}
+\theta = \theta - \eta * \nabla J(\theta; x_i; y_i)
+\end{equation}
 
 \subparagraph{RMSprop} \mbox{}\\
+RMSprop umożliwia obliczanie gradientu dla każdego parametru z osobna i zapobiega
+zmniejszaniu się stopnia uczenia. Algorytm dostosowuje stopień uczenia dla każdej wagi
+bazując na wielkości jej gradientu.
 
 \subparagraph{Adam} \mbox{}\\
+Adam to skrót od angielskiej nazwy \textit{Adaptive Moment Estimation} i jest rozwinięciem
+metody Stochastic Gradient Descent. Metoda ta pozwala na obliczanie z osobna gradientu dla
+każdego parametru oraz każdej zmiany momentum. Zapobiega dodatkowo zmniejszającemu się
+stopniowi uczenia, a co najważniejsze jest bardzo szybka i pozwala na sprawne uczenie
+się sieci. W tej metodzie obliczamy dwa momenty \textit{m} oraz \textit{v}.
+\begin{equation}
+\begin{align*}
+\hat{m_t} = \frac{m_t} {1 - \beta^t_1}, \\
+\hat{v_t} = \frac{v_t} {1 - \beta^t_2}, \\
+\end{align*}
+\end{equation}
+Powyżej obliczone momenty podstawiamy do wzoru
+\begin{equation}
+\theta_{t+1} = \theta_t - \frac {\eta} {\sqrt{\hat{v_t}} + \epsilon} \hat{m_t}
+\end{equation}
+gdzie najczęściej \textbeta \textsuperscript{t}\textsubscript{1} = 0.9 oraz
+\textbeta \textsuperscript{t}\textsubscript{2} = 0.99 a \straightepsilon = 10^{-8}\\
 
 \paragraph{Sieć neuronowa} \mbox{}\\
 
@@ -204,15 +266,39 @@ wyjściowej do wejściowej.
 \paragraph{Paradygmaty uczenia} \mbox{}\\
 
 \paragraph{Epoka} \mbox{}\\
+Proces uczenia sieci podzielony jest na epoki. Każda epoka odpowiada przejściu
+wszystkich elementów z treningowego zbioru danych przez sieć. Ilość epok podczas
+których sieć będzie sie uczyć ustala się na co najmniej kilkanaście. W przypadku
+większych zbiorów danych lub większych modeli sieci zwiększamy ilość epok. \\
+Często spotykaną praktyką w wielu pracach naukowych jest przedstawianie wyników
+dla sieci po 100 epokach uczenia się.
 
 \paragraph{Uczenie} \mbox{}\\
+Proces uczenia bądź treningu sieci służy zmianie wartości wag, najczęściej zainicjowanych
+pseudolosowymi wartościami oraz biasu. Uczenie się sieci neuronowej jest bardzo
+kosztowne obliczeniowo, co wręcz uniemożliwiało trenowanie modeli w przeszłości,
+a obecnie jest jednym z powodów dużego technologicznego przeskoku w produkcji kart
+graficznych. Operacje dodawania i mnożenia wektór i macierzy wykonywane są setki
+milionów razy, które mogą być przyśpieszone dzięki możliwościom zrównoleglania obliczeń. \\
 
 \paragraph{Testowanie} \mbox{}\\
+Model sieci neuronowej może zostać poddany ocenie, dzięki której można określić w jakim stopniu
+nauczyła się sieci. W przypadku wytrenowanych modeli istotne jest aby zbiór służący do
+testowania nie był wcześniej użyty do treningu sieci. Nauczony model powinien być w stanie
+rozpoznawać nowe, nieużyte podczas procesu uczenia dane i poprawnie je klasyfikować.
 
 \paragraph{Predykcja} \mbox{}\\
+Wartości zwrócone przez sieć po umieszczeniu w niej określonych danych są określane
+mianem predykcji. Pozwala to na wykorzystanie nauczonego modelu w praktycznym
+zastosowaniu. \\ \\ \\
 
 Tematy do uwzględnienia:
-softmax
-categorical crossentropy
-Liczebność zbioru (konkretne uzasadnienie konieczności duzej liczby danych)
-one-hot encoding
+minibatch,
+nesterov,
+momentum,
+softmax,
+learning rate,
+categorical crossentropy,
+Liczebność zbioru (konkretne uzasadnienie konieczności duzej liczby danych),
+one-hot encoding,
+hyperparameters: ilosc filtrow, rozmiar filtrow, rozmiar maxpoolingu
