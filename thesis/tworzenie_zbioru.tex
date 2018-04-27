@@ -1,0 +1,62 @@
+% !TEX encoding = UTF-8 Unicode
+
+\chapter{Tworzenie zbiorów danych}
+
+Wraz z postępem w tworzeniu pracy zmieniały się założenia oraz cele.
+Głownymi motywatorami zmian były postępy w tworzeniu zbiorów danych oraz samych
+modeli sieci. Priorytetem było stworzenie zestawu danych
+umożliwiającego rozwój różnych modeli sieci neuronowych bez konieczności każdorazowego
+ingerowania w zbiór lub dopasowywania go specjalnie do konkretnej sieci.\\\\
+Pierwszym założeniem było zrobienie określonej ilości zdjęć kości położonej na środku
+obrazu otrzymywanego z kamery, na obszarze kwadratu o boku około 3 krotnie większym
+niż długość ściany samej kości. Miało to umożliwić kadrowanie obrazów
+do niewielkich rozmiarów choć z kośćmi położonymi w różnych jego miejscach.\\
+Kolejną kwestią była konieczność przystosowania sieci do rozpoznawania kości o
+różnych kolorach ścian, oczek jak i samej barwy tła. Ponieważ docelowo sieć
+miała operować na rzeczywistym obrazie z kamery, ważne było także zapewnienie poprawnego
+działania w przypadku niewielkich zniekształceń obrazu bądź szumów.\\
+Powyższe wymagania narzuciły więc konkretną formę zestawów danych.
+Każdy zestaw ma ustaloną barwę tła, kości oraz samego oczka. Każda ścianka sfotografowana
+od 3 do 30 razy, określając liczebność każdego ze zbiorów miedzy 18 a 180 zdjęć.
+Zdjęcia w niektórych zestawach poddawane były działaniu zmiennego oświetlenia naturalnego
+lub ostrego punktowego światła w celu wygenerowania trudniejszych do rozpoznania obrazów.
+Poszczególne zestawienia kolorystyczne w tych zbiorach wypisane są w tabeli poniżej. \newpage
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rcl|cc}
+ \multicolumn{3}{c}{Kolor} & \multicolumn{2}{c}{Ilość zdjęć} \\ \hline
+kości & oczek & tła & ściany & kostki \\ \hline
+biały & czarny & czerwony & 30 & 180 \\
+biały & czarny & granatowy & 3 & 18 \\
+biały & czarny & czarny & 8 & 48 \\
+jasne drewno & czarny & czerwony & 3 & 18 \\
+czarny & biały & czarny & 10 & 60 \\
+czarny & biały & czerwony & 10 & 60 \\
+czerwony & biały & czerwony & 5 & 30 \\
+czerwony & czarny & czerwony & 3 & 18 \\
+granatowy & złoty & biały & 4 & 24 \\
+granatowy & złoty & niebieski & 6 & 36 \\
+zielony & biały & zielony & 8 & 48 \\
+zielony & biały & biały & 5 & 30 \\
+różowy & czarny & biały & 5 & 30 \\ \hline
+\multicolumn{3}{c}{\textit{Łączna ilość zdjęć:}} & \textit{100} & \textit{600}
+\end{tabular}
+\vspace{0.2cm}
+\caption{Zestawienie kolorystyczne obrazów 1}
+\label{tab:zestawienie1}
+\end{table}
+
+Ilość zdjęć wykonywanych dla danych zestawień kolorystycznych była jak widać mocno
+zróżnicowana. Największa ilość, zdjęcia z białą kostką, czarnymi oczkami i czerwonym
+tłem, jest związana z testowaniem różnego rodzaju oświetlenia kości na wyniki uczenia
+różnych modeli sieci. Przeważnie ilość zdjęć wahała się między 4 a 8 na jedną ścianę. \\
+Każdy z obrazów został następnie poddany przekształceniom by zwiększyć ich ilość,
+konieczną do umożliwienia prawidłowego uczenia się sieci. \\
+Po zaaplikowaniu szcześciu różnych przekształceń oraz obrotom o 15\textsuperscript{o}, z każdego
+obrazu uzyskano 168 zdjęć o rozmiarze 64x64 piksele. Łącznie zbiór danych składał się
+ze 100800 obrazów, chociaż w niektórych przypadkach ilość zdjęć była mniejsza.
+Wynikało to z analizy uczenia sieci dla obrazów z różnymi kątami obrotów poszczególnych
+zdjęć. Dla tego zbioru danych ostatecznie została przyjęta wartość 15\textsuperscript{o}, jako
+wartości która dawała wystarczająco liczny zbiór testowy do możliwości uczenia sieci
+oraz nie utrudniała znacząco prac pod kątem ilości danych do przetransformowani przez sieć.
