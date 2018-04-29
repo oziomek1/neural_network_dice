@@ -84,8 +84,20 @@ rezultatem zdecydowanie lepszym niż uzyskane wcześniej 55,64\%.
 Jeśli sama różnica w doborze konkretnych obrazów potrafi tak bardzo zmienić wyniki
 otrzymane przez sieć, podjęto próbę przetestowania kilku z optymalizatorów dla
 identycznych sieci oraz zbiorów danych. W tym celu postanowiono użyć optymalizatorów
-RMSprop oraz SGD, opisanych dokładniej w sekcji SŁOWNIK/OPTYMALIZATORY.
+RMSprop oraz SGD, opisanych dokładniej w sekcji SŁOWNIK/OPTYMALIZATORY.\\
 
+Oba modele z optymalizatorami RMSprop oraz SGD, zostały podobnie jak wcześniej opisany
+model z optymalizatorem Adam poddane uczeniu przez 25 epok różnorodnych zbiorów obrazów.
+Wynik dla RMSprop był zdecydowanie najlepszy i wyniósł 84,34\% skuteczności.
+Najgorszy w zestawieniu model korzystający z SGD uzyskał jedynie 36,92\% poprawności.
+Pośrodku obu, okazał się Adam który jak opisane jest wyżej, uzyskał 55,64\% po sesji
+uczenia przez 25 epok.\\
+Wyniki te dowiodły, że optymalizator jesty kluczowym parametrem \textit{(ang. hyperparameter)}
+dla odpowiednio skutecznego uczenia. Uzyskany wynik dla RMSprop jest sporym zaskoczeniem,
+ponieważ w licznych tekstach naukowych to Adam uznawany jest za jeden z najlepszych
+optymalizatorów przez co cieszy się ogromną popularnością. Również z tego powodu, pomimo
+gorszego niż RMSprop wyniku, Adam będzie wykorzystywany w praktycznie wszystkich następnych
+modelach.
 
 \paragraph{Wypis stworzonych modeli sieci}
 
@@ -103,7 +115,7 @@ douczeniu 10epok 90\% 25 epok, 2048 batch \\\\
 
 dice_cnn_sgd 64x64x1 architektura prawie jak dice_cnn_adam, 256 zamiast 196 w 2-giej Dense,
 37\%, 25 epok, 2048 batch \\\\
-
+------------------------------------------\\\\
 dice_cnn_API 64x64x1 architektura docelowo jak dice_cnn_adam, pierwszy model API i pierwsze
 odkrycie roznic API vs Sequential, 95\%, 25 epok, 1024 batch \\\\
 

@@ -2,8 +2,8 @@
 
 \chapter{Słownik pojęć}
 
-\paragraph{Zbiór danych} \mbox{}\\
-Zbiór danych lub obrazów to zbiór wszystkich zdjęć kości wykonanych na poczet
+\section{Zbiór danych}
+Zbiór danych, obrazów lub zestaw danych to zbiór wszystkich zdjęć kości wykonanych na poczet
 pracy z wykorzystaniem kamery. Każde zdjęcie w zbiorze jest przetworzone w celu
 zmniejszenia czasu uczenia się sieci oraz potrzebnej pamięci. Zdjęcia były wykonywane
 kamerą o rozdzielczości 1600x1200 pikseli. Każde ze zdjeć w zbiorze zostało
@@ -14,18 +14,38 @@ i poddany konwersji z trybu RGB na skalę szarości przez usunięcie informacji 
 oraz nasyceniu kolorów, pozostawiając jedynie informację o jasności piksela. \\
 Po przeprowadzeniu całego procesu, każdy obraz miał wymiary 64x64, zarówno w wersji
 kolorowej i czarno białej, co skutkowało rzeczywistymi rozmiarami odpowiednio 64x64x3
-oraz 64x64x1.
+oraz 64x64x1. \\
+Każdy element w zbiorze ma przypisaną wartość liczbową informującą o faktycznej ilości
+oczek wyrzuconych na kostce przedstawianej na zdjęciu. Wartość ta zwana jest także
+odpowiedzią i jest wykorzystywana w procesie uczenia sieci jako docelowa informacja,
+którą ma zwrócić sieć po weryfikacji danego obrazu.
 
 \paragraph{Zbiór treningowy} \mbox{}\\
 Część zbioru danych który wykorzystywany jest w procesie uczenia sieci określany
-jest mianem zbioru treningowego lub zbioru uczącego. Jego liczebność to zazwyczaj 60-80\% całego zbioru
-danych. Praktycznie we wszystkich zastosowaniach dane w tym zbiorze przed rozpoczęciem
-uczenia poddawane są losowej permutacji.
+jest mianem zbioru treningowego lub zbioru uczącego. Jego liczebność to zazwyczaj 60-80\%
+całego zbioru danych. Praktycznie we wszystkich zastosowaniach dane w tym zbiorze przed
+rozpoczęciem uczenia poddawane są losowej permutacji.
 
 \paragraph{Zbiór testowy} \mbox{}\\
 Zbiór testowy lub zbiór walidacyjny służy do oceny zdolności sieci do rozpoznawania
 danych. Celem rozdzielenia tego zbioru od danych testowych jest weryfikacja sieci
 na danych które wcześniej nie zostały przetworzone przez sieć.
+
+\section{Budowa sieci neuronowej}
+
+\paragraph{Sieć neuronowa} \mbox{}\\
+Sieć neuronowa bądź sztuczna sieć neuronowa \textit{(ang. ANN Artificial Neural Network)}
+jest strukturą matematyczną, która ma odzwierciedlić działanie biologicznych sieci
+neuronowych. Posiada możliwość uczenia się poprzez obliczenia i przetwarzanie sygnałów
+w elementach określanych neuronami. W rozpoznawaniu obrazów są w stanie zidentyfikować
+elementy na obrazach na przykład człowieka, bez wcześniejszej znajomości lub wiedzy na
+temat przedmiotu podlegającego rozpoznaniu. Realizują to poprzez analizę przykładowych
+obrazów z informacją czy znajduje się na nich pożądany obiekt, a następnie zmianę swoich
+własnych parametrów w celu poprawnej identyfikacji kolejnych zdjęć. Ten rodzaj uczenia się
+okreslany jest mianem uczenia nadzorowanego, gdzie każdy obraz ma przypisaną wartość. \\
+Ich zastosowanie jest bardzo szerokie i wykraczające poza rozpoznawanie obrazów, jednak
+w związku z powiązaniem tego zagadnienia z tematyką pracy, podany powyżej przykład ma
+jak najlepiej oddać istotę działania sieci neuronowych.
 
 \paragraph{Neuron} \mbox{}\\
 Najmniejszy element sieci neuronowej, przyjmuje wiele wejść i jedno wyjście. Może
@@ -57,6 +77,37 @@ sieć zaczyna się w tzw. warstwie wejściowej oraz kończy w tzw. warstwie wyj�
 Istnieją sieci neuronowe (rekurencyjne sieci neuronowe, \textit{(ang. RNN - Recurrent Neural Network)})
 w ktorych sygnał może przechodzić przez warstwy kilkukrotnie w trakcie jednej epoki.
 
+\section{Konwolucyjna sieć neuronowa}
+
+\paragraph{Konwolucja} \mbox{}\\
+Konwolucja, inaczej splot polega na złożeniu dwóch funkcji. W przypadku obrazów,
+jedna z tych funkcji to obraz który ma rozmiary większe niż druga funkcja określana
+mianem filtra konwolucyjnego. Zastosowanie splotu, w zależności od przypadku,
+pozwala na rozmycie, wyostrzanie lub wydobycie głębi z danego obrazu.
+\begin{equation}
+h[m, n] = (f * g)[m, n] = \sum_j^m \sum_k^n f[j, k] * g[m-j, n-k] \\
+\end{equation}
+
+\paragraph{Konwolucyjna sieć neuronowa} \mbox{}\\
+Konwolucyjna lub splotowa sieć neuronowa \textit{(ang. CNN - Convolutuinal Neural Network)}
+to typ sieci odnoszących największe osiągnięcia w dziedzinie rozpoznawania obrazów,
+w wielu przypadkach dorównując lub nawet pokonując ludzkie wyniki. Zawdzięczają to
+swojej budowie, która różni się od zwykłych sieci wykorzystaniem warstw konwolucyjnych
+i poolingowych, poprzedzających warstwy w pełni połączone. Sieć taka analizuje obraz
+przy użyciu filtrów konwolucyjnych, dzięki którym jest w stanie rozpoznawać cechy
+obrazów co znacząco poprawia ich klasyfikacje.
+
+\section{Propagacja wsteczna}
+
+Propagacja wsteczna lub wsteczna propagacja błędów \textit{(ang. Backpropagation)}
+jest jednym z najskuteczniejszych algorytmów uczenia sieci neuronowych. Polega
+na minimalizacji funkcji kosztu korzystając z metody najszybszego spadku lub
+bardziej zoptymalizowanych sposobów, o których napisane jest w sekcji \textit{Optymalizator}.
+Swoją nazwę zawdzięcza sposobowi w jaki propagowane są te błędy, od warstwy
+wyjściowej do wejściowej.
+
+\section{Warstwy sieci neuronowej}
+
 \paragraph{Rodzaje warstw} \mbox{}\\
 Poniższe rodzaje warstw zostały użyte w modelach przedstawionych w tej pracy.
 
@@ -74,10 +125,18 @@ kostki. Wyjściem wszystkkich przedstawianych w tej pracy sieci był wektor o wy
 6x1.
 
 \subparagraph{Konwolucyjna}  \mbox{}\\
-Warstwa konwolucyjna służy do przetworzenia danych z poprzedniej warstwy do postaci
-filtrów konwolucyjnych o określonych wymiarach w celu znalezienia cech wśród dostarczonych
-danych. Więcej informacji na temat sposobu w jaki działa konwolucja, opisane jest w sekcji
-\textit{Konwolucja} oraz \textit{Konwolucyjna sieć neuronowa}.
+Warstwa konwolucyjna służy do przetworzenia danych z poprzedniej warstwy przy użyciu
+filtrów konwolucyjnych. Filtry mają określone wymiary i służą do znajdowania cech
+na obrazach lub ich fragmentach. Najczęsciej spotykanymi przykładami filtrów są
+kwadraty o wymiarach 3x3 piksele, które przetwarzają informacje zawarte w 9 pikselach
+na jeden piksel wyjściowy. W nauczonym modelu sieci filtry potrafią przekazywać inforamcje
+o obecności na przykład konkretnego rodzaju łuku lub innej cechy, niezbędnej przy
+kwalifikacji danego obrazu do danej kategorii. \\
+Zastosowanie wielu warstw konwolucyjnych umożliwia sieci analizowanie bardziej złożonych
+zależności na obrazach i jest określane jako głęboka sieć. Szeroki model sieci posiada
+większą liczbę neuronów w każdej z warstw co umożliwia prezycyjniejszą obserwację danych.
+Ograniczeniem w przypadku sieci głębokiej i szerokiej jest ilość i czas obliczeń, co
+wymusza wybranie kompromisu miedzy ilością warstw i neuronów w stosunku do danego problemu.
 
 \subparagraph{Aktywacyjna}  \mbox{}\\
 Jest to wydzielenie funkcji aktywacji do osobnej warstwy, które jest realizowane
@@ -108,20 +167,20 @@ tej określone jest prawdopodobieństwo \textit{p} z jakim neuron zostanie zacho
 w warstwie oraz \textit{p - 1} z jakim zostanie odrzucony.
 
 
-\subparagraph{MaxPooling}  \mbox{}\\
-Warstwa tzw MaxPoolingu wykorzystywana jest do zmniejszenia rozmiaru pamięci oraz
+\subparagraph{Pooling}  \mbox{}\\
+Warstwa tzw Poolingu wykorzystywana jest do zmniejszenia rozmiaru pamięci oraz
 ilości obliczeń wymaganych przez sieć neuronową, jak również może zapobiegać przetrenowaniu.
-Operacja zmniejszenia polega na wybraniu jednego piksela z danego obszaru, w przypadku
-MaxPoolingu, takiego o największej wartości i przekazaniu go dalej. Obszar z jakiego
-wybieramy dany piksel jest zależy od danej warstwy, ale najczęściej jest to kwadrat
-o wymiarach 2x2 co oznacza znaczące ograniczenie zużycia pamięci i koniecznych obliczeń.
-MaxPooling jest krytykowany ponieważ nie zachowuje informacji o połozeniu piksela
-przekazanego na wyjście warstwy co może objawiać się błednymi interpretacjami
-podczas testowania sieci.
+Operacja zmniejszenia polega na wybraniu jednego piksela z danego obszaru przekazaniu
+go dalej. Najczęściej wykorzystywaną warstwą poolingową jest MaxPooling, który
+wybiera piksel o największej wartości. Obszar z jakiego wybieramy dany piksel jest
+zależy od danej warstwy, ale najczęściej jest to kwadrat o wymiarach 2x2 co oznacza
+znaczące ograniczenie zużycia pamięci i koniecznych obliczeń. Pooling jest krytykowany
+ponieważ nie zachowuje informacji o połozeniu piksela przekazanego na wyjście
+warstwy co może objawiać się błednymi interpretacjami podczas testowania sieci.
 
+\section{Funkcje aktywacji}
 
-
-\paragraph{Funkcja aktywacji} \mbox{}\\
+\paragraph{Funkcja aktywacji}
 Przy pomocy funkcji aktywacji obliczana jest wartość wyjściowa neuronów w sieci
 neuronowej. Argumentem dostarczanym do funkcji aktywacji jest suma wejść neuronu
 pomnożonych przez przypisane im wartości wag. Zależnie od konkretnego rodzaju funkcji
@@ -193,13 +252,7 @@ procesu uczenia. Daje ona informacje o różnicy między obecnym staniem sieci o
 optymalnym rozwiązaniem. Algorytm uczenia sieci analizuje wartość funkcji kosztu
 w kolejnych krokach w celu zminimalizowania jej.
 
-\paragraph{Propagacja wsteczna} \mbox{}\\
-Propagacja wsteczna lub wsteczna propagacja błędów \textit{(ang. Backpropagation)}
-jest jednym z najskuteczniejszych algorytmów uczenia sieci neuronowych. Polega
-na minimalizacji funkcji kosztu korzystając z metody najszybszego spadku lub
-bardziej zoptymalizowanych sposobów, o których napisane jest w sekcji \textit{Optymalizator}.
-Swoją nazwę zawdzięcza sposobowi w jaki propagowane są te błędy, od warstwy
-wyjściowej do wejściowej.
+\section{Optymalizatory}
 
 \paragraph{Optymalizator} \mbox{}\\
 Inne określenie algorytmu optymalizacyjnego wykorzystywanego do obliczania wag neuronów
@@ -255,23 +308,7 @@ Powyżej obliczone momenty podstawiamy do wzoru
 gdzie najczęściej \textbeta \textsuperscript{t}\textsubscript{1} = 0.9 oraz
 \textbeta \textsuperscript{t}\textsubscript{2} = 0.99 a \straightepsilon = 10^{-8}\\
 
-\paragraph{Sieć neuronowa} \mbox{}\\
-
-\paragraph{Konwolucja} \mbox{}\\
-
-\paragraph{Filtr konwolucyjny} \mbox{}\\
-
-\paragraph{Konwolucyjna sieć neuronowa} \mbox{}\\
-
-\paragraph{Paradygmaty uczenia} \mbox{}\\
-
-\paragraph{Epoka} \mbox{}\\
-Proces uczenia sieci podzielony jest na epoki. Każda epoka odpowiada przejściu
-wszystkich elementów z treningowego zbioru danych przez sieć. Ilość epok podczas
-których sieć będzie sie uczyć ustala się na co najmniej kilkanaście. W przypadku
-większych zbiorów danych lub większych modeli sieci zwiększamy ilość epok. \\
-Często spotykaną praktyką w wielu pracach naukowych jest przedstawianie wyników
-dla sieci po 100 epokach uczenia się.
+\section{Procesy}
 
 \paragraph{Uczenie} \mbox{}\\
 Proces uczenia bądź treningu sieci służy zmianie wartości wag, najczęściej zainicjowanych
@@ -280,6 +317,14 @@ kosztowne obliczeniowo, co wręcz uniemożliwiało trenowanie modeli w przeszło
 a obecnie jest jednym z powodów dużego technologicznego przeskoku w produkcji kart
 graficznych. Operacje dodawania i mnożenia wektór i macierzy wykonywane są setki
 milionów razy, które mogą być przyśpieszone dzięki możliwościom zrównoleglania obliczeń. \\
+
+\paragraph{Epoka} \mbox{}\\
+Proces uczenia sieci podzielony jest na epoki. Każda epoka odpowiada przejściu
+wszystkich elementów z treningowego zbioru danych przez sieć. Ilość epok podczas
+których sieć będzie sie uczyć ustala się na co najmniej kilkanaście. W przypadku
+większych zbiorów danych lub większych modeli sieci zwiększamy ilość epok. \\
+Często spotykaną praktyką w wielu pracach naukowych jest przedstawianie wyników
+dla sieci po 100 epokach uczenia się.
 
 \paragraph{Testowanie} \mbox{}\\
 Model sieci neuronowej może zostać poddany ocenie, dzięki której można określić w jakim stopniu
@@ -301,4 +346,5 @@ learning rate,
 categorical crossentropy,
 Liczebność zbioru (konkretne uzasadnienie konieczności duzej liczby danych),
 one-hot encoding,
-hyperparameters: ilosc filtrow, rozmiar filtrow, rozmiar maxpoolingu
+hyperparameters: ilosc filtrow, rozmiar filtrow, rozmiar maxpoolingu,
+mnist, cifar10, ILSVRC
