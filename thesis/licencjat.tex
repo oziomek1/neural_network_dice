@@ -57,8 +57,8 @@
 }
 \makeatother
 
-\titleformat{\chapter}[display]
-  {\normalfont\bfseries}{}{0pt}{\Huge}
+\titleformat{\chapter}%
+  {\normalfont\bfseries\Huge}{\thechapter.}{10pt}{\Huge}
 
 \renewcommand*\contentsname{Spis Treści}
 
@@ -83,12 +83,7 @@
 
 \include{tworzenie_zbioru}
 
-
-\chapter {Sieć neuronowa}
-
-\section {Czym jest sieć neuronowa}
-
-\section {Konwolucyjna sieć neuronowa}
+\include{tworzenie_modelu}
 
 
 \end{document}

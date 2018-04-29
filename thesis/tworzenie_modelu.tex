@@ -1,0 +1,138 @@
+% !TEX encoding = UTF-8 Unicode
+
+\chapter{Sieć rozpoznająca ilość oczek}
+
+W momencie zrobienia zbioru danych składających się z kwadratowych obrazów, przystąpiono
+do próby stworzenia i nauczenia modelu sieci neuronowej rozpoznającego ilość oczek
+wyrzuconych na kostce do gry. \\
+
+\subparagraph{Hipotezy} \mbox{}
+Przed przystąpieniem do tworzenia zbioru danych zrodziła się bardzo duża ilość pytań
+oraz wątpliwości. Większość z nich dotyczyła kwestii możliwości, że sieć będzie w stanie
+jakkolwiek rozpoznać ilość oczek. Obawy te wiązały się z faktem, że dla przykładu
+w zbiorze MNIST, położenie cyfr na obrazie było stałe. W przypadku kiedy na obrazach
+kolor biały był obszarem w kształcie przypominającym pionową kreskę, z dużym
+prawdopodobieństwem można było założyć że jest to cyfra 1 lub 7, a analogiczna
+sytuacja zachodziła dla innych cyfr. W rozpoznawaniu oczek na kostce, zarówno sama
+kostka może być umieszczona w różnych miejscach na obszarze całego obrazu, jak również
+dopuszczalny jest jej obrót o dowolny kąt. \\
+Następną kwestią był niewielki rozmiar oczka w stosunku do powierzchnii całego ekranu.
+W przypadku zbioru MNIST średnio około 12-15\% obrazu stanowi barwa biała, która
+decyduje o wartości zwróconej przez sieć. W przypadku kwadratowych zdjęć z kostkami,
+rozmiar jednego oczka to jedynie 0,21\% powierzchnii rozmiaru, a dla obrazów prostokątnych
+wartość ta maleje do około 0.08\%. Oznacza to, że nawet niewielki szum lub
+zniekształcenia mogą utrudnić prawidłowe rozpoznanie kości. \\
+
+\subparagraph{Pierwszy model} \mbox{}\\
+Pierwsza próba stworzenia sieci, mając na uwadze wyżej wspomniane wątpliwości, miała
+na celu wytrenowanie możliwie prostego zbioru obrazów. W tym celu wykorzystano
+jedynie obrazy z czerwonym tłem, białą kością o czarnymi oczkami. Dla zwiększenia
+liczby zdjęć w zbiorze, zmniejszono kąt obrotu każdego z nich do 5\textsupercript{o},
+uzyskując 60480 zdjęć ze 120 oryginalnych. \\
+Architektura tej sieci, była dobierana bez większego wdrażania się w szczegóły i
+bazowała na modelach sieci udostępnionych na stronach Keras oraz TensorFlow,
+wykorzystywanych do analizy zbiorów MNIST oraz CIFAR10. Za optymalizator został wybrany
+Adam a sam trening został ustalony na 25 epok w pierwszej turze oraz 10 epok w drugiej
+turze. Nigdzie wcześniej nie zauważono tego typu praktyki, aby rozdzielać epoki uczenia.
+Zrobiono to dlatego, aby umożliwić wcześniejsze zakończenie całego procesu w sytuacji
+gdyby nie zauważono żadnych postępów. Dodatkowo pozwoliło to na zachowanie modelu
+po 25 epokach, który mimo że mógłby nie osiągać dobrych rezultatów, pozwoliłby
+na wyciągnięcie wniosków lub dalszą naukę. \\
+Model sieci prezentował się następująco: \\\\
+
+Rezulataty osiągnięte przez ten model były co najmniej zdumiewające. Po pierwszej epoce
+sieć uzyskała 61,98\% skuteczności ostatecznie osiągając wynik 99,88\% po 25 epokach.
+Kolejne 10 epok praktycznie nie zmieniło tego rezultatu. \\
+Po analizie tego dokonania, okazało się że tak duża ilość zdjęć otrzymanych
+z każdego ze zdjęć początkowych stworzyła zbiór w którym wiele zdjęć praktycznie się
+powtarzało. Sieć nie miała żadnych problemów podczas testowania na zbiorze
+do którego w teorii nie miała dostępu podczas treningu. Ten fakt spowodował konieczność
+trenowania sieci na zbiorach zróżnicowanych pod kątem doboru kolorów oraz rozmiarów
+kości na zdjęciach.
+
+\subparagraph{Pierwszy model ze zróżnicowanymi zdjęciami}
+Po stworzeniu modelu który udowodnił że da się zrealizować zadanie stworzenia dobrze
+działającej sieci dla tego problemu, zabrano się do kolejnego etapu prac. W tym celu
+wykorzystano opisany w części SŁOWNIK/ZBIORY_DANYCH zbiór złożony z 13 różnych zestawów
+kolorystycznych kości, oczek oraz tła, liczący po 80640 i 20160 zdjęć na części
+treningową i testową. \\
+W tym modelu wykorzystano architekturę jedynie nieznacznie zmienioną w stosunku do
+użytej w pierwszym modelu. Architektura ta jest widoczna poniżej: \\\\
+
+Sieć uczona była w 25, a następnie na 10 epokach.
+Po pierwszych 25 epokach uzyskano dokladność 55,64\% co potwierdziło przypuszczenie
+z przedniej sieci o możliwości pokrycia się zdjęć w zbiorach treningowym i testowym.
+Kolejne 10 epok poprawiło wynik sieci do 65,30\%, pozwalając przy okazji zaobserwować
+pewien dość istotny fakt. W pierwszej sesji 25 epok, dokładność sieci przez ostatnie
+5 epok oscylowała w okolicach 52\%. W drugiej sesji, niemalże od razu wartość
+podniosła się do 56\%. Prawdopodobnie miało to związek ze sposobem w jaki dostarczane
+są dane do modelu. Dane były ustalane losowo, ale dla każdej epoki w jednej sesji,
+układ ten się nie zmieniał. Istniała szansa, że kiedy w następnej sesji zdjęcia
+były przetwarzane w innej kolejności, umożliwiło to lepsze dopasowanie sieci i efekt
+skoku jej dokładności.
+
+\subparagraph{Model z wybranymi zdjęciami}
+Znacząca różnica w dokładności między modelem z jednolitymi oraz zróżnicowanymi zdjęciami
+doprowadziła do stworzenia sieci uczonej na zbiorze różnorodnych obrazów, ale
+dobranymi tak, aby kontrast między tłem a kością był wyraźny. Architektura sieci
+jest identyczna jak w powyższych przykładach, jedyną różnicą jest własnie przetwarzanie
+wyselekcjonowanych zdjęć. \\
+Zastosowanie 25 epok wystarczyło aby uzyskać dokładność na poziomie 89,23\% co jest
+rezultatem zdecydowanie lepszym niż uzyskane wcześniej 55,64\%.
+
+\subparagraph{Analiza różnych optymalizatorów}
+Jeśli sama różnica w doborze konkretnych obrazów potrafi tak bardzo zmienić wyniki
+otrzymane przez sieć, podjęto próbę przetestowania kilku z optymalizatorów dla
+identycznych sieci oraz zbiorów danych. W tym celu postanowiono użyć optymalizatorów
+RMSprop oraz SGD, opisanych dokładniej w sekcji SŁOWNIK/OPTYMALIZATORY.
+
+
+\paragraph{Wypis stworzonych modeli sieci}
+
+dice_cnn 64x64x1 pierwszy model ever, 99.88\% accuracy, 25 i 10 epok (prawie poprawy) \\\\
+
+dice_cnn_continue 64x64x1 pierwszy model,tylko douczanie \"distance\" 51\% accuracy, 10 epok \\\\
+
+dice_cnn_adam 64x64x1 pierwszy model z różnymi zdjęciami, 55\% accuracy, w continue 65\%, 25 epok, 2048 batch\\\\
+
+dice_cnn_adam_wybrane 64x64x1 architektura jak dice_cnn_adam, zdjecia jedynie te z dużym
+kontrastem (np bez blackonblack), skutecznosc 89\% 25 epok, 2048 batch \\\\
+
+dice_cnn_rmsprop 64x64x1 architektura jak dice_cnn_adam, RMSprop zamiast Adam, 84\%, po
+douczeniu 10epok 90\% 25 epok, 2048 batch \\\\
+
+dice_cnn_sgd 64x64x1 architektura prawie jak dice_cnn_adam, 256 zamiast 196 w 2-giej Dense,
+37\%, 25 epok, 2048 batch \\\\
+
+dice_cnn_API 64x64x1 architektura docelowo jak dice_cnn_adam, pierwszy model API i pierwsze
+odkrycie roznic API vs Sequential, 95\%, 25 epok, 1024 batch \\\\
+
+dice_AlexNet 64x64x1, głęboka sieć oparta na AlexNet z ILSVRC,  98.88\% 25 epok, 2048 batch \\\\
+
+generator_comparison 64x64x3 porównanie uczenia 3 kanałów RGB z BW, 98.4\% 20 epok, 64 batch, 18s na epoke \\\\
+
+generator_comparison_gray 64x64x1 porównanie, większy batchsize dla BW niż RGB, 98.1\% 20 epok, 256 batch, 17s na epoke \\\\
+
+API_Sequential_®Keras  640x480x1 różnica między API a Sequential, błedy kompilacji \\\\
+
+API_Sequential_®Keras2 120x120x1 różnica miedzy API a Sequential, poprawny \\\\
+
+generator_320x240_AlexNet, 320x240x3 !!, nienauczona, 20 epok, 64 batch \\\\
+
+generator2_320x240_AlexNet, 320x240x1, nienauczona, 20 epok, 64 batch \\\\
+
+generator2_320x240, 320x240x1, nienauczona, 20 epok, 64 batch \\\\
+
+simple_NN_106x79 106x79x1, pierwsza nauczona z prostokatnymi obrazami, filtry konwolucyjne
+nie sa tutaj kwadratowe, 68\%, 20 epok, 512 batch \\\\
+
+simple_NN_160x120 160x120x1, nienauczona, 20 epok, 256 batch \\\\
+
+substituting_106x79 106x79x1, próba przyśpieszenia pracy przez redukcje obliczen w
+simple_106x79 jednak zastosowano kwadratowe filtry, byc moze przez to - nie nauczona, 20 epok, 256 batch \\\\
+
+substituting_160x120 160x120x1, próba przyśpieszenia pracy przez redukcje obliczen w
+simple_106x79 jednak zastosowano kwadratowe filtry, byc moze przez to - nie nauczona, 20 epok, 256 batch \\\\
+
+subst_LReLU_106x79 106x79x1, próba przyśpieszenia przez redukcje ilosci obliczen wraz
+z zastosowaniem LeakyReLU zamiast ReLU, nienauczona, 20 epok, 1024 batch \\\\
