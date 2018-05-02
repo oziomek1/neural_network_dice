@@ -1,57 +1,53 @@
 % !TEX encoding = UTF-8 Unicode
 
 \chapter{Technologie}
-
-Poniższy spis przedstawia technologie użyte podczas tworzenia tej pracy licenckiej.
-Każda technologia jest krótko opisana wraz z powodem dla którego została użyta.
-
 \section{Język programowania i środowisko}
 
 \paragraph{Python} \mbox{}\\
 Język programowania Python obecnie jest bardzo popularnym narzędziem wykorzystywanym
 w pracach naukowych. Jest to spowodowane bardzo czytelną i zwięzłą składnią,
-która w pełni pozwala skupić się na danym problemie. Jest on także używany w
-bibliotekach które wykorzystywane były do tworzenia modeli sieci neuronowych.
+która w pełni pozwala skupić się na danym problemie. Python jest on także domyślnym
+językiem używany w bibliotekach wykorzystywanych do tworzenia modeli sieci neuronowych.
 
 \paragraph{Jupyter Notebook} \mbox{}\\
-Aplikacja Jupyter Notebook pozwala uruchamiać w przeglądarce pliki tzw. notebooki
-które składają się z wielu bloków. W blokach może znajdować się kod programu lub
-jego fragment, a w pozostałych można prezentować m.in. tekst, wykresy bądź tabele.
+Aplikacja Jupyter Notebook pozwala uruchamiać w przeglądarce pliki, nazywane notebookami,
+które składają się z wielu bloków. W blokach może znajdować się wykonywalny kod programu
+lub jego fragment, a w pozostałych można prezentować m.in. teksty, wykresy bądź tabele.
 Korzystanie z Jupyter Notebooka zdecydownaie ułatwia pracę, umożliwiając tworzenie
 kodu wraz z podglądem wykresów bądź danych prezentowanych w innej formie bez
-konieczności przełączania między oknami bądź kartami.
+konieczności przełączania między oknami bądź kartami danego środowiska programistycznego.
 
 \section{Biblioteki}
 
 \paragraph{OpenCV} \mbox{}\\
-Biblioteka funkcji do obróbki obrazów, najczęsciej wykorzystywana w języki C++
+Biblioteka funkcji do obróbki obrazów, najczęsciej wykorzystywana w językach C++
 oraz Python. W projekcie została użyta do uzyskiwania zbiorów obrazów kości do gry
-ze zdjęć uzyskanych kamerą. Uzyskane zbiory charakteryzowały się ściśle określonymi
-wymiarami każdego z obrazów, obrotami obrazów o ściśle określony kąt, trybami RGB
-oraz monochromatycznym jak również kadrowaniem w celu osiągnięcia zakładanych
+ze zdjęć wykonanych kamerą. Uzyskane zbiory charakteryzowały się określonymi
+wymiarami każdego z obrazów, obrotami obrazów o ustalony kąt, trybami RGB
+oraz monochromatycznym, jak również kadrowaniem w celu osiągnięcia zakładanych
 proporcji między wielkością kostki na zdjęciu a rozmiarem obrazu.
 
 \paragraph{TensorFlow} \mbox{}\\
 Biblioteka do uczenia maszynowego oraz tworzenia sieci neuronowych. Jej ogromną
-zaletą jest możliwość wykorzystywania zarówno procesorów jak i procesorów graficznych.
-Z uwagi na charakter wykonywanych obliczeń praca przy użyciu kart graficznych
-jest kilka razy szybsza niż na procesorze, co znacząco przyśpiesza proces uczenia.
-Najlepiej wspierane języki programowania do C++ oraz Python.
+zaletą jest implementacja w języku C++ umożliwiająca wykorzystywanie procesorów oraz
+kart graficznych. Z uwagi na charakter wykonywanych obliczeń praca przy użyciu
+kart graficznych jest kilkukrotnie szybsza niż na procesorze, co znacząco przyśpiesza
+proces uczenia. Biblioteka najlepiej wspiera języki programowania do C++ oraz Python.
 
 \paragraph{Keras} \mbox{}\\
 Biblioteka do tworzenia modeli sieci neuronowych wykorzystująca inne bardziej
 profesjonalne biblioteki jak TensorFlow, Theano lub CNTK. Zaletami Kerasa są
 zarówno przystępny interfejs pozwalający w krótkim czasie stworzyć model sieci
-oraz możliwość stworzenia zaawansowanych modeli przy średnim pogorszeniu czasu
-uczenia się sieci o 3-4\% w stosunku do TensoFlow. \\W sytuacji kiedy interfejs
-oraz dokumentacja do TensorFlow są dla początkującej osoby niezrozumiałe, jest
-to świetna alternatywa do wdrożenia się w to zagadnienie.
+oraz możliwość tworzenia zaawansowanych modeli przy średnim pogorszeniu czasu
+uczenia się sieci o 3-4\% w stosunku do bibliotek na których bazuje.\\
+W sytuacji kiedy interfejs oraz dokumentacja do TensorFlow mogą być dla początkującej
+osoby niezrozumiałe, jest to świetna alternatywa do wdrożenia się w to zagadnienie.
 
 \paragraph{Numpy} \mbox{}\\
 Moduł języka Python umożliwiający wykonywanie zaawansowanych operacji na macierzach
-oraz wektorach, wspierający liczne funkcje matematyczne. Jest bardzo rozpowszechniony,
-wykorzystywany w wielu, głównie naukowych zastosowaniach. Numpy wprowadza własne
-typy danych oraz funkcje którę są niedostępne w instalacji Pythona. Może być
+oraz wektorach, wspierający liczne funkcje matematyczne. Jest bardzo rozpowszechniony
+i wykorzystywany w wielu, głównie naukowych zastosowaniach. Numpy wprowadza własne
+typy danych oraz funkcje niedostępne w standardowej instalacji Pythona. Może być
 rozbudowany o moduł Scipy, który nie był jednak wykorzystany przy tworzeniu tej pracy.
 
 \paragraph{Matplotlib} \mbox{}\\
@@ -65,9 +61,9 @@ Oprogramowanie do ogranizacji tekstu wraz z językiem odpowiednich znaczników.
 Praca w LaTeX jest przeciwieństwem edytorów tekstowych typu WYSIWYG jak MSWord.
 LaTeX bazuje na TeX który jest systemem składu drukarskiego do prezentacji w
 formie graficznej. Ogromną zaletą jest możliwość tworzenia w tekście zaawansowanych
-wzorów matematycznych.
+wzorów matematycznych. Tekst niniejszej pracy napisany został przy pomocy tego narzędzia.
 
-\section{Technologie poza programistyczne}
+\section{Technologie wspomagające}
 
 \paragraph{NVIDIA CUDA} \mbox{}\\
 Równoległa architektura obliczeniowa firmy NVIDIA pozwala na wielokrotne
@@ -80,14 +76,7 @@ karta NVIDIA TESLA K80 12GB GPU dostępna na Amazon AWS oraz Google Compute Engi
 Platforma z wirtualnymi maszynami zwanymi instancjami, które można dostosować
 zależnie od potrzeb klienta. Usługa działa na zasadzie rozliczenia godzinowego
 podczas korzystania z niej. W tej pracy zostały wykorzystane instancje
-zoptymalizowane do obliczeń na kartach graficznych i do uczenia maszynowego,
-wyposażone w wcześniej wspomnianą kartę NVIDIA TESLA K80.
-
-\paragraph{Google Compute Engine} \mbox{}\\
-Platforma analogiczna do wyżej wspomnianej, dysponująca tymi samymi
-modelami kart. W pracy wykorzystywana mniej niż Amazon AWS, głownie z powodu
-przyzwyczajenia do tamtejszej strony. Dodatkowym celem było sprawdzenia czy
-różnica w oprogramowaniu serwerów będzie miała wpływ na szybkość nauki sieci
-neuronowych, co jednak nie znalazło potwierdzenia w praktyce. Wartym wspomnienia
-jest fakt, że na obu platformach czas trwania uczenia sieci zmniejszył się 
-średnio 6-10 krotnie w stosunku do pracy na komputerze wykorzystującym procesor.
+zoptymalizowane do obliczeń na kartach graficznych i uczenia maszynowego,
+wyposażone w wcześniej wspomnianą kartę NVIDIA TESLA K80. Warto
+zwrócić uwagę, że na obu platformach czas uczenia sieci zmniejszył się średnio 6-10
+krotnie w stosunku do pracy na komputerze wykorzystującym procesor.
