@@ -5,7 +5,7 @@ W momencie zrobienia zbioru danych składających się z kwadratowych obrazów,
 do próby stworzenia i nauczenia modelu sieci neuronowej rozpoznającego ilość oczek
 wyrzuconych na kostce do gry.
 
-\paragraph{Hipotezy} \mbox{}\\
+\section{Hipotezy}
 Przed przystąpieniem do tworzenia zbioru danych pojawiła się spora ilość wątpliwości.
 Większość z nich dotyczyła kwestii możliwości jakiegokolwiek rozpoznania ilości oczek przez siećże sieć będzie w stanie
 jakkolwiek rozpoznać ilość oczek. Obawy te wiązały się z faktem, że dla przykładu
@@ -22,6 +22,7 @@ rozmiar jednego oczka to jedynie 0,21\% powierzchnii rozmiaru, a dla obrazów pr
 wartość ta maleje do około 0,08\%. Oznaczało to, że nawet niewielki szum lub
 zniekształcenia mogą utrudnić prawidłowe rozpoznanie kości.
 
+\section{Pierwsze eksperymenty z sieciami neuronowymi}
 \paragraph{Pierwszy model} \mbox{}\\
 Pierwsza próba stworzenia sieci, mając na uwadze wyżej wspomniane wątpliwości, miała
 na celu wytrenowanie możliwie prostego zbioru obrazów. W tym celu wykorzystano jedynie
@@ -37,7 +38,7 @@ Zrobiono to dlatego, aby umożliwić wcześniejsze zakończenie całego procesu 
 gdyby nie zauważono żadnych postępów. Dodatkowo pozwoliło to na zachowanie modelu
 po 25 epokach, który mimo że mógłby nie osiągać dobrych rezultatów, pozwoliłby
 na wyciągnięcie wniosków lub dalszą naukę. Model sieci prezentował się następująco:\\\\
-Rezulataty osiągnięte przez ten model były co najmniej zdumiewające. Po pierwszej epoce
+Rezulataty osiągnięte przez ten model były zdumiewające. Po pierwszej epoce
 sieć uzyskała 61,98\% skuteczności ostatecznie osiągając wynik 99,88\% po 25 epokach.
 Kolejne 10 epok praktycznie nie poprawiło już tego rezultatu.\\
 Po analizie tego dokonania, okazało się że tak duża ilość zdjęć otrzymanych
@@ -47,7 +48,7 @@ do którego w teorii nie miała dostępu podczas treningu. Ten fakt spowodował 
 trenowania sieci na zbiorach zróżnicowanych pod kątem doboru różnych kolorów oraz
 ilości zdjęć otrzymanych z jednego poczatkowego zdjęcia.
 
-\paragraph{Pierwszy model ze zróżnicowanymi zdjęciami} \mbox{}\\
+\paragraph{Model ze zróżnicowanymi zdjęciami} \mbox{}\\
 Po stworzeniu modelu który wykazał, że zadanie stworzenia dobrze działającej sieci dla
 tego problemu jest wykonalne, zabrano się do kolejnego etapu prac. W tym celu
 wykorzystano zbiór złożony z 13 różnych zestawów kolorystycznych kości, oczek oraz tła,
@@ -74,7 +75,7 @@ jest identyczna jak w powyższych przykładach, jedyną różnicą jest przetwar
 wyselekcjonowanych obrazów. Zastosowanie 25 epok wystarczyło aby uzyskać dokładność
 na poziomie 89,23\% co jest rezultatem zdecydowanie lepszym niż uzyskane wcześniej 55,64\%.
 
-\paragraph{Analiza różnych optymalizatorów} \mbox{}\\
+\section{Analiza różnych optymalizatorów}
 Jeżeli sama różnica w doborze konkretnych obrazów potrafi w tak dużym stopniu zmienić wyniki
 otrzymane przez sieć, podjęto próbę przetestowania kilku z dostępnych w bibliotece Keras
 optymalizatorów dla identycznych sieci oraz zbiorów danych. W tym celu postanowiono użyć
@@ -90,7 +91,39 @@ ponieważ w licznych tekstach naukowych to Adam uznawany jest za jeden z najleps
 optymalizatorów, ciesząc się ogromną popularnością. Również z tego powodu, pomimo
 gorszego niż RMSprop wyniku, Adam będzie wykorzystywany w następnych modelach.
 
-\paragraph{Model funkcyjny biblioteki Keras} \mbox{}\\
+\section{Wykorzystanie sieci AlexNet}
+Sieć o nazwie AlexNet została zaprezentowana przez Alexa Krizhevskyego, Geoffreya Hintona oraz
+Ilya Sutskevera w 2012 roku. Jej ideą jest zastosowanie większej ilośći warstw konwolucyjnych,
+gdzie początkowe dwie warstwy mają filtry rozmiarów odpowiednio 11x11 oraz 5x5. Następnie
+umieszczone są trzy warstwy konwolucyjne z filtrami 3x3, które w przeciwieństwie do pierwszych
+dwóch warstw nie są rozdzielone warstwami z maxpoolingiem. AlexNet zdeklasowała rywali
+w konkursie ILSVRC 2012 i swoimi rezultatami zszokowała wielu naukowców. Z racji tak świetnych
+rekomendacji, zdecydowano się na realizację modelu przypominającego jej budowę.\\
+Zastosowanie uproszczonej architektury, bazującej na idei sieci AlexNet pozwoliło
+na osiągnięcie poprawności wynoszącej 98.88\% po 25 epokach. Na wykresie uczenia się
+można zaobserwować, że przez pierwsze 10 epok prezycja przewidywań sieci w ogólnie nie
+rosła. Obserwacja sugeruje, że sieci głębsze mogą potrzebować większej ilości epok
+do rozpoczęcia procesu prawidłowego rozpoznawania obrazów.
+
+\section{Porównianie dla obrazów kolorowych i czarno-białych}
+Obraz w skali szarości posiada jedynie jeden kanał odpowiadający jasności. Obrazy kolorowe RGB
+posiadają trzy kanały informujące o nasyceniu odpowiednio czerwonego, zielonego i niebieskiego koloru.
+Wzrost ilości informacji wiąże się z większym obciążeniem pamięci i większą ilością parametrów.
+W celu weryfikacji różnicy między uczeniem obu rodzajów obrazów podjęto próbę porównania wyników
+uczenia dla dwóch jednakowych sieci.\\
+Do tego eksperymentu wykorzystano narzędzie generatora dostępne w Keras, które umożliwia
+przekazywanie obrazów do sieci bez konieczności wcześniejszego ładowania całego zbioru
+do pamięci, umożliwiając pracę na bardzo dużych zestawach danych. Architektura obu
+sieci była uproszczona, by zniwelować długi czas uczenia. Modele obu sieci znajdują się poniżej:\\\\
+Oba modele po 20 epokach wykazały się bardzo zbliżonymi wynikami 98,47\% oraz 98,12\%
+na korzyść sieci z kolorowymi obrazami. Lepiej radzący sobie model, dodatkowo nauczył
+się bardzo szybko do poziomu 95\%, osiągając go już po 4 epoce, gdzie operujący na
+obrazach w skali szarości osiągnął ten wynik po 10 epokach. Obserwacja ta może sugerować,
+że większa różnica w wartościach dla kolorowych obrazów może przyśpieszać uczenie, ale
+wymaga większej ilości pamięći i spowalnia każdą epokę o 15\%.
+
+\section{Porównanie modelu sekwencyjnego i funkcyjnego biblioteki Keras}
+\paragraph{Pierwsze użycie modelu funkcyjnego} \mbox{}\\
 Standardowym sposobem na stworzenie sieci neuronowej w bibliotece Keras jest wykorzystanie
 sekwencyjnego modelu, opierającego się na zasadzie umieszczania warstw na stosie. Bardziej
 zaawansowaną możliwością jest wybranie modelu funkcyjnego API, który pozwala na budowę złożonych
@@ -110,37 +143,7 @@ Wadą tego rozwiązania była, przez zwiększoną ilość parametrów i konieczn
 mniejszego rozmiaru partii obrazów jednocześnie dostarczanych sieci z powodów
 problemów z pamięcią.
 
-\paragraph{Model oparty o idę AlexNet} \mbox{}\\
-Ten model został wybrany z uwagi na bardzo dobre wyniki sieci nazwanej AlexNet zaprezentowanej
-przez Alexa Krizhevskyego, Geoffreya Hintona oraz Ilya Sutskevera w 2012 roku. Ideą tej sieci
-jest zastosowanie większej ilośći warstw konwolucyjnych, gdzie początkowe dwie warstwy mają
-filtry rozmiarów odpowiednio 11x11 oraz 5x5. Następnie umieszczone są trzy warstwy konwolucyjne
-z filtrami 3x3, które w przeciwieństwie do pierwszych dwóch warstw nie są rozdzielone
-warstwami z maxpoolingiem.\\
-Zastosowanie uproszczonej architektury, bazującej na idei sieci AlexNet pozwoliło
-na osiągnięcie poprawności wynoszącej 98.88\% po 25 epokach. Na wykresie uczenia się
-można zaobserwować, że przez pierwsze 10 epok prezycja przewidywań sieci w ogólnie nie
-rosła. Obserwacja sugeruje, że sieci głębsze mogą potrzebować większej ilości epok
-do rozpoczęcia procesu prawidłowego rozpoznawania obrazów.
-
-\paragraph{Porównanie uczenia obrazów jedno i trzy kanałowych} \mbox{}\\
-Obraz w skali szarości posiada jedynie jeden kanał odpowiadający jasności. Obrazy kolorowe RGB
-posiadają trzy kanały informujące o nasyceniu odpowiednio czerwonego, zielonego i niebieskiego koloru.
-Wzrost ilości informacji wiąże się z większym obciążeniem pamięci i większą ilością parametrów.
-W celu weryfikacji różnicy między uczeniem obu rodzajów obrazów podjęto próbę porównania wyników
-uczenia dla dwóch jednakowych sieci.\\
-Do tego eksperymentu wykorzystano narzędzie generatora dostępne w Keras, które umożliwia
-przekazywanie obrazów do sieci bez konieczności wcześniejszego ładowania całego zbioru
-do pamięci, umożliwiając pracę na bardzo dużych zestawach danych. Architektura obu
-sieci była uproszczona, by zniwelować długi czas uczenia. Modele obu sieci znajdują się poniżej:\\\\
-Oba modele po 20 epokach wykazały się bardzo zbliżonymi wynikami 98,47\% oraz 98,12\%
-na korzyść sieci z kolorowymi obrazami. Lepiej radzący sobie model, dodatkowo nauczył
-się bardzo szybko do poziomu 95\%, osiągając go już po 4 epoce, gdzie operujący na
-obrazach w skali szarości osiągnął ten wynik po 10 epokach. Obserwacja ta może sugerować,
-że większa różnica w wartościach dla kolorowych obrazów może przyśpieszać uczenie, ale
-wymaga większej ilości pamięći i spowalnia każdą epokę o 15\%.
-
-\paragraph{Pełne porównanie modelu sekwencyjneg i funkcyjnego} \mbox{}\\
+\paragraph{Pełne porównanie modeli} \mbox{}\\
 Brak sugestii dostępnych w internecie oraz dokumentacji biblioteki Keras wyjaśniających różnice
 w ilośc parametrów w modelach sekwencyjnym oraz API spowodował chęć stworzenia dwóch dużych,
 identycznych modeli, bezpośrednio porównających ilość parametrów. Modele zostały jedynie
@@ -150,7 +153,8 @@ aż 500 milionów parametrów do nauczenia. Ta ogromna różnica spowodowała za
 kolejnych prac nad modelami funkcyjnymi z uwagi na wielokrotne zwiększenie czasu potrzebnego
 na proces uczenia.
 
-\paragraph{Próby z prostokątnymi obrazami} \mbox{}\\
+\section{Próby wykorzystania prostokątnych obrazów}
+\paragraph{Doświadczenia zakończone niepowodzeniem} \mbox{}\\
 Dotychczasowe modele korzystały ze zbiorów o obrazach w kształcie kwadratów z kośćmi
 umieszczonymi w ich środkowej części. Drugi rodzaj przygotowanych zbiorów danych zwiększał
 trudność zadania, dzięki zastosowaniu obrazów prostokątnych z mniejszym obszarem na
@@ -184,7 +188,7 @@ Pierwsza próba przeprowadzona przez 20 epok z filtrami konwolucjnymi o prostok�
 kształtach wreszcie zakończyła się sukcesem. Sieć osiągnęła wynik 68,03\% co nie
 było świetnym rezultatem, ale dawało informację, że dalsza nauka jest możliwa.
 
-\paragraph{Udoskonalanie modelu} \mbox{}\\
+\section{Doskonalenie modelu z prostokątnymi obrazami}
 Po pierwszym sukcesie sieci z obrazami prostokatnymi, podjęto decyzję o jej ulepszeniu.
 Zaczęto od próby zmniejszenia ilości parametrów przez zamianę większych filtrów konwolucyjnych,
 większą ilością mniejszych, co znacząco zmniejszało ilość parametrów sieci potrzebną do nauczenia.
@@ -196,7 +200,7 @@ kilkoma mniejszymi połączonego ze zamianą funkcji aktywacji ReLU na LeakyReLU
 możliwych do wystąpienia problemów z zanikającym neuronem. Ulepszenie jednak podobnie
 jak wcześniejsze nie sprawdziło się w ogóle i nie umożliwiło poprawy dokładności sieci.
 
-\paragraph{Skuteczna próba udoskonalenia} \mbox{}\\
+\section{Najskuteczniejszy model z prostokątnymi obrazami}
 Wykres procesu uczenia sieci z obrazami 106x79 kształtem przypominał funkcję logarytmiczną
 co nasuneło pomysł ze zwiększeniem ilości epok. Podjęto decyzję o kontynuacji uczenia
 do kolejno 40, 60, 80 i 100 epok.\\
@@ -207,7 +211,7 @@ sieć odnosiła lepsze rezultaty, które prezentowały się nastepująco:\\
 60 epok: 81,59\%\\
 80 epok: 82,39\%\\
 100 epok: 84,67\%\\
-Wyniki te uświadamiają, że prawdopodobnie nawet nieudane próby z większymi zdjęciami
+Wyniki uświadamiają, że prawdopodobnie nawet nieudane próby z większymi zdjęciami
 mogłyby się powieść, konieczne byłoby jedynie zwiększenie ilości epok. Wiąże się to jednak
 z ogromnym nakładem czasu, ponieważ prawdopodobnie sensowne rezultaty można by osiągnąć
 dopiero po 100 epokach.

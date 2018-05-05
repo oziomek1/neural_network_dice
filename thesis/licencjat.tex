@@ -22,7 +22,7 @@
 
 	\vspace*{ \stretch{0.1} }
 	\begin{center} \LARGE
-	Uniwersytet Jagielloński \\
+	\textbf{Uniwersytet Jagielloński w Krakowie} \\
   	Wydział Fizyki, Astronomii i Informatyki Stosowanej
 	\end{center}
 
@@ -61,15 +61,31 @@
 	\end{center}
 \end{titlepage}
 }
+
+\def\@makechapterhead#1{%
+  \vspace*{0\p@}% <------------------------------------ (1)
+  {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+      \if@mainmatter
+        \huge\bfseries \@chapapp\space \thechapter
+        \par\nobreak
+        \vskip 0\p@% <--------------------------------- (2)
+      \fi
+    \fi
+    \interlinepenalty\@M
+    \Huge \bfseries #1\par\nobreak
+    \vskip 0\p@% <------------------------------------- (3)
+  }}
+
 \makeatother
 
 \titleformat{\chapter}%
   {\normalfont\bfseries\Huge}{\thechapter.}{10pt}{\Huge}
-
+\titlespacing*{\chapter}{0pt}{0pt}{40pt}
 \renewcommand*\contentsname{Spis Treści}
 
-\author{Wojciech Ozimek}
-\title{Wykorzystanie sztucznych sieci neuronowych do analizy obrazów na przykładzie kostki do gry}
+\author{\textbf{Wojciech Ozimek}}
+\title{\textbf{Wykorzystanie sztucznych sieci neuronowych do analizy obrazów na przykładzie kostki do gry}}
 \date{Kraków 2018}
 
 \begin{document}
@@ -91,5 +107,6 @@
 
 \include{tworzenie_modelu}
 
+\include{podsumowanie}
 
 \end{document}
