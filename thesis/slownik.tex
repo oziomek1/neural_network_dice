@@ -80,6 +80,14 @@ procesu uczenia. Dostarcza informacje o różnicy między obecnym stanem sieci, 
 optymalnym rozwiązaniem. Algorytm uczenia analizuje wartość funkcji kosztu
 w kolejnych krokach w celu jej zminimalizowania.
 
+\paragraph{Współczynnik uczenia} \mbox{}\\
+Współczynnik lub wskaźnik uczenia się \textit{(ang. lerning rate)} wykorzystywany jest
+w optymalizatorach do ustalenia jak szybko algorytm uczenia powinien dostosowywać wartości
+wag do danego przypadku. Często jest uzależniony od wyboru rodzaju optymalizatora. Zbyt mały
+współczynnik wydłuży proces uczenia, natomiast za duży może spowodować problemy ze znalezieniem
+odpowiedniego rozwiązania. W niektórych algorytmach, współczynnik uczenia zmniejsza się w czasie
+by lepiej dostosować się do danych.
+
 \section{Propagacja wsteczna}
 Propagacja wsteczna lub wsteczna propagacja błędów \textit{(ang. Backpropagation)}
 jest jednym z najskuteczniejszych algorytmów uczenia sieci neuronowych. Polega
@@ -257,21 +265,21 @@ gradientu dla jednego lub niewielkiej ilości przykładów treningowych. Najczę
 korzysta się z więcej niż jednego przykładu co zapewnia lepszą stabilność oraz
 wykorzystuje zrównoleglanie obliczeń. SGD zapewnia większą rozbieżność niż metoda
 gradientu prostego, co umożliwia znajdowanie nowych lokalnych minimów ale wiąże się
-z koniecznością zastosowania mniejszego stopnia uczenia.
+z koniecznością zastosowania mniejszego współczynnika uczenia.
 \begin{equation}
 \theta = \theta - \eta * \nabla J(\theta; x_i; y_i)
 \end{equation}
 
 \paragraph{RMSprop} \mbox{}\\
 RMSprop umożliwia obliczanie gradientu dla każdego parametru z osobna i zapobiega
-zmniejszaniu się stopnia uczenia. Algorytm dostosowuje stopień uczenia dla każdej wagi
+zmniejszaniu się współczynnika uczenia. Algorytm dostosowuje współczynnik uczenia dla każdej wagi
 bazując na wielkości jej gradientu.
 
 \paragraph{Adam} \mbox{}\\
 Adam to skrót od angielskiej nazwy \textit{Adaptive Moment Estimation} i jest rozwinięciem
 metody Stochastic Gradient Descent. Metoda ta pozwala na obliczanie z osobna gradientu dla
 każdego parametru oraz każdej zmiany momentum. Zapobiega dodatkowo zmniejszającemu się
-stopniowi uczenia, a co najważniejsze jest bardzo szybka i pozwala na sprawne uczenie
+wskaźnikowi uczenia, a co najważniejsze jest bardzo szybka i pozwala na sprawne uczenie
 się sieci. W tej metodzie oblicza się dwa momenty \textit{m} oraz \textit{v}.
 \begin{equation}
 \begin{align*}
@@ -338,14 +346,11 @@ jak MNIST jeden z najbardziej popularnych zbiorów do uczenia maszynowego i siec
 
 
 \\\\\\
-
 Tematy do uwzględnienia:
 opis RMSprop,
 minibatch,
 nesterov,
 momentum,
 softmax,
-learning rate,
 categorical crossentropy,
 one-hot encoding,
-mnist, cifar10, ILSVRC
