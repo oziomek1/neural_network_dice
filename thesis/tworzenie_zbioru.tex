@@ -3,7 +3,8 @@
 \chapter{Tworzenie zbiorów danych}
 Priorytetem było stworzenie zestawu danych
 umożliwiającego rozwój różnych modeli sieci neuronowych bez konieczności każdorazowego
-ingerowania w zbiór lub dopasowywania go specjalnie do konkretnej sieci.\\\\
+ingerowania w zbiór lub dopasowywania go specjalnie do konkretnej sieci.\\
+\textbf{Wszystkie zbiory dostępne są pod linkami w części Dodatek A [\ref{dodatekA}] }
 
 \section{Zbiór obrazów kwadratowych}
 Pierwszym założeniem było zrobienie określonej ilości zdjęć kości położonej na środku
@@ -62,15 +63,19 @@ obrazów, zarówno w wersji kolorowej RGB oraz w odcieniach skali szarości. Cz�
 treningowa i testowa zbioru danych zostały rozdzielone w stosunku 4:1, dając odpowiednio
 80640 oraz 20160 zdjęć w każdym z nich. \\\\
 
+\begin{figure}[h]
+\centering
 \includegraphics[scale=0.35]{images/kolaz}
 \includegraphics[scale=0.35]{images/kolaz_grayscale}
+\caption{Obrazy o rozdzielczościach 64x64}
+\end{figure}
 
 Nieocenioną pomocą w początkowej fazie prac nad tworzeniem i uczeniem sieci neuronowych
 z obrazami w kształcie kwadratów był fakt, że praktycznie wszystkie przykłady dostępne
 w opracowaniach naukowych korzystały ze zdjęć w tym kształcie. Również wszystkie
 przykłady opisane w różnych poradnikach czy najpopularniejsze zbiory jak MNIST oraz
-CIFAR10 zawierają kwadratowe obrazy. Przyjęcie takiego kształtu ułatwiło kwestie
-doboru parametrów sieci, nie narzucając osobnych wartości w poziomie i pionie.
+CIFAR10 zawierają kwadratowe obrazy. Przyjęcie takiego kształtu ułatwiło dobór parametrów
+sieci, nie narzucając osobnych wartości w poziomie i pionie.
 
  \section{Zbiór obrazów prostokątnych}
 
@@ -113,7 +118,11 @@ różowoczerwony & czarny & pomarańczowy & 6 & 36 \\ \hline
 \label{tab:zestawienie2}
 \end{table}
 
+\begin{figure}[h]
+\centering
 \includegraphics[scale=0.5]{color_dices}
+\caption{Obrazy o rozdzielczościach 106x79}
+\end{figure}
 
 Ilość zdjęć prostokątnych jest mniejsza niż kwadratowych z powodu czasu jaki zajmuje
 wykonanie takiej ilości zdjęć oraz chęć wykorzystania obu rodzajów zbiorów do uczenia sieci.
