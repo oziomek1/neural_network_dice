@@ -10,7 +10,8 @@ układu nerwowego wszystkich zwierząt. Każdy neuron składa się z
 ciała komórki (soma, neurocyt) otaczającego jądro komórkowe, neurytu (akson)
 odpowiedzialnego za przekazywanie informacji z ciała komórki do kolejnych neuronów
 oraz dendrytów służących do odbierania sygnałów i przesyłaniu ich do ciała
-komórkowego. Impuls elektryczny między neuronami przekazywany jest
+komórkowego \textit{Budowa neuronu} \cite{CS231n, NNbiology}.
+Impuls elektryczny między neuronami przekazywany jest
 w synapsie, miejscu komunikacji neuronu z następnym. Synapsa składa się
 z części presynaptycznej (aksonu) i postsynaptycznej (dendrytu). Neuron
 przewodzi sygnał tylko w sytuacji kiedy suma potencjałów wejściowych od innych
@@ -31,15 +32,15 @@ posiada wiele wejść, z których każde ma przypisaną wagę w postaci liczby
 rzeczywistej oraz jedno wyjście. Wyjściem neuronu jest wartość funkcji aktywacji
 dla argumentu będącego sumą wszystkich wag pomnożonych przez odpowiednie
 wartości wejściowe. Wyjście danego neuronu połączone jest z wejściami innych
-neuronów, tak jak ma to miejsce w przypadku biologicznego neuronu.\\
+neuronów, tak jak ma to miejsce w przypadku biologicznego neuronu \textit{Sztuczny neuron} \cite{CS231n}.\\
 Tak zbudowany, sztuczny model neuronu jest podstawowym składnikiem sztucznych sieci
 neuronowych z racji prostoty działania i łatwości implementacji.\\
 Wykorzystanie pojedynczego neuronu nie pozwala na rozwiązywanie skomplikownych zadań.
 Przykładowo próba realizacji prostych funkcji logicznych ANR, OR, NOT i XOR okazuje
-się możliwa jedynie dla trzech pierwszych podanych funkcji. Problem wiąże się z
-brakiem możliwości uzyskania poprawnych rezultatów dla zbiorów które nie są liniowo
-separowalne, czego przykładem jest własnie funkcja XOR. W takich przypadkach konieczne
-jest użycie większej ilości neuronów. Tworzenie rozbudowanych struktur z pojedynczych
+się możliwa jedynie dla trzech pierwszych podanych funkcji \textit{Rozwinięcie zagadnienia} \cite{XORproblem}.
+Problem wiąże się z brakiem możliwości uzyskania poprawnych rezultatów dla zbiorów które
+nie są liniowo separowalne, czego przykładem jest własnie funkcja XOR. W takich przypadkach
+konieczne jest użycie większej ilości neuronów. Tworzenie rozbudowanych struktur z pojedynczych
 neuronów określanych mianem sieci neuronowych, znacząco zwiększa możliwości adaptacyjne
 dla poszczególnych problemów, niejednokrotnie zaskakując osiąganymi wynikami.
 
@@ -47,7 +48,7 @@ dla poszczególnych problemów, niejednokrotnie zaskakując osiąganymi wynikami
 \section{Historia}
 
 Rozpoczęcie prac nad sztucznymi neuronami można datować na rok 1943 kiedy to
-Warren McCulloch i Walter Pitts przedstawili wspomniany już wcześniej model.
+Warren McCulloch i Walter Pitts przedstawili wspomniany już wcześniej model \textit{Historia} \cite{NNbiology}.
 Pierwsze sieci neurone używane były do operacji bitowych i przewidywania kolejnych
 wystąpień bitów w ciągu. Mimo licznych prób zastosowania ich do realnych problemów
 nie zyskały one popularności. Powodem tego były prace naukowe sugerujące ograniczenia

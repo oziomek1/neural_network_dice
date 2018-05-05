@@ -65,21 +65,6 @@
 \end{titlepage}
 }
 
-\def\@makechapterhead#1{%
-  \vspace*{0\p@}% <------------------------------------ (1)
-  {\parindent \z@ \raggedright \normalfont
-    \ifnum \c@secnumdepth >\m@ne
-      \if@mainmatter
-        \huge\bfseries \@chapapp\space \thechapter
-        \par\nobreak
-        \vskip 0\p@% <--------------------------------- (2)
-      \fi
-    \fi
-    \interlinepenalty\@M
-    \Huge \bfseries #1\par\nobreak
-    \vskip 0\p@% <------------------------------------- (3)
-  }}
-
 \makeatother
 
 \titleformat{\chapter}%

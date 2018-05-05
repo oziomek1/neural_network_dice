@@ -33,7 +33,7 @@ sieci na danych które wcześniej nie zostały przetworzone przez sieć.
 \paragraph{Sieć neuronowa} \mbox{}\\
 Sieć neuronowa bądź sztuczna sieć neuronowa \textit{(ang. ANN Artificial Neural Network)}
 jest strukturą matematyczną, która powinna odzwierciedlać uproszczone działanie biologicznych
-sieci neuronowych. Posiada możliwość uczenia się poprzez obliczenia i przetwarzanie sygnałów
+sieci neuronowych \textit{Sieć neuronowa} \cite{intuitiveExplanation, WIKIcnn}. Posiada możliwość uczenia się poprzez obliczenia i przetwarzanie sygnałów
 w elementach określanych neuronami. W dziedzinie rozpoznawaniu obrazów są w stanie zidentyfikować
 elementy na obrazach, bez wcześniejszej znajomości lub wiedzy na temat przedmiotu podlegającego
 rozpoznaniu. Realizują to poprzez analizę przykładowych obrazów z informacją czy znajduje się 
@@ -46,7 +46,7 @@ jak najlepiej oddać istotę działania sieci neuronowych.
 
 \paragraph{Neuron} \mbox{}\\
 Najmniejszy element sieci neuronowej, posiada wiele wejść i jedno wyjście. Może
-zawierać także próg (ang. threshold), mogący ulec zmianie przez funkcje uczącą.
+zawierać także próg (ang. threshold), mogący ulec zmianie przez funkcje uczącą \cite{CS231n_activ, NNbiology, NeuronAnimation}.
 Neuron wyposazony jest także w funkcję aktywacji, odpowiednio modyfikującą jego wyjście.
 W sieciach neuronowych wyjście każdego neuronu połączone jest z wejściami neuronów
 w warstwie następnej.
@@ -63,13 +63,13 @@ zmniejszeniem wartości funkcji błędu.
 
 \paragraph{Bias} \mbox{}\\
 Bias to dodatkowa waga wejściowa do neuronu umożliwiająca jego lepsze dopasowanie
-do danych treningowych. W sytuacji kiedy wszystkie wagi neuronu mają zerowe
+do danych treningowych \cite{needForBias}. W sytuacji kiedy wszystkie wagi neuronu mają zerowe
 wartości, unikamy problemów podczas procesu wstecznej propagacji.
 
 \paragraph{Warstwa} \mbox{}\\
 Sieć neuronowa zorganizowana jest w warstwach. Neurony w danej warstwie nie są
 ze sobą w żaden sposób połączone, komunikacja odbywa się tylko między kolejnymi
-warstwami. Istnieje wiele rodzajów warstw, a sygnał który przechodzi przez całą
+warstwami \cite{CS231n, substBigConv}. Istnieje wiele rodzajów warstw, a sygnał który przechodzi przez całą
 sieć zaczyna się w tzw. warstwie wejściowej oraz kończy w tzw. warstwie wyjściowej.
 Istnieją sieci neuronowe (rekurencyjne sieci neuronowe, \textit{, ang. RNN - Recurrent Neural Network})
 w ktorych sygnał może przechodzić przez warstwy kilkukrotnie w trakcie jednej epoki.
@@ -90,7 +90,7 @@ by lepiej dostosować się do danych.
 
 \section{Propagacja wsteczna}
 Propagacja wsteczna lub wsteczna propagacja błędów \textit{(ang. Backpropagation)}
-jest jednym z najskuteczniejszych algorytmów uczenia sieci neuronowych. Polega
+jest jednym z najskuteczniejszych algorytmów uczenia sieci neuronowych \cite{CS231n_backprop, backprop}. Polega
 na minimalizacji funkcji kosztu korzystając z metody najszybszego spadku lub
 innych, bardziej zoptymalizowanych sposobów. Błędy w sieci propagowane są od warstwy wyjściowej
 do wejściowe, czemu algorytm zawdzięcza swoją nazwę.
@@ -100,7 +100,7 @@ do wejściowe, czemu algorytm zawdzięcza swoją nazwę.
 Konwolucja, inaczej splot polega na złożeniu dwóch funkcji. W przypadku obrazów,
 jedna z tych funkcji to obraz który ma rozmiary większe niż druga funkcja określana
 mianem filtra konwolucyjnego. Zastosowanie splotu, w zależności od przypadku,
-pozwala na rozmycie, wyostrzanie lub wydobycie głębi z danego obrazu.
+pozwala na rozmycie, wyostrzanie lub wydobycie głębi z danego obrazu. \textit{Szczegółowe wyjaśnienie} \cite{konwolucja}
 \begin{equation}
 h[m, n] = (f * g)[m, n] = \sum_j^m \sum_k^n f[j, k] * g[m-j, n-k] \\
 \end{equation}
@@ -130,10 +130,10 @@ kostki. Wyjściem wszystkkich przedstawianych w tej pracy sieci był wektor o wy
 
 \paragraph{Konwolucyjna}  \mbox{}\\
 Warstwa konwolucyjna służy do przetworzenia danych z poprzedniej warstwy przy użyciu
-filtrów konwolucyjnych. Filtry mają określone wymiary i służą do znajdowania cech
+filtrów konwolucyjnych \cite{CS231n}. Filtry mają określone wymiary i służą do znajdowania cech
 na obrazach lub ich fragmentach. Najczęsciej spotykanymi przykładami filtrów są
 kwadraty o wymiarach 3x3 piksele, które przetwarzają informacje zawarte w 9 pikselach
-na jeden piksel wyjściowy.\\
+na jeden piksel wyjściowy.
 Zastosowanie wielu warstw konwolucyjnych umożliwia filtrom analizowanie bardziej złożonych
 zależności na obrazach i jest określane jako głęboka sieć. Szeroka sieć posiada większą
 liczbę neuronów w każdej z warstw co umożliwia prezycyjniejszą obserwację danych.
@@ -162,8 +162,9 @@ służy za wejście do kolejnych warstw.
 
 \paragraph{Odrzucająca}  \mbox{}\\
 Warstwa odrzucająca \textit{(ang. Dropout)} zapobiega przetrenowaniu \textit{(ang. Overfitting)}
-sieci. Proces ten polega na nie wykorzystywaniu wyjść pewnych neuronów, zarówno
-w przypadku przechodzenia w przód oraz w tył. Stosuje się ją po warstwach w pełni
+sieci \textit{Zapobieganie przetrenowaniu} \cite{DropoutPreventOverfit}.
+Proces ten polega na nie wykorzystywaniu wyjść pewnych neuronów, zarówno
+w przypadku przechodzenia w przód oraz w tył \textit{DropConnect} \cite{DropConnect}. Stosuje się ją po warstwach w pełni
 połączonych, w celu zapobiegania rozległym zależnościom między neuronami. W warstwie
 tej określone jest prawdopodobieństwo \textit{p} z jakim neuron zostanie zachowany
 w warstwie oraz \textit{p - 1} z jakim zostanie odrzucony. Najczęstsza wartość jest
@@ -171,7 +172,7 @@ z zakresu 0,5-0,8.
 
 \paragraph{Pooling}  \mbox{}\\
 Warstwa tzw poolingu wykorzystywana jest do zmniejszenia rozmiaru pamięci oraz ilości obliczeń
-wymaganych przez sieć neuronową, jak również może zapobiegać przetrenowaniu. Operacja zmniejszenia
+wymaganych przez sieć neuronową, jak również może zapobiegać przetrenowaniu \cite{CS231n}. Operacja zmniejszenia
 polega na wybraniu jednego piksela z danego obszaru i przekazaniu go dalej. Najczęściej wykorzystywaną
 warstwą poolingową jest MaxPooling, wybierający piksel o największej wartości. Obszar z jakiego
 wybieramy dany piksel zależy od ustawień, najczęściej jest to kwadrat o wymiarach 2x2. Pooling
@@ -191,8 +192,8 @@ f\Big(\sum_{i}w_{i}x_{i} + b\Big) \\
 \end{equation}
 
 \paragraph{Liniowa} \mbox{}\\
-Funkcja ta jest praktycznie nie wykorzystywana w sieciach neuronowych. Połączenie
-wielu warstw których neurony posiadają liniową funkcję aktywacji można przedstawić
+Funkcja ta jest praktycznie nie wykorzystywana w sieciach neuronowych \cite{activationFunctions}.
+Połączenie wielu warstw których neurony posiadają liniową funkcję aktywacji można przedstawić
 za pomocą jednej warstwy,  ponieważ złożenie wielu funkcji liniowych również będzie
 funkcją liniową. Nieliniowość funkcji pozwala na klasyfikację danych przechodzących
 przez sieć.
@@ -200,10 +201,10 @@ przez sieć.
 f(x) = x
 \end{equation}
 
-
 \paragraph{Sigmoid} \mbox{}\\
 Największym problemem funkcji sigmoidalnej jest duże ryzyko zaniknięcia gradientu,
-co może prowadzić do problemu tzw umierającego neuronu. Zjawisko to ma miejsce
+co może prowadzić do problemu tzw umierającego neuronu \textit{Opis Sigmoid} \cite{activationFunctions}.
+Zjawisko to ma miejsce
 gdy dla danej funkcji aktywacji, gradient staję się bardzo mały, co jest równoznaczne
 z zaprzestaniem procesu uczenia. W przypadku tej funkcji gradient może zanikać obustronnie.
 \begin{equation}
@@ -211,7 +212,8 @@ f(x) = \sigma(x) = \frac{1}{1 + e^{-x}} \\
 \end{equation}
 
 \paragraph{Tangens hiperboliczny} \mbox{}\\
-Tangens hiperboliczny lub tanh jest w istocie przekształconą funkcją simgodalną. Wykorzystanie
+Tangens hiperboliczny lub tanh jest w istocie przekształconą funkcją simgodalną
+\textit{Opis tanh} \cite{activationFunctions, activationFunctionsV2}. Wykorzystanie
 jej powoduje większe wahania gradientu.
 \begin{equation}
 f(x) = tanh(x) = \frac{(e^x - e^{-x})}{(e^x + e^{-x})} = \frac{2}{1+e^{-2x}} - 1 = 2 sigmoid(2x) - 1\\
@@ -219,7 +221,8 @@ f(x) = tanh(x) = \frac{(e^x - e^{-x})}{(e^x + e^{-x})} = \frac{2}{1+e^{-2x}} - 1
 
 \paragraph{ReLU} \mbox{}\\
 ReLU \textit{(and. Rectified linear unit)} jest najpopularniejszą funkcją aktywacji
-wykorzystywaną w sieciach neuronowych. Zasługą tego jest szybki czas uczenia sieci
+wykorzystywaną w sieciach neuronowych \textit{Wady i zalety ReLU} \cite{CS231n_activ, WIKIrectifier}.
+Zasługą tego jest szybki czas uczenia sieci
 bez znaczącego kosztu w postaci generalizacji dokładności. Problem z zanikającym
 gradientem jest mniejszy niż w przypadku funkcji sigmoidalnej, ponieważ występuje
 on tylko z jednej strony.
@@ -228,7 +231,8 @@ f(x) = max(0, x)
 \end{equation}
 
 \paragraph{LeakyReLU} \mbox{}\\
-LeakyReLU jest ulepszeniem ReLU dzięki zastosowaniu niewielkiego gradientu w sytuacji
+LeakyReLU jest ulepszeniem ReLU \textit{Wady i zalety LeakyReLU} \cite{CS231n_activ}
+dzięki zastosowaniu niewielkiego gradientu w sytuacji
 dla której ReLU jest nieaktywne. Zmiana ta pozwala na uniknięcie problemu tzw
 umierającego neuronu.
 \begin{equation}
@@ -244,7 +248,7 @@ f(x) =
 Inne określenie algorytmu optymalizacyjnego wykorzystywanego do obliczania wag neuronów
 i biasu sieci neuronowej. Posiada kluczowe znaczenie podczas procesu uczenia sieci
 zarówno w kwestii czasu oraz skuteczności. Z tego powodu jest to jeden z kluczowych
-obszarów obecnych badań i rozwoju sieci neuronowych.
+obszarów obecnych badań i rozwoju sieci neuronowych \textit{Artykuł na temat optymalizatorów} \cite{typesOfOptimizationAlgorithms}.
 
 \paragraph{Metoda gradientu prostego} \mbox{}\\
 Metoda gradientu prostego \textit{(ang. Gradient Descent)} jest podstawowym algorytmem
@@ -260,24 +264,26 @@ do stagnacji w jednym z lokalnych minimów funkcji.
 \paragraph{Stochastic Gradient Descent} \mbox{}\\
 \textit{(nazwa w języku angielskim z powodu braku znalezienia polskiego odpowiednika)}
 Stochastic Gradient Descent \textit{(skrót. GDA)} jest rozwinięciem metody gradientu
-prostego, bardzo często wykorzystywana w praktyce. Ulepszenie polega na obliczaniu
-gradientu dla jednego lub niewielkiej ilości przykładów treningowych. Najczęsciej
-korzysta się z więcej niż jednego przykładu co zapewnia lepszą stabilność oraz
-wykorzystuje zrównoleglanie obliczeń. SGD zapewnia większą rozbieżność niż metoda
-gradientu prostego, co umożliwia znajdowanie nowych lokalnych minimów ale wiąże się
-z koniecznością zastosowania mniejszego współczynnika uczenia.
+prostego, bardzo często wykorzystywana w praktyce \textit{Opis SGD} \cite{OptimizersOverview}.
+Ulepszenie polega na obliczaniu gradientu dla jednego lub niewielkiej ilości przykładów
+treningowych. Najczęsciej korzysta się z więcej niż jednego przykładu co zapewnia
+lepszą stabilność oraz wykorzystuje zrównoleglanie obliczeń. SGD zapewnia większą rozbieżność
+niż metoda gradientu prostego, co umożliwia znajdowanie nowych lokalnych minimów ale
+wiąże się z koniecznością zastosowania mniejszego współczynnika uczenia.
 \begin{equation}
 \theta = \theta - \eta * \nabla J(\theta; x_i; y_i)
 \end{equation}
 
 \paragraph{RMSprop} \mbox{}\\
 RMSprop umożliwia obliczanie gradientu dla każdego parametru z osobna i zapobiega
-zmniejszaniu się współczynnika uczenia. Algorytm dostosowuje współczynnik uczenia dla każdej wagi
+zmniejszaniu się współczynnika uczenia \textit{Opis RMSprop} \cite{RMSpropOptimizer, OptimizersOverview}.
+Algorytm dostosowuje współczynnik uczenia dla każdej wagi
 bazując na wielkości jej gradientu.
 
 \paragraph{Adam} \mbox{}\\
 Adam to skrót od angielskiej nazwy \textit{Adaptive Moment Estimation} i jest rozwinięciem
-metody Stochastic Gradient Descent. Metoda ta pozwala na obliczanie z osobna gradientu dla
+metody Stochastic Gradient Descent \textit{Opis metody Adam} \cite{AdamOptimizer, OptimizersOverview}.
+Metoda ta pozwala na obliczanie z osobna gradientu dla
 każdego parametru oraz każdej zmiany momentum. Zapobiega dodatkowo zmniejszającemu się
 wskaźnikowi uczenia, a co najważniejsze jest bardzo szybka i pozwala na sprawne uczenie
 się sieci. W tej metodzie oblicza się dwa momenty \textit{m} oraz \textit{v}.
@@ -326,21 +332,21 @@ zastosowaniu.
 \section{Inne}
 
 \paragraph{ILSVRC} \mbox{}\\
-ImageNet Large Scale Visual Recognition Competition to coroczny konkurs organizowany
+ImageNet Large Scale Visual Recognition Competition \cite{ILSVRC} to coroczny konkurs organizowany
 od 2010 roku, w którym naukowcy walczą o najlepszy wynik w dziedzinie rozpoznawania
 obrazów przez skonstruowane przez siebie algorytmy. Sieć AlexNet na której bazowało
 kilka stworzonych sieci neuronowych, została stworzona na potrzeby tego konkursu
 w 2012 roku.
 
 \paragraph{MNIST} \mbox{}\\
-Baza danych MNIST to zbiór 60000 treningowych i 10000 testowych czarno-białych obrazów
+Baza danych MNIST \cite{MNIST} to zbiór 60000 treningowych i 10000 testowych czarno-białych obrazów
 w rozmiarze 28x28x1, zawierających ręcznie napisane cyfry 0-9. Jest jednym z
 najpopularniejszych zbiorów służących do rozpoczęcia nauki sztucznych sieci neuronowych
 i uczenia maszynowego.
 
 \paragraph{CIFAR-10} \mbox{}\\
-Zbiór 50000 treningowych i 10000 testowych kolorowych obrazów w rozmiarze 32x32x2.\\
-CIFAR-10 podzielony jest na 10 klas: samolot, samochód, ptak, kot, jeleń, pies, żaba,
+Zbiór CIFAR-10 \cite{CIFAR-10} składa się z 50000 treningowych i 10000 testowych kolorowych obrazów w rozmiarze
+32x32x2. Jest podzielony na 10 klas: samolot, samochód, ptak, kot, jeleń, pies, żaba,
 koń, statek, ciężarówka; gdzie każdej z nich przypada po 6000 obrazów. Jest to podobnie
 jak MNIST jeden z najbardziej popularnych zbiorów do uczenia maszynowego i sieci neuronowych.
 
