@@ -225,7 +225,7 @@ większą ilością mniejszych, co znacząco zmniejszało ilość parametrów si
 \textit{Substituting Big convolution} \cite{substBigConv}.
 Po zaaplikowaniu ulepszeń i nauce sieci, okazało się że sieć nie poprawiła się w żadnym
 stopniu. Prawodopodobnym powodem była zmiana architektury sieci wraz z powtórnym
-zastosowaniem kwadratowych filtrów.\\\\
+zastosowaniem kwadratowych filtrów.\\
 Drugim pomysłem na ulepszenie sieci było zastosowanie zastępowania większych filtrów
 kilkoma mniejszymi połączonego ze zamianą funkcji aktywacji ReLU na LeakyReLU w celu uniknięcia
 możliwych do wystąpienia problemów z zanikającym neuronem. Ulepszenie jednak podobnie
@@ -238,20 +238,14 @@ do kolejno 40, 60, 80 i 100 epok.\\
 Podejście to okazało się bardzo skuteczne, ponieważ po każdych 20 epokach
 sieć odnosiła lepsze rezultaty, które prezentowały się nastepująco:\\
 20 epok: 68,03\%\\
-\includegraphics[scale=0.55]{rect_acc}
-\includegraphics[scale=0.55]{rect_loss}\\
 40 epok: 78,21\%\\
-\includegraphics[scale=0.265]{rect_20-40_acc}
-\includegraphics[scale=0.265]{rect_20-40_loss}\\
 60 epok: 81,59\%\\
-\includegraphics[scale=0.265]{rect_40-60_acc}
-\includegraphics[scale=0.265]{rect_40-60_loss}\\
 80 epok: 82,39\%\\
-\includegraphics[scale=0.265]{rect_60-80_acc}
-\includegraphics[scale=0.265]{rect_60-80_loss}\\
 100 epok: 84,67\%\\
-\includegraphics[scale=0.265]{rect_80-100_acc}
-\includegraphics[scale=0.265]{rect_80-100_loss}\\
+\begin{sidewaysfigure}
+\includegraphics[scale=0.36]{wykres_100}
+\caption{Wykres uczenia przez 100 epok}
+\end{sidewaysfigure}
 Wyniki uświadamiają, że prawdopodobnie nawet nieudane próby z większymi zdjęciami
 mogłyby się powieść, konieczne byłoby jedynie zwiększenie ilości epok. Wiąże się to jednak
 z ogromnym nakładem czasu, ponieważ prawdopodobnie sensowne rezultaty można by osiągnąć
