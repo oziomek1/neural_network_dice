@@ -79,6 +79,9 @@ create CNN from scratch, purely in C++ with further application of Nvidia CUDA s
 ### Example of using 5 learned models combined with capture from camera to recognize dots on dices
 <img src="/photos/neural_network_recognition.png" />
 
+### Example of using the only one learned model on 106x79x1 resolution photos
+<img src="/photos/neural_network_recognition_106x79.png" />
+
 ##### updating README, to be continued...
 
 ## Below some models visualizations:
