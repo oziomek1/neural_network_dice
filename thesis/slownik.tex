@@ -1,4 +1,4 @@
-% !TEX encoding = UTF-8 Unicode
+!TEX encoding = UTF-8 Unicode
 
 \chapter{Słownik pojęć}
 \section{Zbiór danych}
@@ -6,17 +6,17 @@ Zbiór danych, obrazów lub zestaw danych to określenie wszystkich zdjęć koś
 potrzeby pracy. Każde zdjęcie w zbiorze jest przetworzone w celu zmniejszenia czasu uczenia
 się sieci oraz potrzebnej pamięci. Zdjęcia były wykonywane kamerą o rozdzielczości 1600x1200
 pikseli. Każde ze zdjeć w zbiorze zostało poddane procesowi skalowania oraz kadrowania celem
-osiągnięcia żądanego rozmiaru. Chcąc uzyskać większą liczebności zbioru wszystkie obrazy
+osiągnięcia żądanego rozmiaru. Chcąc uzyskać większą liczebności zbioru, wszystkie obrazy
 zostały dodatkowo poddane operacji obrotu o dany kąt. Każdy ze zbiorów został zduplikowany
 i poddany konwersji z trybu RGB na skalę szarości przez usunięcie informacji o barwie
 oraz nasyceniu kolorów, pozostawiając jedynie informację o jasności piksela.\\
 Po przeprowadzeniu całego procesu, każdy obraz miał wymiary 64x64, zarówno w wersji
 kolorowej i czarno białej, co skutkowało rzeczywistymi rozmiarami odpowiednio 64x64x3
 oraz 64x64x1, gdzie ostatnia cyfra informuje o ilości kanałów.\\
-Każdy element w zbiorze ma przypisaną wartość liczbową informującą o faktycznej ilości
+Każdy element w zbiorze ma przypisaną wartość liczbową informującą o faktycznej ilości
 oczek wyrzuconych na kostce przedstawianej na zdjęciu. Wartość ta zwana jest także
 odpowiedzią i jest wykorzystywana w procesie uczenia sieci jako docelowa informacja,
-którą ma zwrócić sieć po weryfikacji danego obrazu.
+którą ma zwrócić sieć po weryfikacji danego obrazu.
 
 \paragraph{Zbiór treningowy} \mbox{}\\
 Część zbioru danych wykorzystywana w procesie uczenia sieci określana jest mianem zbioru
@@ -27,18 +27,18 @@ poddawane są losowej permutacji.
 \paragraph{Zbiór testowy} \mbox{}\\
 Zbiór testowy lub zbiór walidacyjny służy do oceny zdolności wytrenowanej sieci do
 rozpoznawania danych. Celem rozdzielenia tego zbioru od danych testowych jest weryfikacja
-sieci na danych które wcześniej nie zostały przetworzone przez sieć.
+sieci na danych, które wcześniej nie zostały przetworzone przez sieć.
 
 \section{Budowa sieci neuronowej}
 \paragraph{Sieć neuronowa} \mbox{}\\
 Sieć neuronowa bądź sztuczna sieć neuronowa \textit{(ang. ANN Artificial Neural Network)}
 jest strukturą matematyczną, która powinna odzwierciedlać uproszczone działanie biologicznych
-sieci neuronowych \textit{Sieć neuronowa} \cite{intuitiveExplanation, WIKIcnn}. Posiada możliwość uczenia się poprzez obliczenia i przetwarzanie sygnałów
+sieci neuronowych \textit{Sieć neuronowa} \cite{intuitiveExplanation, WIKIcnn}. Ma możliwość uczenia się poprzez obliczenia i przetwarzanie sygnałów
 w elementach określanych neuronami. W dziedzinie rozpoznawaniu obrazów są w stanie zidentyfikować
 elementy na obrazach, bez wcześniejszej znajomości lub wiedzy na temat przedmiotu podlegającego
-rozpoznaniu. Realizują to poprzez analizę przykładowych obrazów z informacją czy znajduje się 
+rozpoznaniu. Realizują to poprzez analizę przykładowych obrazów z informacją czy znajduje się
 na nich pożądany obiekt, a następnie zmianę swoich własnych parametrów w celu poprawnej
-identyfikacji kolejnych zdjęć. Ten rodzaj uczenia się okreslany jest mianem uczenia nadzorowanego,
+identyfikacji kolejnych zdjęć. Ten rodzaj uczenia się określany jest mianem uczenia nadzorowanego,
 gdzie każdy obraz ma przypisaną wartość.\\
 Zastosowanie sieci jest bardzo szerokie i wykraczające poza rozpoznawanie obrazów, jednak
 w związku z powiązaniem tego zagadnienia z tematyką pracy, podany powyżej przykład ma
@@ -47,7 +47,7 @@ jak najlepiej oddać istotę działania sieci neuronowych.
 \paragraph{Neuron} \mbox{}\\
 Najmniejszy element sieci neuronowej, posiada wiele wejść i jedno wyjście. Może
 zawierać także próg (ang. threshold), mogący ulec zmianie przez funkcje uczącą \cite{CS231n_activ, NNbiology, NeuronAnimation}.
-Neuron wyposazony jest także w funkcję aktywacji, odpowiednio modyfikującą jego wyjście.
+Neuron wyposażony jest także w funkcję aktywacji, odpowiednio modyfikującą jego wyjście.
 W sieciach neuronowych wyjście każdego neuronu połączone jest z wejściami neuronów
 w warstwie następnej.
 \begin{equation}
@@ -63,13 +63,13 @@ zmniejszeniem wartości funkcji błędu.
 
 \paragraph{Bias} \mbox{}\\
 Bias to dodatkowa waga wejściowa do neuronu umożliwiająca jego lepsze dopasowanie
-do danych treningowych \cite{needForBias}. W sytuacji kiedy wszystkie wagi neuronu mają zerowe
+do danych treningowych \cite{needForBias}. W sytuacji, kiedy wszystkie wagi neuronu mają zerowe
 wartości, unikamy problemów podczas procesu wstecznej propagacji.
 
 \paragraph{Warstwa} \mbox{}\\
 Sieć neuronowa zorganizowana jest w warstwach. Neurony w danej warstwie nie są
 ze sobą w żaden sposób połączone, komunikacja odbywa się tylko między kolejnymi
-warstwami \cite{CS231n, substBigConv}. Istnieje wiele rodzajów warstw, a sygnał który przechodzi przez całą
+warstwami \cite{CS231n, substBigConv}. Istnieje wiele rodzajów warstw, a sygnał przechodzący przez całą
 sieć zaczyna się w tzw. warstwie wejściowej oraz kończy w tzw. warstwie wyjściowej.
 Istnieją sieci neuronowe (rekurencyjne sieci neuronowe, \textit{, ang. RNN - Recurrent Neural Network})
 w ktorych sygnał może przechodzić przez warstwy kilkukrotnie w trakcie jednej epoki.
@@ -82,23 +82,23 @@ w kolejnych krokach w celu jej zminimalizowania.
 
 \paragraph{Współczynnik uczenia} \mbox{}\\
 Współczynnik lub wskaźnik uczenia się \textit{(ang. lerning rate)} wykorzystywany jest
-w optymalizatorach do ustalenia jak szybko algorytm uczenia powinien dostosowywać wartości
+w optymalizatorach do ustalenia, jak szybko algorytm uczenia powinien dostosowywać wartości
 wag do danego przypadku. Często jest uzależniony od wyboru rodzaju optymalizatora. Zbyt mały
 współczynnik wydłuży proces uczenia, natomiast za duży może spowodować problemy ze znalezieniem
-odpowiedniego rozwiązania. W niektórych algorytmach, współczynnik uczenia zmniejsza się w czasie
+odpowiedniego rozwiązania. W niektórych algorytmach współczynnik uczenia zmniejsza się w czasie,
 by lepiej dostosować się do danych.
 
 \section{Propagacja wsteczna}
 Propagacja wsteczna lub wsteczna propagacja błędów \textit{(ang. Backpropagation)}
 jest jednym z najskuteczniejszych algorytmów uczenia sieci neuronowych \cite{CS231n_backprop, backprop}. Polega
-na minimalizacji funkcji kosztu korzystając z metody najszybszego spadku lub
+na minimalizacji funkcji kosztu, korzystając z metody najszybszego spadku lub
 innych, bardziej zoptymalizowanych sposobów. Błędy w sieci propagowane są od warstwy wyjściowej
 do wejściowe, czemu algorytm zawdzięcza swoją nazwę.
 
 \section{Konwolucyjna sieć neuronowa}
 \paragraph{Konwolucja} \mbox{}\\
-Konwolucja, inaczej splot polega na złożeniu dwóch funkcji. W przypadku obrazów,
-jedna z tych funkcji to obraz który ma rozmiary większe niż druga funkcja określana
+Konwolucja, inaczej splot polega na złożeniu dwóch funkcji. W przypadku obrazów
+jedna z tych funkcji to obraz, który ma rozmiary większe niż druga funkcja określana
 mianem filtra konwolucyjnego. Zastosowanie splotu, w zależności od przypadku,
 pozwala na rozmycie, wyostrzanie lub wydobycie głębi z danego obrazu. \textit{Szczegółowe wyjaśnienie} \cite{konwolucja}
 \begin{equation}
@@ -112,55 +112,55 @@ w wielu przypadkach dorównując lub nawet pokonując ludzkie wyniki. Zawdzięcz
 swojej budowie, która różni się od zwykłych sieci wykorzystaniem warstw konwolucyjnych
 i poolingowych, poprzedzających warstwy w pełni połączone. Sieć taka analizuje obraz
 przy użyciu filtrów konwolucyjnych, dzięki którym jest w stanie rozpoznawać cechy
-obrazów co znacząco poprawia ich klasyfikacje.
+obrazów, co znacząco poprawia ich klasyfikacje.
 
 \section{Warstwy sieci neuronowej}
-\paragraph{Wejściowa}  \mbox{}\\
+\paragraph{Wejściowa} \mbox{}\\
 W pracy, gdzie zbiorami danych są zbiory obrazów, każdy pojedynczy piksel obrazu
 odpowiada jednej wartości liczbowej. W związku z tym rozmiar pierwszej warstwy
 wejściowej jest identyczny z wymiarami obrazu. Warstwa wejściowa charakteryzuje się
 brakiem wejść oraz biasu.
 
-\paragraph{Wyjściowa}  \mbox{}\\
-Rozmiar warstwy wyjściowej odpowiada ilości klas do jakiej wejściowe dane miały
+\paragraph{Wyjściowa} \mbox{}\\
+Rozmiar warstwy wyjściowej odpowiada ilości klas, do jakiej wejściowe dane miały
 zostać sklasyfikowne. Oczekiwanym wyjściem sieci w pracy była liczba oczek możliwych
 do wyrzucenia na kostce, co odpowiada 6 klasom, po jednej na każdą wartość na boku
 kostki. Wyjściem wszystkkich przedstawianych w tej pracy sieci był wektor o wymiarach
 6x1.
 
-\paragraph{Konwolucyjna}  \mbox{}\\
+\paragraph{Konwolucyjna} \mbox{}\\
 Warstwa konwolucyjna służy do przetworzenia danych z poprzedniej warstwy przy użyciu
 filtrów konwolucyjnych \cite{CS231n}. Filtry mają określone wymiary i służą do znajdowania cech
-na obrazach lub ich fragmentach. Najczęsciej spotykanymi przykładami filtrów są
+na obrazach lub ich fragmentach. Najczęściej spotykanymi przykładami filtrów są
 kwadraty o wymiarach 3x3 piksele, które przetwarzają informacje zawarte w 9 pikselach
 na jeden piksel wyjściowy.
 Zastosowanie wielu warstw konwolucyjnych umożliwia filtrom analizowanie bardziej złożonych
 zależności na obrazach i jest określane jako głęboka sieć. Szeroka sieć posiada większą
-liczbę neuronów w każdej z warstw co umożliwia prezycyjniejszą obserwację danych.
+liczbę neuronów w każdej z warstw, co umożliwia precyzyjniejszą obserwację danych.
 Ograniczeniem w przypadku sieci głębokiej i szerokiej jest ilość i czas obliczeń, co
-wymusza wybranie kompromisu miedzy ilością warstw i neuronów dla danego problemu.
+wymusza wybranie kompromisu między ilością warstw i neuronów dla danego problemu.
 
-\paragraph{Aktywacyjna}  \mbox{}\\
+\paragraph{Aktywacyjna} \mbox{}\\
 Jest to wydzielenie funkcji aktywacji do osobnej warstwy, które jest realizowane
 w niektórych bibliotekach. Celem takiego zabiegu jest umożliwienie podglądu danych
 na wyjściu neuronu, tuż przed zaaplikowaniem samej funkcji aktywacji.
 
-\paragraph{W pełni połączona}  \mbox{}\\
+\paragraph{W pełni połączona} \mbox{}\\
 Sieć neuronowa składa się z w pełni połączonych warstw \textit{(ang. Fully Connected, Dense)}.
-W konwolucyjnych sieciach neuronowych warstwy te występują po warstwach konwolucyjnych
-i służą do powiązania nieliniowych kombinacji które zostały wygenerowane przez
+W konwolucyjnych sieciach neuronowych warstwy te występują po warstwach konwolucyjnych
+i służą do powiązania nieliniowych kombinacji, które zostały wygenerowane przez
 warstwy konwolucyjne oraz ich sklasyfikowania. Dodatkowo nie wymagają dużych nakładów
-obliczeniowych i są stosunkowo proste do zaaplikowania. Swoją nazwę biorą od sposobu w jaki
+obliczeniowych i są stosunkowo proste do zaaplikowania. Swoją nazwę biorą od sposobu, w jaki
 realizowane sa połączenia między warstwami. Każdy neuron łączy się ze wszystkimi neuronami
 następnej warstwy.
 
-\paragraph{Flatten}  \mbox{}\\
+\paragraph{Flatten} \mbox{}\\
 Warstwa spłaszczająca \textit{(ang. Flatten)} stosowana jest w celu połączenia warstw
 konwolucyjnych lub aktywacji wraz z warstwami w pełni połączonymi. Realizowane jest
-to poprzez przekształcenie warstwy wejściowej do jednowymiarowego wektora który następnie
+to poprzez przekształcenie warstwy wejściowej do jednowymiarowego wektora, który następnie
 służy za wejście do kolejnych warstw.
 
-\paragraph{Odrzucająca}  \mbox{}\\
+\paragraph{Odrzucająca} \mbox{}\\
 Warstwa odrzucająca \textit{(ang. Dropout)} zapobiega przetrenowaniu \textit{(ang. Overfitting)}
 sieci \textit{Zapobieganie przetrenowaniu} \cite{DropoutPreventOverfit}.
 Proces ten polega na nie wykorzystywaniu wyjść pewnych neuronów, zarówno
@@ -170,14 +170,14 @@ tej określone jest prawdopodobieństwo \textit{p} z jakim neuron zostanie zacho
 w warstwie oraz \textit{p - 1} z jakim zostanie odrzucony. Najczęstsza wartość jest
 z zakresu 0,5-0,8.
 
-\paragraph{Pooling}  \mbox{}\\
-Warstwa tzw poolingu wykorzystywana jest do zmniejszenia rozmiaru pamięci oraz ilości obliczeń
+\paragraph{Pooling} \mbox{}\\
+Warstwa tzw. poolingu wykorzystywana jest do zmniejszenia rozmiaru pamięci oraz ilości obliczeń
 wymaganych przez sieć neuronową, jak również może zapobiegać przetrenowaniu \cite{CS231n}. Operacja zmniejszenia
 polega na wybraniu jednego piksela z danego obszaru i przekazaniu go dalej. Najczęściej wykorzystywaną
-warstwą poolingową jest MaxPooling, wybierający piksel o największej wartości. Obszar z jakiego
-wybieramy dany piksel zależy od ustawień, najczęściej jest to kwadrat o wymiarach 2x2. Pooling
-jest krytykowany, ponieważ nie zachowuje informacji o połozeniu piksela przekazanego na wyjście
-warstwy co może objawiać się błednymi interpretacjami podczas testowania sieci.
+warstwą poolingową jest MaxPooling, wybierający piksel o największej wartości. Obszar, z jakiego
+wybieramy dany piksel, zależy od ustawień, najczęściej jest to kwadrat o wymiarach 2x2. Pooling
+jest krytykowany, ponieważ nie zachowuje informacji o położeniu piksela przekazanego na wyjście
+warstwy, co może objawiać się błędnymi interpretacjami podczas testowania sieci.
 
 \section{Funkcje aktywacji}
 \paragraph{Funkcja aktywacji} \mbox{}\\
@@ -192,9 +192,9 @@ f\Big(\sum_{i}w_{i}x_{i} + b\Big) \\
 \end{equation}
 
 \paragraph{Liniowa} \mbox{}\\
-Funkcja ta jest praktycznie nie wykorzystywana w sieciach neuronowych \cite{activationFunctions}.
-Połączenie wielu warstw których neurony posiadają liniową funkcję aktywacji można przedstawić
-za pomocą jednej warstwy,  ponieważ złożenie wielu funkcji liniowych również będzie
+Funkcja ta jest praktycznie niewykorzystywana w sieciach neuronowych \cite{activationFunctions}.
+Połączenie wielu warstw, których neurony mają liniową funkcję aktywacji można przedstawić
+za pomocą jednej warstwy, ponieważ złożenie wielu funkcji liniowych również będzie
 funkcją liniową. Nieliniowość funkcji pozwala na klasyfikację danych przechodzących
 przez sieć.
 \begin{equation}
@@ -203,9 +203,8 @@ f(x) = x
 
 \paragraph{Sigmoid} \mbox{}\\
 Największym problemem funkcji sigmoidalnej jest duże ryzyko zaniknięcia gradientu,
-co może prowadzić do problemu tzw umierającego neuronu \textit{Opis Sigmoid} \cite{activationFunctions}.
-Zjawisko to ma miejsce
-gdy dla danej funkcji aktywacji, gradient staję się bardzo mały, co jest równoznaczne
+co może prowadzić do problemu tzw. umierającego neuronu \textit{Opis Sigmoid} \cite{activationFunctions}.
+Zjawisko to ma miejsce, gdy dla danej funkcji aktywacji, gradient staję się bardzo mały, co jest równoznaczne
 z zaprzestaniem procesu uczenia. W przypadku tej funkcji gradient może zanikać obustronnie.
 \begin{equation}
 f(x) = \sigma(x) = \frac{1}{1 + e^{-x}} \\
@@ -221,7 +220,7 @@ f(x) = tanh(x) = \frac{(e^x - e^{-x})}{(e^x + e^{-x})} = \frac{2}{1+e^{-2x}} - 1
 
 \paragraph{ReLU} \mbox{}\\
 ReLU \textit{(and. Rectified linear unit)} jest najpopularniejszą funkcją aktywacji
-wykorzystywaną w sieciach neuronowych \textit{Wady i zalety ReLU} \cite{CS231n_activ, WIKIrectifier}.
+wykorzystywaną w sieciach neuronowych \textit{Wady i zalety ReLU} \cite{CS231n_activ, WIKIrectifier}.
 Zasługą tego jest szybki czas uczenia sieci
 bez znaczącego kosztu w postaci generalizacji dokładności. Problem z zanikającym
 gradientem jest mniejszy niż w przypadku funkcji sigmoidalnej, ponieważ występuje
@@ -232,21 +231,20 @@ f(x) = max(0, x)
 
 \paragraph{LeakyReLU} \mbox{}\\
 LeakyReLU jest ulepszeniem ReLU \textit{Wady i zalety LeakyReLU} \cite{CS231n_activ}
-dzięki zastosowaniu niewielkiego gradientu w sytuacji
-dla której ReLU jest nieaktywne. Zmiana ta pozwala na uniknięcie problemu tzw
+dzięki zastosowaniu niewielkiego gradientu w sytuacji, dla której ReLU jest nieaktywne. Zmiana ta pozwala na uniknięcie problemu tzw
 umierającego neuronu.
 \begin{equation}
 f(x) =
 \begin{cases}
- x & \text{if } x \geqslant 0 \\
- 0.01x & \text{if } x < 0 \\
+x & \text{if } x \geqslant 0 \\
+0.01x & \text{if } x < 0 \\
 \end{cases}
 \end{equation}
 
 \section{Optymalizatory}
 \paragraph{Optymalizator} \mbox{}\\
 Inne określenie algorytmu optymalizacyjnego wykorzystywanego do obliczania wag neuronów
-i biasu sieci neuronowej. Posiada kluczowe znaczenie podczas procesu uczenia sieci
+i biasu sieci neuronowej. Posiada kluczowe znaczenie podczas procesu uczenia sieci,
 zarówno w kwestii czasu oraz skuteczności. Z tego powodu jest to jeden z kluczowych
 obszarów obecnych badań i rozwoju sieci neuronowych \textit{Artykuł na temat optymalizatorów} \cite{typesOfOptimizationAlgorithms}.
 
@@ -266,9 +264,9 @@ do stagnacji w jednym z lokalnych minimów funkcji.
 Stochastic Gradient Descent \textit{(skrót. GDA)} jest rozwinięciem metody gradientu
 prostego, bardzo często wykorzystywana w praktyce \textit{Opis SGD} \cite{OptimizersOverview}.
 Ulepszenie polega na obliczaniu gradientu dla jednego lub niewielkiej ilości przykładów
-treningowych. Najczęsciej korzysta się z więcej niż jednego przykładu co zapewnia
-lepszą stabilność oraz wykorzystuje zrównoleglanie obliczeń. SGD zapewnia większą rozbieżność
-niż metoda gradientu prostego, co umożliwia znajdowanie nowych lokalnych minimów ale
+treningowych. Najczęściej korzysta się z więcej niż jednego przykładu, co zapewnia
+lepszą stabilność oraz wykorzystuje zrównoleglenie obliczeń. SGD zapewnia większą rozbieżność
+niż metoda gradientu prostego, co umożliwia znajdowanie nowych lokalnych minimów, ale
 wiąże się z koniecznością zastosowania mniejszego współczynnika uczenia.
 \begin{equation}
 \theta = \theta - \eta * \nabla J(\theta; x_i; y_i)
@@ -277,7 +275,7 @@ wiąże się z koniecznością zastosowania mniejszego współczynnika uczenia.
 \paragraph{RMSprop} \mbox{}\\
 RMSprop umożliwia obliczanie gradientu dla każdego parametru z osobna i zapobiega
 zmniejszaniu się współczynnika uczenia \textit{Opis RMSprop} \cite{RMSpropOptimizer, OptimizersOverview}.
-Algorytm dostosowuje współczynnik uczenia dla każdej wagi
+Algorytm dostosowuje współczynnik uczenia dla każdej wagi,
 bazując na wielkości jej gradientu.
 
 \paragraph{Adam} \mbox{}\\
@@ -308,19 +306,18 @@ pseudolosowymi wartościami oraz biasu. Uczenie sieci neuronowej jest bardzo
 kosztowne obliczeniowo, co wręcz uniemożliwiało trenowanie modeli w przeszłości,
 a obecnie jest jednym z powodów dużego zainteresowania rozwojem technologicznym kart
 graficznych. Operacje dodawania oraz mnożenia wektorów i macierzy wykonywane są miliony razy,
-mogą być przyśpieszone dzięki możliwościom zrównoleglania obliczeń.\\
+mogą być przyśpieszone dzięki możliwościom zrównoleglenia obliczeń.\\
 
 \paragraph{Epoka} \mbox{}\\
 Proces uczenia sieci podzielony jest na epoki. Każda epoka odpowiada przejściu
-wszystkich elementów z treningowego zbioru danych przez sieć. Ilość epok podczas
-których sieć będzie sie uczyć ustala się na co najmniej kilkanaście. W przypadku
-większych zbiorów danych lub większych modeli ilość epok jest zwiększana.\\
+wszystkich elementów z treningowego zbioru danych przez sieć. Ilość epok, podczas których sieć będzie się uczyć ustala się na co najmniej kilkanaście. W przypadku
+większych zbiorów danych lub większych modeli ilość epok jest zwiększana.\\
 Często spotykaną praktyką w wielu pracach naukowych jest przedstawianie wyników
 dla sieci po 100 epokach treningu.
 
 \paragraph{Testowanie} \mbox{}\\
-Model sieci neuronowej poddawany ocenie, dzięki której można określić w jakim stopniu
-prawidłowo rozpoznaje obrazy. W przypadku wytrenowanych modeli istotne jest aby zbiór służący do
+Model sieci neuronowej poddawany ocenie, dzięki której można określić, w jakim stopniu
+prawidłowo rozpoznaje obrazy. W przypadku wytrenowanych modeli istotne jest, aby zbiór służący do
 testowania nie był wcześniej użyty do treningu sieci. Nauczony model powinien być w stanie
 rozpoznawać nowe, nieużyte podczas procesu uczenia dane i poprawnie je klasyfikować.
 
@@ -334,7 +331,7 @@ zastosowaniu.
 \paragraph{ILSVRC} \mbox{}\\
 ImageNet Large Scale Visual Recognition Competition \cite{ILSVRC} to coroczny konkurs organizowany
 od 2010 roku, w którym naukowcy walczą o najlepszy wynik w dziedzinie rozpoznawania
-obrazów przez skonstruowane przez siebie algorytmy. Sieć AlexNet na której bazowało
+obrazów przez skonstruowane przez siebie algorytmy. Sieć AlexNet, na której bazowało
 kilka stworzonych sieci neuronowych, została stworzona na potrzeby tego konkursu
 w 2012 roku.
 
@@ -349,7 +346,6 @@ Zbiór CIFAR-10 \cite{CIFAR-10} składa się z 50000 treningowych i 10000 testow
 32x32x2. Jest podzielony na 10 klas: samolot, samochód, ptak, kot, jeleń, pies, żaba,
 koń, statek, ciężarówka; gdzie każdej z nich przypada po 6000 obrazów. Jest to podobnie
 jak MNIST jeden z najbardziej popularnych zbiorów do uczenia maszynowego i sieci neuronowych.
-
 
 \\\\\\
 Tematy do uwzględnienia:

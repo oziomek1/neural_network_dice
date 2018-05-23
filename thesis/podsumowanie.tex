@@ -9,18 +9,18 @@ podłączonej do komputera. Modele są przystosowane do rozpoznawania kości na
 obrazach o wielkościach 64x64 oraz 106x79 pikseli.\\
 Obraz dostarczany z kamery jest wielokrotnie większy, co wymusiło wyznaczenie jego
 części, która jest analizowana przez zaaplikowane sieci neuronowe. Ta część obrazu
-oznaczona jest białymi krawędziami dla łatwiejszego zlokalizowania miejsca w którym
+oznaczona jest białymi krawędziami dla łatwiejszego zlokalizowania miejsca, w którym
 powinna być umieszczona kość pod kamerą.
-Dla obrazów 64x64 wykonano kilka modeli sieci które osiągnęły powyżej 90\% skuteczności.
+Dla obrazów 64x64 wykonano kilka modeli sieci, które osiągnęły powyżej 90\% skuteczności.
 Program umożliwia porównanie wyników dzięki zaaplikowaniu ich do analizy tego
 samego obszaru na zdjęciu. Pozwala to zauważyć między innymi lepsze rozpoznawanie
 pewnych kombinacji kolorystycznych niektórych modeli lub trudności z rozróżnieniem
-wyrzuconych czterech oczek od sześciu, z uwagi na efekt zlewania się ich podczas
+wyrzuconych czterech oczek od sześciu, z uwagi na efekt zlewania się ich podczas
 skalowania.\\
 Dla obrazów 106x79 zaaplikowany jest jedynie jeden model, wytrenowany przez 100 epok.\\
 Wyniki zaobserwowane podczas prac związanych z tworzeniem sieci neuronowych przyniosły
 wiele niespodziewanych sytuacji. Często otrzymywane wyniki były zdumiewające,
-biorąc pod uwagę jak drobne różnice w budowie sieci wpływały na końcowe rezultaty.
+biorąc pod uwagę, jak drobne różnice w budowie sieci wpływały na końcowe rezultaty.
 Największym zaskoczeniem były bardzo duże problemy z uczeniem obrazów prostokątnych w
 porównaniu do obrazów kwadratowych. Za przykład może posłużyć mniejsza o jedną trzecią
 ilości danych w obrazach w skali szarości i rozmiarze 106x79 pikseli w stostunku do
@@ -28,7 +28,7 @@ obrazów kolorowych i rozmiaru 64x64 piksele. Proces uczenia się przebiegał tr
 dłużej na jedną epokę i zastosowanie pięciokrotnie większą ilości epok. Mimo to, wynik
 dla obrazów kwadratowych wyniósł 98,47\%, a dla prostokątnych 84,67\%.\\
 Wszystkie eksperymenty pokazały, że nawet proste zadanie rozpoznawania oczek na kostce
-wymaga dużej ilości danych i mocy obliczeniowej by w uzyskać satysfakcjonujące wyniki.
+wymaga dużej ilości danych i mocy obliczeniowej, by w uzyskać satysfakcjonujące wyniki.
 Przykład ten pokazuje także jak wiele zastosowań może mieć zyskujące na popularności
 uczenie maszynowe, które wraz z rozwojem technologii będzie mieć coraz więcej możliwości
 na dostosowywania algorytmów do określonych danych.
