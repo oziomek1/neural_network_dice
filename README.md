@@ -75,6 +75,10 @@ The future will focus on changing tech-stack towards Tensorflow. More ambitious 
 create CNN from scratch, purely in C++ with further application of Nvidia CUDA support for speed.
 
 <img src="/photos/kolaz.png" />
+<img src="/photos/kostki_160x120_2.png" />
+
+### One model was trained by 100 epochs. The plot of it's perfomance below:
+<img src="/photos/wykres_100.jpg"/>
 
 ### Example of using 5 learned models combined with capture from camera to recognize dots on dices
 <img src="/photos/neural_network_recognition.png" />
