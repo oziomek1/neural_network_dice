@@ -2,108 +2,137 @@
 
 \chapter{Słownik pojęć}
 \section{Zbiór danych}
-Zbiór danych, obrazów lub zestaw danych to określenie wszystkich zdjęć kości wykonanych na
-potrzeby pracy. Każde zdjęcie w zbiorze jest przetworzone w celu zmniejszenia czasu uczenia
-się sieci oraz potrzebnej pamięci. Zdjęcia były wykonywane kamerą o rozdzielczości 1600x1200
-pikseli. Każde ze zdjeć w zbiorze zostało poddane procesowi skalowania oraz kadrowania celem
-osiągnięcia żądanego rozmiaru. Chcąc uzyskać większą liczebności zbioru, wszystkie obrazy
-zostały dodatkowo poddane operacji obrotu o dany kąt. Każdy ze zbiorów został zduplikowany
-i poddany konwersji z trybu RGB na skalę szarości przez usunięcie informacji o barwie
-oraz nasyceniu kolorów, pozostawiając jedynie informację o jasności piksela.\\
-Po przeprowadzeniu całego procesu, każdy obraz miał wymiary 64x64, zarówno w wersji
-kolorowej i czarno białej, co skutkowało rzeczywistymi rozmiarami odpowiednio 64x64x3
-oraz 64x64x1, gdzie ostatnia cyfra informuje o ilości kanałów.\\
-Każdy element w zbiorze ma przypisaną wartość liczbową informującą o faktycznej ilości
-oczek wyrzuconych na kostce przedstawianej na zdjęciu. Wartość ta zwana jest także
-odpowiedzią i jest wykorzystywana w procesie uczenia sieci jako docelowa informacja,
-którą ma zwrócić sieć po weryfikacji danego obrazu.
+Do realizacji pracy konieczny było stworzenie zbioru danych składającego się z obrazów
+z kośćmi do gry. Zdjęcia zostały zrobione kamerą o rozdzielczości 1600x1200 pikseli,
+a następnie zmniejszone w celu zaoszczędzenia pamięci i osiągnięcia żądanego rozmiaru,
+który ma kluczowe znaczenie w przypadku zastosowań sieci neuronowych.
+Oprócz zmniejszenia obrazy były również obracane, przekrzywiane(deformowane? wypaczane? \textit{warping}) oraz kadrowane.
+Tak powstałe, liczne zbiory były wykorzystywane w trybie RGB oraz w odcieniach skali szarości,
+co pozwoliło na oszczędzenie pamięci przez zmniejszenie liczby kanałów do jednego.\\
+W pracy używano zbiorów z obrazami o rozmiarach 64x64 oraz 106x79 pikseli. Każde zdjęcie
+w zbiorze miało przypisaną wartość liczbową informującą o faktycznej ilości oczek wyrzuconych
+na przedstawionej kostce. Wartość ta zwana jest odpowiedzią i jest wykorzystywana w
+procesie uczenia sieci jako docelowa informacja, którą ma zwrócić sieć po weryfikacji danego obrazu.
 
 \paragraph{Zbiór treningowy} \mbox{}\\
-Część zbioru danych wykorzystywana w procesie uczenia sieci określana jest mianem zbioru
-treningowego lub zbioru uczącego. Jego liczebność to zazwyczaj 60-80\% całego zbioru danych.
-Praktycznie we wszystkich zastosowaniach dane w tym zbiorze przed rozpoczęciem uczenia
+Część zbioru danych, która wykorzystywana jest w procesie uczenia sieci określana jest jako zbiór
+treningowy lub zbioru uczący. Jego liczebność to zazwyczaj 60-80\% całego zbioru danych.
+Praktycznie zawsze dane znajdujące się w tym zbiorze, przed rozpoczęciem uczenia,
 poddawane są losowej permutacji.
 
 \paragraph{Zbiór testowy} \mbox{}\\
-Zbiór testowy lub zbiór walidacyjny służy do oceny zdolności wytrenowanej sieci do
-rozpoznawania danych. Celem rozdzielenia tego zbioru od danych testowych jest weryfikacja
-sieci na danych, które wcześniej nie zostały przetworzone przez sieć.
+Do oceny zdolności sieci neuronowej do rozpoznawania danych sluży zbiór testowy, zwany
+też walidacyjnym. Celem rozdzielenia tego zbioru od danych testowych jest weryfikacja
+sieci na danych, które nie zostały przez nią przetworzone podczas treningu.
 
 \section{Budowa sieci neuronowej}
 \paragraph{Sieć neuronowa} \mbox{}\\
-Sieć neuronowa bądź sztuczna sieć neuronowa \textit{(ang. ANN Artificial Neural Network)}
-jest strukturą matematyczną, która powinna odzwierciedlać uproszczone działanie biologicznych
-sieci neuronowych \textit{Sieć neuronowa} \cite{intuitiveExplanation, WIKIcnn}. Ma możliwość uczenia się poprzez obliczenia i przetwarzanie sygnałów
-w elementach określanych neuronami. W dziedzinie rozpoznawaniu obrazów są w stanie zidentyfikować
-elementy na obrazach, bez wcześniejszej znajomości lub wiedzy na temat przedmiotu podlegającego
-rozpoznaniu. Realizują to poprzez analizę przykładowych obrazów z informacją czy znajduje się
-na nich pożądany obiekt, a następnie zmianę swoich własnych parametrów w celu poprawnej
-identyfikacji kolejnych zdjęć. Ten rodzaj uczenia się określany jest mianem uczenia nadzorowanego,
-gdzie każdy obraz ma przypisaną wartość.\\
-Zastosowanie sieci jest bardzo szerokie i wykraczające poza rozpoznawanie obrazów, jednak
-w związku z powiązaniem tego zagadnienia z tematyką pracy, podany powyżej przykład ma
-jak najlepiej oddać istotę działania sieci neuronowych.
+Sieć neuronowa \textit{(ang. ANN Artificial Neural Network)} to struktura matematyczna,
+składająca się z neuronów połączonych w warstwy, mająca odzwierciedlać działanie
+biologicznych sieci neuronowych, a w szczególności mózgu \cite{intuitiveExplanation, WIKIcnn}.
+Sieci mają szerokie zastosowanie w bardzo wielu dziedzinach, co przejawia się ich
+popularyzacją w ostatnich latach. Wymagają kosztownego obliczeniowo i czasowo
+procesu uczenia, podczas którego dostosowują się do danego problemu. Użycie wytrenowanej
+sieci, nie wymaga powtarzania uczenia, co pozwala na jej natychmiastowe wykorzystanie.\\
+W dziedzinie rozpoznawania obrazów sieci są w stanie zidentyfikować elementy na obrazach,
+bez wcześniejszej znajomości lub wiedzy na temat przedmiotu który mają rozpoznać.
 
 \paragraph{Neuron} \mbox{}\\
-Najmniejszy element sieci neuronowej, posiada wiele wejść i jedno wyjście. Może
-zawierać także próg (ang. threshold), mogący ulec zmianie przez funkcje uczącą \cite{CS231n_activ, NNbiology, NeuronAnimation}.
-Neuron wyposażony jest także w funkcję aktywacji, odpowiednio modyfikującą jego wyjście.
-W sieciach neuronowych wyjście każdego neuronu połączone jest z wejściami neuronów
-w warstwie następnej.
-\begin{equation}
-f(x_{i}) = \sum_{i}w_{i}x_{i} + b \\
+Neuron jest najmniejszym elementem sieci neuronowej, posiadającym wiele wejść i jedno wyjście \cite{CS231n_activ, NNbiology, NeuronAnimation}.
+Z neuronów w poprzednich warstwach, na każde z wejść docieraja sygnały, które mają 
+przypisaną wagę. W neuronie obliczana jest suma ważona wejść, od której odejmowana jest
+wartość progowa. Jeśli suma przekroczy wartość progową, neuron jest uaktywniany, a suma
+przekazywana jest jako argument funkcji aktywacji neuronu na jego wyjście.\\
+Poniższy wzór \ref{eq:neuron} przedstawia sumę ważoną wejść neuronu wraz z dodatkową wagą.
+\begin{figure}[h!]
+\renewcommand{\figurename}{Wzór}%
+\begin{equation} \label{eq:neuron}
+f(x_{i}) = f\Big(\sum_{i}w_{i}x_{i} + b \Big)\\
 \end{equation}
+\caption{Suma ważona w neuronie wraz z dodatkową wagą \textit{b}}
+\end{figure}
 
 \paragraph{Wagi neuronu} \mbox{}\\
-Połączenia w sieci realizowane są między wyjściem poprzedniego neuronu \textit{i}
-oraz wejściem następnego neuronu \textit{j}. Każde takie połączenie ma przypisaną
-wartość wagi \textit{w\textsubscript{ij}}. Podczas procesu uczenia wagi zmieniają
-się, dostosowując sieć neuronową do otrzymywanych danych, co skutkuje
-zmniejszeniem wartości funkcji błędu.
+Jak opisano już wcześniej, neurony połączone są między sobą dzięki licznym wejściom.
+Każde takie połączenie ma przypisaną wagę, która zmienia się podczas treningu,
+dostosowując sieć neuronową do danych treningowych. Efektem tego jest osiąganie
+coraz lepszych wyników w miarę trwania procesu uczenia.
 
 \paragraph{Bias} \mbox{}\\
-Bias to dodatkowa waga wejściowa do neuronu umożliwiająca jego lepsze dopasowanie
-do danych treningowych \cite{needForBias}. W sytuacji, kiedy wszystkie wagi neuronu mają zerowe
-wartości, unikamy problemów podczas procesu wstecznej propagacji.
+Bias, użyty już we wzorze \ref{eq:neuron} na sumę wag w neuronie jest dodatkową wagą wejściową,
+umożliwiająca jego lepsze dopasowanie neuronu do danych treningowych \cite{needForBias}.
 
 \paragraph{Warstwa} \mbox{}\\
-Sieć neuronowa zorganizowana jest w warstwach. Neurony w danej warstwie nie są
-ze sobą w żaden sposób połączone, komunikacja odbywa się tylko między kolejnymi
-warstwami \cite{CS231n, substBigConv}. Istnieje wiele rodzajów warstw, a sygnał przechodzący przez całą
-sieć zaczyna się w tzw. warstwie wejściowej oraz kończy w tzw. warstwie wyjściowej.
-Istnieją sieci neuronowe (rekurencyjne sieci neuronowe, \textit{, ang. RNN - Recurrent Neural Network})
-w ktorych sygnał może przechodzić przez warstwy kilkukrotnie w trakcie jednej epoki.
+Neurony w sieci zorganizowana są w warstwach. Komunikacja odbywa się tylko między kolejnymi
+warstwami, neurony w danej warstwie nie są ze sobą połączone \cite{CS231n, substBigConv}.
+Istnieje wiele rodzajów warstw, a sygnał przechodzący przez całą sieć zaczyna się w tzw.
+warstwie wejściowej oraz kończy w tzw. warstwie wyjściowej.
 
-\paragraph{Funkcja błędu} \mbox{}\\
-Funkcja błędu lub funkcja kosztu jest niezbędna do prawidłowego przeprowadzenia
-procesu uczenia. Dostarcza informacje o różnicy między obecnym stanem sieci, a
-optymalnym rozwiązaniem. Algorytm uczenia analizuje wartość funkcji kosztu
-w kolejnych krokach w celu jej zminimalizowania.
+\paragraph{Funkcja kosztu} \mbox{}\\
+Do porównywania wyników otrzymywanych przez sieć neuronową wykorzystywana jest funkcja kosztu,
+funkcja oceniajaca lub funkcja błędu. Jest ona niezbędna do prawidłowego przeprowadzenie
+procesu uczenia. Funkcja dostarcza informacje o różnicy między obecnym
+stanem sieci, a optymalnym rozwiązaniem dla danych treningowych. Algorytm uczenia
+analizuje wartość funkcji kosztu w kolejnych krokach w celu jej zminimalizowania.\\
+Najczęściej wykorzystywaną funkcją kosztu jest błąd średniokwadratowy \ref{eq:mse}.
+W tej pracy z uwagi na posiadanie 6 możliwych do uzyskania wyników na wyjściu sieci,
+zastosowano wielowymiarową entropię krzyżową (\textit{ang. Categorical cross-entropy}) \ref{eq:categorical-crossentropy},
+która jest preferowana ponieważ uwypukla aż tak bardzo nieprawidłowych wartości \cite{whyNotMSE}. Jest również
+sugerowana przez bibliotekę Keras oraz wykorzystywana w wielu przykładowych modelach sieci neuronowych.
+\begin{figure}[h!]
+\renewcommand{\figurename}{Wzór}%
+\begin{equation} \label{eq:mse}
+J(\eta) = \frac {1}{2} \sum_{i}^{m} \Big(h_{\theta}(x^{(i)}) - y^{(i)} \Big)^2\\
+\end{equation}
+\caption{Błąd średniokwadratowy}
+\end{figure}
+\begin{figure}[h!]
+\renewcommand{\figurename}{Wzór}%
+\begin{equation} \label{eq:categorical-crossentropy}
+L_{i} = - \sum_{j} t_{i,j} log(p_{i,j})\\
+\end{equation}
+\centering
+gdzie: p - predykcje, t - cele, i - wartość, j - klasa
+\caption{Wielowymiarowa entropia krzyżowa}
+\end{figure}
 
 \paragraph{Współczynnik uczenia} \mbox{}\\
-Współczynnik lub wskaźnik uczenia się \textit{(ang. lerning rate)} wykorzystywany jest
-w optymalizatorach do ustalenia, jak szybko algorytm uczenia powinien dostosowywać wartości
-wag do danego przypadku. Często jest uzależniony od wyboru rodzaju optymalizatora. Zbyt mały
-współczynnik wydłuży proces uczenia, natomiast za duży może spowodować problemy ze znalezieniem
-odpowiedniego rozwiązania. W niektórych algorytmach współczynnik uczenia zmniejsza się w czasie,
-by lepiej dostosować się do danych.
+Aby dostosować stopień w jakim sieć neuronowa będzie dostosowywać się do danych wykorzystujemy
+współczynnik lub wskaźnik uczenia się \textit{(ang. lerning rate)}. Często jest
+uzależniony od wyboru rodzaju optymalizatora. Wybranie zbyt małego współczynnika wydłuży
+proces uczenia, a w skrajnych przypadkach sieć nie zdąży dotrzeć do minimum.
+Jeśli zostanie wybrany za duży współczynnik, może spowodować problemy ze znalezieniem
+optymalnego rozwiązania. W niektórych algorytmach współczynnik uczenia zmniejsza się w czasie,
+by lepiej dostosować się do danych i zniwelować oba wspomniane problemy.
 
 \section{Propagacja wsteczna}
 Propagacja wsteczna lub wsteczna propagacja błędów \textit{(ang. Backpropagation)}
-jest jednym z najskuteczniejszych algorytmów uczenia sieci neuronowych \cite{CS231n_backprop, backprop}. Polega
-na minimalizacji funkcji kosztu, korzystając z metody najszybszego spadku lub
-innych, bardziej zoptymalizowanych sposobów. Błędy w sieci propagowane są od warstwy wyjściowej
-do wejściowe, czemu algorytm zawdzięcza swoją nazwę.
+jest algorytmem uczenia sieci neuronowych \cite{CS231n_ackprop, backprop}.
+Służy do wyliczenia gradientu funkcji kosztu, który informuje o szybkości spadku wartości tej funkcji
+w danym kierunku z uwzględnieniem wag neuronów oraz biasu. Obliczenie gradientu w sieci propagowane
+jest od warstwy wyjściowej do wejściowe, czemu algorytm zawdzięcza swoją nazwę.
 
 \section{Konwolucyjna sieć neuronowa}
+
+Ilość parametrów przy pracy na zdjęciach jest dużym problemem w przypadku sieci neuronowych.
+W celu ich zmniejszenia, stosuje się konwolucyjne sieci neuronowe \textit{(ang. CNN - Convolutuinal Neural Network)}.
+Do kolejnych warstw nie są przekazywane informacje o wszystkich pikselach znajdujących się
+na obrazach. Zamiast tego, sieć analizuje obraz przy użyciu filtrów konwolucyjnych i
+przesyła dalej informacje o zaobserwowanych cechach.
+
 \paragraph{Konwolucja} \mbox{}\\
 Konwolucja, inaczej splot polega na złożeniu dwóch funkcji. W przypadku obrazów
 jedna z tych funkcji to obraz, który ma rozmiary większe niż druga funkcja określana
 mianem filtra konwolucyjnego. Zastosowanie splotu, w zależności od przypadku,
-pozwala na rozmycie, wyostrzanie lub wydobycie głębi z danego obrazu. \textit{Szczegółowe wyjaśnienie} \cite{konwolucja}
-\begin{equation}
+pozwala na rozmycie, wyostrzanie lub wydobycie głębi z danego obrazu \cite{konwolucja}.
+Poniższy wzór \ref{eq:conv} przedstawia sposób obliczenia splotu dwóch funkcji.
+\begin{figure}[h!]
+\renewcommand{\figurename}{Wzór}%
+\begin{equation} \label{eq:conv}
 h[m, n] = (f * g)[m, n] = \sum_j^m \sum_k^n f[j, k] * g[m-j, n-k] \\
 \end{equation}
+\caption{Funkcja h to splot funkcji f oraz g}
+\end{figure}
 
 \paragraph{Konwolucyjna sieć neuronowa} \mbox{}\\
 Konwolucyjna lub splotowa sieć neuronowa \textit{(ang. CNN - Convolutuinal Neural Network)}

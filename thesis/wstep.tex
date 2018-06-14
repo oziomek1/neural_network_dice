@@ -2,6 +2,10 @@
 
 \chapter{Wstęp}
 
+Sieci neuronowe składają się ze sztucznych neuronów, które są uproszczonymi modelami ich
+biologicznych odpowiedników, a pierwsze prace nad nimi zaczęły sie już w latach 50.
+XX wieku.
+
 \section{Biologiczny neuron}
 
 Neuron to komórka nerwowa zdolna do przewodzenia i przetwarzania sygnału
@@ -10,7 +14,7 @@ układu nerwowego wszystkich zwierząt. Każdy neuron składa się z
 ciała komórki (soma, neurocyt) otaczającego jądro komórkowe, neurytu (akson)
 odpowiedzialnego za przekazywanie informacji z ciała komórki do kolejnych neuronów
 oraz dendrytów służących do odbierania sygnałów i przesyłaniu ich do ciała
-komórkowego \textit{Budowa neuronu} \cite{CS231n, NNbiology}.
+komórkowego \cite{CS231n, NNbiology}.
 Impuls elektryczny między neuronami przekazywany jest
 w synapsie, miejscu komunikacji neuronu z następnym. Synapsa składa się
 z części presynaptycznej (aksonu) i postsynaptycznej (dendrytu). Neuron
@@ -26,18 +30,19 @@ jest na około 10\textsuperscript{15}.
 
 \section{Sztuczny neuron}
 
-Matematycznym modelem neuronu jest tzw. neuron McCullocha-Pittsa, nazywany
+Podstawowym modelem neuronu jest tzw. neuron McCullocha-Pittsa, nazywany
 również neuronem binarnym. Jest to prosta koncepcja zakładająca, że każdy neuron
 posiada wiele wejść, z których każde ma przypisaną wagę w postaci liczby
-rzeczywistej oraz jedno wyjście. Wyjściem neuronu jest wartość funkcji aktywacji
+rzeczywistej oraz jedno wyjście. Wyjściem neuronu jest wartość funkcji
 dla argumentu będącego sumą wszystkich wag pomnożonych przez odpowiednie
-wartości wejściowe. Wyjście danego neuronu połączone jest z wejściami innych
-neuronów, tak jak ma to miejsce w przypadku biologicznego neuronu \textit{Sztuczny neuron} \cite{CS231n}.\\
+wartości wejściowe, określana jako funkcja aktywacji, wyjaśniona w późniejszych rozdziałach.
+Wyjście danego neuronu połączone jest z wejściami innych
+neuronów, tak jak ma to miejsce w przypadku biologicznego neuronu \cite{CS231n}.\\
 Tak zbudowany, sztuczny model neuronu jest podstawowym składnikiem sztucznych sieci
 neuronowych z racji prostoty działania i łatwości implementacji.\\
 Wykorzystanie pojedynczego neuronu nie pozwala na rozwiązywanie skomplikowanych zadań.
 Przykładowo próba realizacji prostych funkcji logicznych ANR, OR, NOT i XOR okazuje
-się możliwa jedynie dla trzech pierwszych podanych funkcji \textit{Rozwinięcie zagadnienia} \cite{XORproblem}.
+się możliwa jedynie dla trzech pierwszych podanych funkcji \cite{XORproblem}.
 Problem wiąże się z brakiem możliwości uzyskania poprawnych rezultatów dla zbiorów które
 nie są liniowo separowalne, czego przykładem jest właśnie funkcja XOR. W takich przypadkach
 konieczne jest użycie większej ilości neuronów. Tworzenie rozbudowanych struktur z pojedynczych
@@ -47,22 +52,9 @@ dla poszczególnych problemów, niejednokrotnie zaskakując osiąganymi wynikami
 \section{Historia}
 
 Rozpoczęcie prac nad sztucznymi neuronami można datować na rok 1943 kiedy to
-Warren McCulloch i Walter Pitts przedstawili wspomniany już wcześniej model \textit{Historia} \cite{NNbiology}.
-Pierwsze sieci neuronowe używane były do operacji bitowych i przewidywania kolejnych
+Warren McCulloch i Walter Pitts przedstawili wspomniany już wcześniej model \cite{NNbiology}.
+Pierwsze sieci neuronowe używane były do operacji bitowych oraz przewidywania kolejnych
 wystąpień bitów w ciągu. Mimo licznych prób zastosowania ich do realnych problemów
-nie zyskały one popularności. Powodem tego były prace naukowe sugerujące ograniczenia
-sieci takie jak brak możliwości rozszerzenia sieci do więcej niż jednej warstwy oraz
-jedynie jednokierunkowe połączenie między neuronami. W początkowym okresie rozwoju
-sieci neuronowych przyjmowano także wiele błędnych założeń, które wraz z ograniczonymi
-możliwościami obliczeniowymi komputerów skutecznie zniechęcały naukowców do prac
-nad tym zagadnieniem.\\
-Przełomem okazał się rok 1982, kiedy to John Hopfield przedstawił sieć asocjacyjną
-(zwaną siecią Hopfielda). Nowością było dwukierunkowe połączenie neuronów, co
-zapewniało możliwość uczenia się danych wzorców. Kolejnymi przełomowymi odkryciami
-były zarówno wprowadzenie wielowarstwowych sieci neuronowych oraz wstecznej
-propagacji. Nowe odkrycia pozwoliły na zastosowanie sieci w wielu różnych
-dziedzinach, wymagając jednak dużych ilości obliczeń, obszernych zbiorów
-treningowych, wielu tysięcy iteracji i długiego czasu potrzebnego na wytrenowanie.
-Korzyścią płynącą z zastosowania sieci neuronowej jest fakt, że wytrenowany model
-dzięki zapisanym wartościom wag neuronów można wykorzystać natychmiastowo bez konieczności
-uczenia.
+nie zyskały one popularności. W początkowym okresie rozwoju sieci neuronowych
+przyjmowano także wiele błędnych założeń, które wraz z ograniczonymi możliwościami
+obliczeniowymi komputerów skutecznie zniechęcały naukowców do prac nad tym zagadnieniem.\\
