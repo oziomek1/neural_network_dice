@@ -12,10 +12,8 @@ językiem używany w bibliotekach wykorzystywanych do tworzenia modeli sieci neu
 \paragraph{Jupyter Notebook} \mbox{}\\
 Aplikacja Jupyter Notebook pozwala uruchamiać w przeglądarce pliki, nazywane notebookami,
 które składają się z wielu bloków. W blokach może znajdować się wykonywalny kod programu
-lub jego fragment, a w pozostałych można prezentować m.in. teksty, wykresy bądź tabele.
-Korzystanie z Jupyter Notebooka zdecydowanie ułatwia pracę, umożliwiając tworzenie
-kodu wraz z podglądem wykresów bądź danych prezentowanych w innej formie, bez
-konieczności przełączania między oknami bądź kartami danego środowiska programistycznego.\\
+lub jego fragment, a w pozostałych można prezentować m.in. teksty, wykresy bądź tabele,
+co zdecydowanie ułatwia pracę.\\
 W tej pracy wykorzystywana jest to uruchamiania programów w języku Python.
 
 \section{Biblioteki}
@@ -45,8 +43,7 @@ osoby niezrozumiałe, jest to świetna alternatywa do wdrożenia się w to zagad
 Moduł języka Python umożliwiający wykonywanie zaawansowanych operacji na macierzach
 oraz wektorach, wspierający liczne funkcje matematyczne. Jest bardzo rozpowszechniony
 i wykorzystywany w wielu, głównie naukowych zastosowaniach. Numpy wprowadza własne
-typy danych oraz funkcje niedostępne w standardowej instalacji Pythona. Może być
-rozbudowany o moduł Scipy, który nie był jednak wykorzystany przy tworzeniu tej pracy.
+typy danych oraz funkcje niedostępne w standardowej instalacji Pythona.
 
 \paragraph{Matplotlib} \mbox{}\\
 Narzędzie do tworzenia wykresów dla języka Python oraz modułu Numpy. Z uwagi na
@@ -71,9 +68,7 @@ karta NVIDIA TESLA K80 12GB GPU dostępna na Amazon AWS oraz Google Compute Engi
 
 \paragraph{Amazon AWS EC2} \mbox{}\\
 Platforma z wirtualnymi maszynami zwanymi instancjami, które można dostosować
-zależnie od potrzeb klienta. Usługa działa na zasadzie rozliczenia godzinowego
-podczas korzystania z niej. W tej pracy zostały wykorzystane instancje
-zoptymalizowane do obliczeń na kartach graficznych i uczenia maszynowego,
-wyposażone we wcześniej wspomnianą kartę NVIDIA TESLA K80. Warto
-zwrócić uwagę, że na obu platformach czas uczenia sieci zmniejszył się średnio 6-10
-krotnie w stosunku do pracy na komputerze wykorzystującym procesor.
+zależnie od potrzeb klienta. W tej pracy zostały wykorzystane instancje
+zoptymalizowane do obliczeń na kartach graficznych i uczenia maszynowego.
+Dzięki jej wykorzystaniu, czas uczenia sieci zmniejszył się średnio 6-10 krotnie
+w stosunku do pracy na komputerze wykorzystującym procesor.

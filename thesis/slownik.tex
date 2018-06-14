@@ -107,21 +107,24 @@ by lepiej dostosować się do danych i zniwelować oba wspomniane problemy.
 
 \section{Propagacja wsteczna}
 Propagacja wsteczna lub wsteczna propagacja błędów \textit{(ang. Backpropagation)}
-jest algorytmem uczenia sieci neuronowych \cite{CS231n_ackprop, backprop}.
+jest algorytmem uczenia sieci neuronowych \cite{CS231n_backprop, backprop}.
 Służy do wyliczenia gradientu funkcji kosztu, który informuje o szybkości spadku wartości tej funkcji
 w danym kierunku z uwzględnieniem wag neuronów oraz biasu. Obliczenie gradientu w sieci propagowane
 jest od warstwy wyjściowej do wejściowe, czemu algorytm zawdzięcza swoją nazwę.
 
 \section{Konwolucyjna sieć neuronowa}
 
-Ilość parametrów przy pracy na zdjęciach jest dużym problemem w przypadku sieci neuronowych.
+Przy wykorzystywaniu sieci neuronowych do operowania na zdjęciach, pojawia się problem
+dużą ilością parametrów odpowiadających wartościom każdego z pikseli.
 W celu ich zmniejszenia, stosuje się konwolucyjne sieci neuronowe \textit{(ang. CNN - Convolutuinal Neural Network)}.
-Do kolejnych warstw nie są przekazywane informacje o wszystkich pikselach znajdujących się
-na obrazach. Zamiast tego, sieć analizuje obraz przy użyciu filtrów konwolucyjnych i
-przesyła dalej informacje o zaobserwowanych cechach.
+Do kolejnych warstw zamiast przekazywania informacje o wszystkich pikselach znajdujących się
+na obrazach, sieć analizuje obraz przy użyciu filtrów konwolucyjnych i
+przesyła dalej informacje o zaobserwowanych cechach.\\
+Obecnie ten typ sieci odnosi największe osiągnięcia w dziedzinie rozpoznawania obrazów,
+w wielu przypadkach dorównując lub nawet pokonująć ludzkie wyniki.
 
 \paragraph{Konwolucja} \mbox{}\\
-Konwolucja, inaczej splot polega na złożeniu dwóch funkcji. W przypadku obrazów
+Wymieniona wyżej konwolucja, inaczej splot polega na złożeniu dwóch funkcji. W przypadku obrazów
 jedna z tych funkcji to obraz, który ma rozmiary większe niż druga funkcja określana
 mianem filtra konwolucyjnego. Zastosowanie splotu, w zależności od przypadku,
 pozwala na rozmycie, wyostrzanie lub wydobycie głębi z danego obrazu \cite{konwolucja}.
@@ -131,165 +134,159 @@ Poniższy wzór \ref{eq:conv} przedstawia sposób obliczenia splotu dwóch funkc
 \begin{equation} \label{eq:conv}
 h[m, n] = (f * g)[m, n] = \sum_j^m \sum_k^n f[j, k] * g[m-j, n-k] \\
 \end{equation}
-\caption{Funkcja h to splot funkcji f oraz g}
+\centering
+\captionsetup{justification=centering,margin=1cm}
+\caption{Splot funkcji. Funkcja f to dwuwymiarowa macierz z pikselami obrazu. Funkcja g to filtr. Funkcja h to nowootrzymany obraz.}
 \end{figure}
 
-\paragraph{Konwolucyjna sieć neuronowa} \mbox{}\\
-Konwolucyjna lub splotowa sieć neuronowa \textit{(ang. CNN - Convolutuinal Neural Network)}
-to typ sieci odnoszący największe osiągnięcia w dziedzinie rozpoznawania obrazów,
-w wielu przypadkach dorównując lub nawet pokonując ludzkie wyniki. Zawdzięczają to
-swojej budowie, która różni się od zwykłych sieci wykorzystaniem warstw konwolucyjnych
-i poolingowych, poprzedzających warstwy w pełni połączone. Sieć taka analizuje obraz
-przy użyciu filtrów konwolucyjnych, dzięki którym jest w stanie rozpoznawać cechy
-obrazów, co znacząco poprawia ich klasyfikacje.
-
 \section{Warstwy sieci neuronowej}
+
+W sieciach neuronowych wyróżniamy kilka rodzajów warstw, które poza wejściową i wyjściową,
+można dopierać zależnie od sposobu rozwiązania danego problemu i typu posidanych danych.
+
 \paragraph{Wejściowa} \mbox{}\\
-W pracy, gdzie zbiorami danych są zbiory obrazów, każdy pojedynczy piksel obrazu
-odpowiada jednej wartości liczbowej. W związku z tym rozmiar pierwszej warstwy
-wejściowej jest identyczny z wymiarami obrazu. Warstwa wejściowa charakteryzuje się
-brakiem wejść oraz biasu.
+W sytuacji gdy danymi jest zbiór obrazów, warstwa wejściowa ma rozmiar identyczny z
+wymiarami obrazu. Pierwsza warstwa charakteryzuje się brakiem wejść oraz biasu.
 
 \paragraph{Wyjściowa} \mbox{}\\
-Rozmiar warstwy wyjściowej odpowiada ilości klas, do jakiej wejściowe dane miały
-zostać sklasyfikowne. Oczekiwanym wyjściem sieci w pracy była liczba oczek możliwych
-do wyrzucenia na kostce, co odpowiada 6 klasom, po jednej na każdą wartość na boku
-kostki. Wyjściem wszystkkich przedstawianych w tej pracy sieci był wektor o wymiarach
-6x1.
+Rozmiar warstwy wyjściowej odpowiada ilości klas do jakiej dane były klasyfikowne.
+W tej pracy, gdzie czekiwanym wyjściem była liczba oczek możliwych do wyrzucenia na
+kostce, odpowiada to 6 klasom. Wyjściem takiej sieci jest więc wektor o wymiarach 6x1.
 
 \paragraph{Konwolucyjna} \mbox{}\\
 Warstwa konwolucyjna służy do przetworzenia danych z poprzedniej warstwy przy użyciu
 filtrów konwolucyjnych \cite{CS231n}. Filtry mają określone wymiary i służą do znajdowania cech
-na obrazach lub ich fragmentach. Najczęściej spotykanymi przykładami filtrów są
-kwadraty o wymiarach 3x3 piksele, które przetwarzają informacje zawarte w 9 pikselach
-na jeden piksel wyjściowy.
-Zastosowanie wielu warstw konwolucyjnych umożliwia filtrom analizowanie bardziej złożonych
-zależności na obrazach i jest określane jako głęboka sieć. Szeroka sieć posiada większą
-liczbę neuronów w każdej z warstw, co umożliwia precyzyjniejszą obserwację danych.
-Ograniczeniem w przypadku sieci głębokiej i szerokiej jest ilość i czas obliczeń, co
-wymusza wybranie kompromisu między ilością warstw i neuronów dla danego problemu.
-
-\paragraph{Aktywacyjna} \mbox{}\\
-Jest to wydzielenie funkcji aktywacji do osobnej warstwy, które jest realizowane
-w niektórych bibliotekach. Celem takiego zabiegu jest umożliwienie podglądu danych
-na wyjściu neuronu, tuż przed zaaplikowaniem samej funkcji aktywacji.
+na obrazach lub ich fragmentach. Zastosowanie wielu warstw konwolucyjnych umożliwia filtrom
+analizowanie bardziej złożonych zależności na obrazach.
 
 \paragraph{W pełni połączona} \mbox{}\\
-Sieć neuronowa składa się z w pełni połączonych warstw \textit{(ang. Fully Connected, Dense)}.
-W konwolucyjnych sieciach neuronowych warstwy te występują po warstwach konwolucyjnych
+Najbardziej rozpowszechnionymi typami warstw są w pełni połączone \textit{(ang. Fully Connected, Dense)}.
+Każdy neuron łączy się ze wszystkimi neuronami następnej warstwy. Skutkuje to dużą ilością
+potrzebnych do wykonania obliczeń, choć są stosunkowo proste do zaapikowania.
+W sieciach konwolucyjnych umieszczane są po lub między warstwami konwolucyjnymi
 i służą do powiązania nieliniowych kombinacji, które zostały wygenerowane przez
-warstwy konwolucyjne oraz ich sklasyfikowania. Dodatkowo nie wymagają dużych nakładów
-obliczeniowych i są stosunkowo proste do zaaplikowania. Swoją nazwę biorą od sposobu, w jaki
-realizowane sa połączenia między warstwami. Każdy neuron łączy się ze wszystkimi neuronami
-następnej warstwy.
+warstwy konwolucyjne oraz ich sklasyfikowania.
 
 \paragraph{Flatten} \mbox{}\\
 Warstwa spłaszczająca \textit{(ang. Flatten)} stosowana jest w celu połączenia warstw
-konwolucyjnych lub aktywacji wraz z warstwami w pełni połączonymi. Realizowane jest
-to poprzez przekształcenie warstwy wejściowej do jednowymiarowego wektora, który następnie
-służy za wejście do kolejnych warstw.
+konwolucyjnych z warstwami w pełni połączonymi. Realizowane jest to poprzez przekształcenie
+warstwy wejściowej do jednowymiarowego wektora, który następnie służy za wejście
+do kolejnych warstw.
 
 \paragraph{Odrzucająca} \mbox{}\\
-Warstwa odrzucająca \textit{(ang. Dropout)} zapobiega przetrenowaniu \textit{(ang. Overfitting)}
-sieci \textit{Zapobieganie przetrenowaniu} \cite{DropoutPreventOverfit}.
-Proces ten polega na nie wykorzystywaniu wyjść pewnych neuronów, zarówno
-w przypadku przechodzenia w przód oraz w tył \textit{DropConnect} \cite{DropConnect}. Stosuje się ją po warstwach w pełni
-połączonych, w celu zapobiegania rozległym zależnościom między neuronami. W warstwie
-tej określone jest prawdopodobieństwo \textit{p} z jakim neuron zostanie zachowany
-w warstwie oraz \textit{p - 1} z jakim zostanie odrzucony. Najczęstsza wartość jest
-z zakresu 0,5-0,8.
+Użycie warstwy odrzucającej \textit{(ang. Dropout)} jest jednym z najlepszych sposobów
+na poradzenie sobie ze zjawiskiem przetrenowania, opisanym na końcu tego rozdziału
+\cite{DropoutPreventOverfit}. Warstwa odrzucająca nie wykorzystuje wyjść pewnych neuronów,
+co zapobiega rozległym zależnościom między neuronami. W warstwie tej określamy prawdopodobieństwo
+z jakim neurony zostaną zachowane. Najczęściej stosuje się ją po warstwach w pełni
+połączonych, zarówno przy przechodzeniu w przód jak i tył \cite{DropConnect}.
 
 \paragraph{Pooling} \mbox{}\\
-Warstwa tzw. poolingu wykorzystywana jest do zmniejszenia rozmiaru pamięci oraz ilości obliczeń
-wymaganych przez sieć neuronową, jak również może zapobiegać przetrenowaniu \cite{CS231n}. Operacja zmniejszenia
-polega na wybraniu jednego piksela z danego obszaru i przekazaniu go dalej. Najczęściej wykorzystywaną
-warstwą poolingową jest MaxPooling, wybierający piksel o największej wartości. Obszar, z jakiego
-wybieramy dany piksel, zależy od ustawień, najczęściej jest to kwadrat o wymiarach 2x2. Pooling
-jest krytykowany, ponieważ nie zachowuje informacji o położeniu piksela przekazanego na wyjście
-warstwy, co może objawiać się błędnymi interpretacjami podczas testowania sieci.
+Warstwa ta wykorzystywana jest do zmniejszenia rozmiaru pamięci oraz ilości obliczeń
+w sieci neuronowej. Operacja polega na wybraniu jednego piksela z danego obszaru i przekazaniu
+go do następnej warstwy. Najczęściej wykorzystywaną warstwą poolingową jest MaxPooling, wybierający
+piksel o największej wartości. Pooling jest krytykowany za brak zachowywania informacji
+o położeniu piksela przekazanego na wyjście warstwy, co może objawiać się błędnymi
+interpretacjami danych przez sieci.
 
 \section{Funkcje aktywacji}
-\paragraph{Funkcja aktywacji} \mbox{}\\
-Przy pomocy funkcji aktywacji obliczana jest wartość wyjściowa neuronów w sieci
-neuronowej. Argumentem dostarczanym do funkcji aktywacji jest suma wejść neuronu
-pomnożonych przez przypisane im wartości wag. Zależnie od konkretnego rodzaju funkcji
-aktywacji, neuron po przekroczeniu danego progu wysyła sygnał wyjściowy, odbierany
-przez neurony znajdujące się w następnej warstwie. Jeśli próg nie zostanie przekroczony,
-neuro nie wyśle żadnego sygnału.
-\begin{equation}
-f\Big(\sum_{i}w_{i}x_{i} + b\Big) \\
-\end{equation}
 
-\paragraph{Liniowa} \mbox{}\\
-Funkcja ta jest praktycznie niewykorzystywana w sieciach neuronowych \cite{activationFunctions}.
-Połączenie wielu warstw, których neurony mają liniową funkcję aktywacji można przedstawić
-za pomocą jednej warstwy, ponieważ złożenie wielu funkcji liniowych również będzie
-funkcją liniową. Nieliniowość funkcji pozwala na klasyfikację danych przechodzących
-przez sieć.
-\begin{equation}
-f(x) = x
-\end{equation}
+Jeśli wartość progowa danego neuronu zostanie przekroczona, to suma wag zostaje przekazana
+jako argument do funkcji aktywacji, a obliczona wartości staje się wyjściem neuronu.
+Wybór funkcji jest jednym z kluczowych parametrów danej sieci, ponieważ niewłaściwy wybór
+może prowadzić do problemów podczas uczenia sieci.
 
 \paragraph{Sigmoid} \mbox{}\\
-Największym problemem funkcji sigmoidalnej jest duże ryzyko zaniknięcia gradientu,
-co może prowadzić do problemu tzw. umierającego neuronu \textit{Opis Sigmoid} \cite{activationFunctions}.
-Zjawisko to ma miejsce, gdy dla danej funkcji aktywacji, gradient staję się bardzo mały, co jest równoznaczne
-z zaprzestaniem procesu uczenia. W przypadku tej funkcji gradient może zanikać obustronnie.
-\begin{equation}
+Sigmoid popularną funkcją aktywacji \ref{eq:sigmoid}. Problemem z nią związanym
+jest ryzyko zaniknięcia gradientu, co może prowadzić do problemu tzw. umierającego
+neuronu \cite{activationFunctions}. Wystepuje ono, gdy dla danej funkcji aktywacji,
+gradient staję się bardzo mały, co jest równoznaczne z zaprzestaniem procesu uczenia.
+W sigmoid gradient może zanikać obustronnie.
+\begin{figure}[h!]
+\renewcommand{\figurename}{Wzór}%
+\begin{equation} \label{eq:sigmoid}
 f(x) = \sigma(x) = \frac{1}{1 + e^{-x}} \\
 \end{equation}
+\caption{Funkcja sigmoidalna}
+\end{figure}
 
 \paragraph{Tangens hiperboliczny} \mbox{}\\
-Tangens hiperboliczny lub tanh jest w istocie przekształconą funkcją simgodalną
-\textit{Opis tanh} \cite{activationFunctions, activationFunctionsV2}. Wykorzystanie
+Tangens hiperboliczny lub tanh \ref{eq:tanh} jest w istocie przekształconą funkcją simgodalną
+\cite{activationFunctions, activationFunctionsV2}. Wykorzystanie
 jej powoduje większe wahania gradientu.
-\begin{equation}
+\begin{figure}[h!]
+\renewcommand{\figurename}{Wzór}%
+\begin{equation} \label{eq:tanh}
 f(x) = tanh(x) = \frac{(e^x - e^{-x})}{(e^x + e^{-x})} = \frac{2}{1+e^{-2x}} - 1 = 2 sigmoid(2x) - 1\\
 \end{equation}
+\caption{Tangens hiperboliczny}
+\end{figure}
 
 \paragraph{ReLU} \mbox{}\\
-ReLU \textit{(and. Rectified linear unit)} jest najpopularniejszą funkcją aktywacji
-wykorzystywaną w sieciach neuronowych \textit{Wady i zalety ReLU} \cite{CS231n_activ, WIKIrectifier}.
-Zasługą tego jest szybki czas uczenia sieci
-bez znaczącego kosztu w postaci generalizacji dokładności. Problem z zanikającym
-gradientem jest mniejszy niż w przypadku funkcji sigmoidalnej, ponieważ występuje
-on tylko z jednej strony.
-\begin{equation}
+ReLU \textit{(and. Rectified linear unit)} \ref{eq:relu} jest najpopularniejszą funkcją
+aktywacji wykorzystywaną w sieciach neuronowych \cite{CS231n_activ, WIKIrectifier}.
+Zasługą tego jest szybki czas uczenia sieci bez znaczącego kosztu w postaci generalizacji
+dokładności. Problem z zanikającym gradientem jest mniejszy niż w przypadku funkcji
+sigmoidalnej, ponieważ występuje on tylko z jednej strony.
+\begin{figure}[h!]
+\renewcommand{\figurename}{Wzór}%
+\begin{equation} \label{eq:relu}
 f(x) = max(0, x)
 \end{equation}
+\caption{ReLU - Rectified linear unit}
+\end{figure}
 
 \paragraph{LeakyReLU} \mbox{}\\
-LeakyReLU jest ulepszeniem ReLU \textit{Wady i zalety LeakyReLU} \cite{CS231n_activ}
-dzięki zastosowaniu niewielkiego gradientu w sytuacji, dla której ReLU jest nieaktywne. Zmiana ta pozwala na uniknięcie problemu tzw
-umierającego neuronu.
-\begin{equation}
+LeakyReLU jest ulepszeniem funkcji ReLU \cite{CS231n_activ} dzięki zastosowaniu niewielkiego
+gradientu w sytuacji, dla której ReLU jest nieaktywne. Zmiana ta pozwala na uniknięcie
+problemu znikającego gradientu. Jej wzór \ref{eq:leakyrelu} przedstawiony jest poniżej.
+\begin{figure}[h!]
+\renewcommand{\figurename}{Wzór}%
+\begin{equation} \label{eq:leakyrelu}
 f(x) =
 \begin{cases}
 x & \text{if } x \geqslant 0 \\
 0.01x & \text{if } x < 0 \\
 \end{cases}
 \end{equation}
+\caption{LeakyReLU}
+\end{figure}
 
-\section{Optymalizatory}
-\paragraph{Optymalizator} \mbox{}\\
-Inne określenie algorytmu optymalizacyjnego wykorzystywanego do obliczania wag neuronów
-i biasu sieci neuronowej. Posiada kluczowe znaczenie podczas procesu uczenia sieci,
-zarówno w kwestii czasu oraz skuteczności. Z tego powodu jest to jeden z kluczowych
-obszarów obecnych badań i rozwoju sieci neuronowych \textit{Artykuł na temat optymalizatorów} \cite{typesOfOptimizationAlgorithms}.
+\paragraph{Softmax} \mbox{}\\
+Softmax jest funkcją obliczającą rozkład prawdopodobieństwa wystąpienia danego zdarzenia
+ze wszystkich możliwych. Wykorzystywana jest w zadagnieniach wymagających przyporządkowania
+elementu do jednej z wielu do wielu klas. Wzór funkcji \ref{eq:softmax} zaprezentowany jest poniżej.
+\begin{figure}[h!]
+\renewcommand{\figurename}{Wzór}%
+\begin{equation} \label{eq:softmax}
+f(x_{i}) = \frac{e^{x_{i}}} {\sum_{j = 0}^{k}(e^{x_{j}}}
+\end{equation}
+\caption{Funkcja softmax}
+\end{figure}
 
-\paragraph{Metoda gradientu prostego} \mbox{}\\
-Metoda gradientu prostego \textit{(ang. Gradient Descent)} jest podstawowym algorytmem
-służacym do uaktualniania wartości wag oraz biasu podczas procesu uczenia sieci. Wadą tej
-metody jest przeprowadzanie jednorazowej aktualizacji po wyliczeniu gradientu dla
-całego zestawu danych. Jest to bardzo powolne, w niektórych przypadkach może powodować
-problem z ilością zajmowanego miejsca w pamięci. Największą wadą jest możliwość doprowadzenia
-do stagnacji w jednym z lokalnych minimów funkcji.
-\begin{equation}
+\section{Optymalizator}
+
+Optymalizator to określenie algorytmu optymalizacyjnego wykorzystywanego do obliczania wag neuronów
+i biasu w sieci neuronowej. Posiada kluczowe znaczenie podczas procesu uczenia sieci,
+zarówno w kwestii czasu oraz skuteczności. Z tego powodu to zagadnienie jest obiektem
+wielu obecnych badań i rozwoju sieci neuronowych \cite{typesOfOptimizationAlgorithms}.
+
+\paragraph{Metoda największego spadku} \mbox{}\\
+Metoda największego spadku \textit{(ang. Gradient Descent)} jest podstawowym algorytmem
+służacym do zmiany wartości wag oraz biasu podczas procesu uczenia sieci \ref{eq:gradientdescent}.
+Wadą tej metody jest przeprowadzanie jednorazowej aktualizacji po wyliczeniu gradientu dla
+całego zestawu danych. Spowalnia to uczenie i może powodować problem z ilością zajmowanego
+miejsca w pamięci. Największą wadą jest możliwość doprowadzenia do stagnacji w jednym z
+lokalnych minimów funkcji.
+\begin{figure}[h!]
+\renewcommand{\figurename}{Wzór}%
+\begin{equation} \label{eq:gradientdescent}
 \theta = \theta - \eta * \nabla J(\theta)
 \end{equation}
+\caption{Metoda największego spadku}
+\end{figure}
 
 \paragraph{Stochastic Gradient Descent} \mbox{}\\
-\textit{(nazwa w języku angielskim z powodu braku znalezienia polskiego odpowiednika)}
 Stochastic Gradient Descent \textit{(skrót. GDA)} jest rozwinięciem metody gradientu
 prostego, bardzo często wykorzystywana w praktyce \textit{Opis SGD} \cite{OptimizersOverview}.
 Ulepszenie polega na obliczaniu gradientu dla jednego lub niewielkiej ilości przykładów
@@ -355,6 +352,21 @@ Wartości zwrócone przez sieć po umieszczeniu w niej określonych danych są o
 mianem predykcji. Pozwala to na wykorzystanie nauczonego modelu w praktycznym
 zastosowaniu.
 
+\paragraph{Przetrenowanie} \mbox{}\\
+Zjawisko przetrenowania \textit{(ang. Overfitting)}, wspomniane przy opisywaniu warstwy
+odrzucającej, jest jednym z największych problemów podczas pracy z sieciami neuronowymi.
+Podczas trenowania sieci, możemy obserwować oczekiwany wzrost dokładności i spadek wartości
+funkcji kosztu. Przetrenowanie wystepuje kiedy dla testowych danych sprawność sieci
+drastycznie spada. Istnieje duże ryzyko, że autor sieci nie będzie świadomy występowania tego
+problemu, który w ostateczności może doprowadzić do konieczności tworzenia sieci od nowa.
+sieci \cite{DropoutPreventOverfit}.
+Proces ten polega na nie wykorzystywaniu wyjść pewnych neuronów, zarówno
+w przypadku przechodzenia w przód oraz w tył \cite{DropConnect}. Stosuje się ją po warstwach w pełni
+połączonych, w celu zapobiegania rozległym zależnościom między neuronami. W warstwie
+tej określone jest prawdopodobieństwo \textit{p} z jakim neuron zostanie zachowany
+w warstwie oraz \textit{p - 1} z jakim zostanie odrzucony. Najczęstsza wartość jest
+z zakresu 0,5-0,8.
+
 \section{Inne}
 
 \paragraph{ILSVRC} \mbox{}\\
@@ -378,10 +390,6 @@ jak MNIST jeden z najbardziej popularnych zbiorów do uczenia maszynowego i siec
 
 \\\\\\
 Tematy do uwzględnienia:
-opis RMSprop,
 minibatch,
-nesterov,
 momentum,
-softmax,
-categorical crossentropy,
 one-hot encoding,
