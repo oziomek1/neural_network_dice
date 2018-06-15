@@ -6,7 +6,7 @@ Do realizacji pracy konieczny było stworzenie zbioru danych składającego się
 z kośćmi do gry. Zdjęcia zostały zrobione kamerą o rozdzielczości 1600x1200 pikseli,
 a następnie zmniejszone w celu zaoszczędzenia pamięci i osiągnięcia żądanego rozmiaru,
 który ma kluczowe znaczenie w przypadku zastosowań sieci neuronowych.
-Oprócz zmniejszenia obrazy były również obracane, przekrzywiane(deformowane? wypaczane? \textit{warping}) oraz kadrowane.
+Oprócz zmniejszenia obrazy były również obracane, deformowane \textit{(warping)} oraz kadrowane.
 Tak powstałe, liczne zbiory były wykorzystywane w trybie RGB oraz w odcieniach skali szarości,
 co pozwoliło na oszczędzenie pamięci przez zmniejszenie liczby kanałów do jednego.\\
 W pracy używano zbiorów z obrazami o rozmiarach 64x64 oraz 106x79 pikseli. Każde zdjęcie
@@ -15,14 +15,14 @@ na przedstawionej kostce. Wartość ta zwana jest odpowiedzią i jest wykorzysty
 procesie uczenia sieci jako docelowa informacja, którą ma zwrócić sieć po weryfikacji danego obrazu.
 
 \paragraph{Zbiór treningowy} \mbox{}\\
-Część zbioru danych, która wykorzystywana jest w procesie uczenia sieci określana jest jako zbiór
+Część zbioru danych, która wykorzystywana jest w procesie uczenia sieci, określana jest jako zbiór
 treningowy lub zbioru uczący. Jego liczebność to zazwyczaj 60-80\% całego zbioru danych.
 Praktycznie zawsze dane znajdujące się w tym zbiorze, przed rozpoczęciem uczenia,
 poddawane są losowej permutacji.
 
 \paragraph{Zbiór testowy} \mbox{}\\
-Do oceny zdolności sieci neuronowej do rozpoznawania danych sluży zbiór testowy, zwany
-też walidacyjnym. Celem rozdzielenia tego zbioru od danych testowych jest weryfikacja
+Do oceny zdolności sieci neuronowej do rozpoznawania danych służy zbiór testowy lub
+walidacyjny. Celem rozdzielenia tego zbioru od danych testowych jest weryfikacja
 sieci na danych, które nie zostały przez nią przetworzone podczas treningu.
 
 \section{Budowa sieci neuronowej}
@@ -35,11 +35,11 @@ popularyzacją w ostatnich latach. Wymagają kosztownego obliczeniowo i czasowo
 procesu uczenia, podczas którego dostosowują się do danego problemu. Użycie wytrenowanej
 sieci, nie wymaga powtarzania uczenia, co pozwala na jej natychmiastowe wykorzystanie.\\
 W dziedzinie rozpoznawania obrazów sieci są w stanie zidentyfikować elementy na obrazach,
-bez wcześniejszej znajomości lub wiedzy na temat przedmiotu który mają rozpoznać.
+bez wcześniejszej znajomości lub wiedzy na temat przedmiotu, który mają rozpoznać.
 
 \paragraph{Neuron} \mbox{}\\
 Neuron jest najmniejszym elementem sieci neuronowej, posiadającym wiele wejść i jedno wyjście \cite{CS231n_activ, NNbiology, NeuronAnimation}.
-Z neuronów w poprzednich warstwach, na każde z wejść docieraja sygnały, które mają 
+Z neuronów w poprzednich warstwach, na każde z wejść docierają sygnały, które mają 
 przypisaną wagę. W neuronie obliczana jest suma ważona wejść, od której odejmowana jest
 wartość progowa. Jeśli suma przekroczy wartość progową, neuron jest uaktywniany, a suma
 przekazywana jest jako argument funkcji aktywacji neuronu na jego wyjście.\\
@@ -70,14 +70,14 @@ warstwie wejściowej oraz kończy w tzw. warstwie wyjściowej.
 
 \paragraph{Funkcja kosztu} \mbox{}\\
 Do porównywania wyników otrzymywanych przez sieć neuronową wykorzystywana jest funkcja kosztu,
-funkcja oceniajaca lub funkcja błędu. Jest ona niezbędna do prawidłowego przeprowadzenie
+funkcja oceniająca lub funkcja błędu. Jest ona niezbędna do prawidłowego przeprowadzenie
 procesu uczenia. Funkcja dostarcza informacje o różnicy między obecnym
-stanem sieci, a optymalnym rozwiązaniem dla danych treningowych. Algorytm uczenia
+stanem sieci a optymalnym rozwiązaniem dla danych treningowych. Algorytm uczenia
 analizuje wartość funkcji kosztu w kolejnych krokach w celu jej zminimalizowania.\\
 Najczęściej wykorzystywaną funkcją kosztu jest błąd średniokwadratowy \ref{eq:mse}.
-W tej pracy z uwagi na posiadanie 6 możliwych do uzyskania wyników na wyjściu sieci,
+W tej pracy z uwagi na posiadanie 6 możliwych do uzyskania wyników na wyjściu sieci
 zastosowano wielowymiarową entropię krzyżową (\textit{ang. Categorical cross-entropy}) \ref{eq:categorical-crossentropy},
-która jest preferowana ponieważ uwypukla aż tak bardzo nieprawidłowych wartości \cite{whyNotMSE}. Jest również
+która jest preferowana, ponieważ uwypukla aż tak bardzo nieprawidłowych wartości \cite{whyNotMSE}. Jest również
 sugerowana przez bibliotekę Keras oraz wykorzystywana w wielu przykładowych modelach sieci neuronowych.
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
@@ -97,13 +97,11 @@ gdzie: p - predykcje, t - cele, i - wartość, j - klasa
 \end{figure}
 
 \paragraph{Współczynnik uczenia} \mbox{}\\
-Aby dostosować stopień w jakim sieć neuronowa będzie dostosowywać się do danych wykorzystujemy
-współczynnik lub wskaźnik uczenia się \textit{(ang. lerning rate)}. Często jest
-uzależniony od wyboru rodzaju optymalizatora. Wybranie zbyt małego współczynnika wydłuży
-proces uczenia, a w skrajnych przypadkach sieć nie zdąży dotrzeć do minimum.
-Jeśli zostanie wybrany za duży współczynnik, może spowodować problemy ze znalezieniem
-optymalnego rozwiązania. W niektórych algorytmach współczynnik uczenia zmniejsza się w czasie,
-by lepiej dostosować się do danych i zniwelować oba wspomniane problemy.
+Do ustalenia z jakąś szybkością sieć neuronowa będzie dostosowywać się do danych, wykorzystujemy
+współczynnik lub wskaźnik uczenia \textit{(ang. lerning rate)}. Wybranie zbyt małego
+współczynnika wydłuży proces uczenia, a zbyt duża jego wartość może spowodować problemy
+ze znalezieniem optymalnego rozwiązania. W niektórych algorytmach współczynnik uczenia
+zmniejsza się w czasie, by lepiej dostosować się do danych i zniwelować oba wspomniane problemy.
 
 \section{Propagacja wsteczna}
 Propagacja wsteczna lub wsteczna propagacja błędów \textit{(ang. Backpropagation)}
@@ -116,7 +114,7 @@ jest od warstwy wyjściowej do wejściowe, czemu algorytm zawdzięcza swoją naz
 
 Przy wykorzystywaniu sieci neuronowych do operowania na zdjęciach, pojawia się problem
 dużą ilością parametrów odpowiadających wartościom każdego z pikseli.
-W celu ich zmniejszenia, stosuje się konwolucyjne sieci neuronowe \textit{(ang. CNN - Convolutuinal Neural Network)}.
+W celu ich zmniejszenia stosuje się konwolucyjne sieci neuronowe \textit{(ang. CNN - Convolutuinal Neural Network)}.
 Do kolejnych warstw zamiast przekazywania informacje o wszystkich pikselach znajdujących się
 na obrazach, sieć analizuje obraz przy użyciu filtrów konwolucyjnych i
 przesyła dalej informacje o zaobserwowanych cechach.\\
@@ -136,20 +134,20 @@ h[m, n] = (f * g)[m, n] = \sum_j^m \sum_k^n f[j, k] * g[m-j, n-k] \\
 \end{equation}
 \centering
 \captionsetup{justification=centering,margin=1cm}
-\caption{Splot funkcji. Funkcja f to dwuwymiarowa macierz z pikselami obrazu. Funkcja g to filtr. Funkcja h to nowootrzymany obraz.}
+\caption{Splot funkcji. Funkcja f to dwuwymiarowa macierz z pikselami obrazu. Funkcja g to filtr. Funkcja h to nowo otrzymany obraz.}
 \end{figure}
 
 \section{Warstwy sieci neuronowej}
 
 W sieciach neuronowych wyróżniamy kilka rodzajów warstw, które poza wejściową i wyjściową,
-można dopierać zależnie od sposobu rozwiązania danego problemu i typu posidanych danych.
+można dopierać zależnie od sposobu rozwiązania danego problemu i typu posiadanych danych.
 
 \paragraph{Wejściowa} \mbox{}\\
-W sytuacji gdy danymi jest zbiór obrazów, warstwa wejściowa ma rozmiar identyczny z
+W sytuacji, gdy danymi jest zbiór obrazów, warstwa wejściowa ma rozmiar identyczny z
 wymiarami obrazu. Pierwsza warstwa charakteryzuje się brakiem wejść oraz biasu.
 
 \paragraph{Wyjściowa} \mbox{}\\
-Rozmiar warstwy wyjściowej odpowiada ilości klas do jakiej dane były klasyfikowne.
+Rozmiar warstwy wyjściowej odpowiada ilości klas, do jakiej dane były klasyfikowane.
 W tej pracy, gdzie czekiwanym wyjściem była liczba oczek możliwych do wyrzucenia na
 kostce, odpowiada to 6 klasom. Wyjściem takiej sieci jest więc wektor o wymiarach 6x1.
 
@@ -162,7 +160,7 @@ analizowanie bardziej złożonych zależności na obrazach.
 \paragraph{W pełni połączona} \mbox{}\\
 Najbardziej rozpowszechnionymi typami warstw są w pełni połączone \textit{(ang. Fully Connected, Dense)}.
 Każdy neuron łączy się ze wszystkimi neuronami następnej warstwy. Skutkuje to dużą ilością
-potrzebnych do wykonania obliczeń, choć są stosunkowo proste do zaapikowania.
+potrzebnych do wykonania obliczeń, choć są stosunkowo proste do zaaplikowania.
 W sieciach konwolucyjnych umieszczane są po lub między warstwami konwolucyjnymi
 i służą do powiązania nieliniowych kombinacji, które zostały wygenerowane przez
 warstwy konwolucyjne oraz ich sklasyfikowania.
@@ -177,9 +175,9 @@ do kolejnych warstw.
 Użycie warstwy odrzucającej \textit{(ang. Dropout)} jest jednym z najlepszych sposobów
 na poradzenie sobie ze zjawiskiem przetrenowania, opisanym na końcu tego rozdziału
 \cite{DropoutPreventOverfit}. Warstwa odrzucająca nie wykorzystuje wyjść pewnych neuronów,
-co zapobiega rozległym zależnościom między neuronami. W warstwie tej określamy prawdopodobieństwo
+co zapobiega rozległym zależnościom między neuronami. W warstwie tej określamy prawdopodobieństwo,
 z jakim neurony zostaną zachowane. Najczęściej stosuje się ją po warstwach w pełni
-połączonych, zarówno przy przechodzeniu w przód jak i tył \cite{DropConnect}.
+połączonych, zarówno przy przechodzeniu w przód, jak i tył \cite{DropConnect}.
 
 \paragraph{Pooling} \mbox{}\\
 Warstwa ta wykorzystywana jest do zmniejszenia rozmiaru pamięci oraz ilości obliczeń
@@ -197,11 +195,11 @@ Wybór funkcji jest jednym z kluczowych parametrów danej sieci, ponieważ niew�
 może prowadzić do problemów podczas uczenia sieci.
 
 \paragraph{Sigmoid} \mbox{}\\
-Sigmoid popularną funkcją aktywacji \ref{eq:sigmoid}. Problemem z nią związanym
+Sigmoid popularną funkcją aktywacji. Problemem z nią związanym
 jest ryzyko zaniknięcia gradientu, co może prowadzić do problemu tzw. umierającego
-neuronu \cite{activationFunctions}. Wystepuje ono, gdy dla danej funkcji aktywacji,
+neuronu \cite{activationFunctions}. Występuje ono, gdy dla danej funkcji aktywacji,
 gradient staję się bardzo mały, co jest równoznaczne z zaprzestaniem procesu uczenia.
-W sigmoid gradient może zanikać obustronnie.
+W sigmoid gradient może zanikać obustronnie. Wzór funkcji sigmoidalnej pokazany jest poniżej \ref{eq:sigmoid}.
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
 \begin{equation} \label{eq:sigmoid}
@@ -211,9 +209,10 @@ f(x) = \sigma(x) = \frac{1}{1 + e^{-x}} \\
 \end{figure}
 
 \paragraph{Tangens hiperboliczny} \mbox{}\\
-Tangens hiperboliczny lub tanh \ref{eq:tanh} jest w istocie przekształconą funkcją simgodalną
+Tangens hiperboliczny lub tanh jest w istocie przekształconą funkcją sigmoidalną
 \cite{activationFunctions, activationFunctionsV2}. Wykorzystanie
-jej powoduje większe wahania gradientu.
+jej powoduje większe wahania gradientu. Wzór na obliczenie tangensu hiperbolicznego
+zaprezentowany jest poniżej \ref{eq:tanh}.
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
 \begin{equation} \label{eq:tanh}
@@ -223,11 +222,12 @@ f(x) = tanh(x) = \frac{(e^x - e^{-x})}{(e^x + e^{-x})} = \frac{2}{1+e^{-2x}} - 1
 \end{figure}
 
 \paragraph{ReLU} \mbox{}\\
-ReLU \textit{(and. Rectified linear unit)} \ref{eq:relu} jest najpopularniejszą funkcją
+ReLU \textit{(and. Rectified linear unit)} jest najpopularniejszą funkcją
 aktywacji wykorzystywaną w sieciach neuronowych \cite{CS231n_activ, WIKIrectifier}.
 Zasługą tego jest szybki czas uczenia sieci bez znaczącego kosztu w postaci generalizacji
 dokładności. Problem z zanikającym gradientem jest mniejszy niż w przypadku funkcji
 sigmoidalnej, ponieważ występuje on tylko z jednej strony.
+Wzór \ref{eq:relu} na obliczenie ReLU przedstawiony jest poniżej.
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
 \begin{equation} \label{eq:relu}
@@ -255,7 +255,7 @@ x & \text{if } x \geqslant 0 \\
 \paragraph{Softmax} \mbox{}\\
 Softmax jest funkcją obliczającą rozkład prawdopodobieństwa wystąpienia danego zdarzenia
 ze wszystkich możliwych. Wykorzystywana jest w zadagnieniach wymagających przyporządkowania
-elementu do jednej z wielu do wielu klas. Wzór funkcji \ref{eq:softmax} zaprezentowany jest poniżej.
+elementu do jednej z wielu klas. Wzór funkcji \ref{eq:softmax} zaprezentowany jest poniżej.
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
 \begin{equation} \label{eq:softmax}
@@ -266,18 +266,19 @@ f(x_{i}) = \frac{e^{x_{i}}} {\sum_{j = 0}^{k}(e^{x_{j}}}
 
 \section{Optymalizator}
 
-Optymalizator to określenie algorytmu optymalizacyjnego wykorzystywanego do obliczania wag neuronów
-i biasu w sieci neuronowej. Posiada kluczowe znaczenie podczas procesu uczenia sieci,
-zarówno w kwestii czasu oraz skuteczności. Z tego powodu to zagadnienie jest obiektem
-wielu obecnych badań i rozwoju sieci neuronowych \cite{typesOfOptimizationAlgorithms}.
+Algorytmy optymalizacyjne wykorzystywane są do minimalizacji funkcji błędu poprzez
+znajdowanie nowych wartości wag neuronów i biasu w sieci neuronowej. Ma kluczowe
+znaczenie podczas procesu uczenia sieci w kwestii czasu oraz skuteczności.
+Z tego powodu to zagadnienie jest obiektem wielu obecnych badań i rozwoju sieci
+neuronowych \cite{typesOfOptimizationAlgorithms}.
 
 \paragraph{Metoda największego spadku} \mbox{}\\
 Metoda największego spadku \textit{(ang. Gradient Descent)} jest podstawowym algorytmem
-służacym do zmiany wartości wag oraz biasu podczas procesu uczenia sieci \ref{eq:gradientdescent}.
+służącym do zmiany wartości wag oraz biasu podczas procesu uczenia sieci.
 Wadą tej metody jest przeprowadzanie jednorazowej aktualizacji po wyliczeniu gradientu dla
 całego zestawu danych. Spowalnia to uczenie i może powodować problem z ilością zajmowanego
-miejsca w pamięci. Największą wadą jest możliwość doprowadzenia do stagnacji w jednym z
-lokalnych minimów funkcji.
+miejsca w pamięci. Sporą wadą jest możliwość doprowadzenia do stagnacji w jednym z
+lokalnych minimów funkcji. Wzór metody największego spadku \ref{eq:gradientdescent} znajduje się poniżej.
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
 \begin{equation} \label{eq:gradientdescent}
@@ -286,95 +287,90 @@ lokalnych minimów funkcji.
 \caption{Metoda największego spadku}
 \end{figure}
 
-\paragraph{Stochastic Gradient Descent} \mbox{}\\
-Stochastic Gradient Descent \textit{(skrót. GDA)} jest rozwinięciem metody gradientu
-prostego, bardzo często wykorzystywana w praktyce \textit{Opis SGD} \cite{OptimizersOverview}.
+\paragraph{Stochastic gradient descent} \mbox{}\\
+Stochastic gradient descent \textit{(skrót. SGD)} jest rozwinięciem metody gradientu
+prostego, bardzo często wykorzystywana w praktyce \cite{OptimizersOverview}.
 Ulepszenie polega na obliczaniu gradientu dla jednego lub niewielkiej ilości przykładów
 treningowych. Najczęściej korzysta się z więcej niż jednego przykładu, co zapewnia
 lepszą stabilność oraz wykorzystuje zrównoleglenie obliczeń. SGD zapewnia większą rozbieżność
-niż metoda gradientu prostego, co umożliwia znajdowanie nowych lokalnych minimów, ale
-wiąże się z koniecznością zastosowania mniejszego współczynnika uczenia.
-\begin{equation}
+niż metoda gradientu prostego, ale wiąże się z koniecznością zastosowania mniejszego
+współczynnika uczenia. Sposób obliczania SGD \ref{eq:sgd} przedstawiony jest poniżej.
+\begin{figure}[h!]
+\renewcommand{\figurename}{Wzór}%
+\begin{equation} \label{eq:sgd}
 \theta = \theta - \eta * \nabla J(\theta; x_i; y_i)
 \end{equation}
-
-\paragraph{RMSprop} \mbox{}\\
-RMSprop umożliwia obliczanie gradientu dla każdego parametru z osobna i zapobiega
-zmniejszaniu się współczynnika uczenia \textit{Opis RMSprop} \cite{RMSpropOptimizer, OptimizersOverview}.
-Algorytm dostosowuje współczynnik uczenia dla każdej wagi,
-bazując na wielkości jej gradientu.
+\caption{Stochastic gradient descent}
+\end{figure}
 
 \paragraph{Adam} \mbox{}\\
 Adam to skrót od angielskiej nazwy \textit{Adaptive Moment Estimation} i jest rozwinięciem
-metody Stochastic Gradient Descent \textit{Opis metody Adam} \cite{AdamOptimizer, OptimizersOverview}.
-Metoda ta pozwala na obliczanie z osobna gradientu dla
-każdego parametru oraz każdej zmiany momentum. Zapobiega dodatkowo zmniejszającemu się
-wskaźnikowi uczenia, a co najważniejsze jest bardzo szybka i pozwala na sprawne uczenie
-się sieci. W tej metodzie oblicza się dwa momenty \textit{m} oraz \textit{v}.
-\begin{equation}
+metody Stochastic Gradient Descent \cite{AdamOptimizer, OptimizersOverview}.
+Metoda ta zapewnia dostosowanie współczynnika uczenia z osobna do każdego z parametrów,
+korzystając przy tym z pierwszego i drugiego momentu centralnego, czyli odpowiednio ze
+średniej oraz wariancji. Adam obecnie jest bardzo popularny z uwagi na szybkość działania
+i osiąganie bardzo dobrych wyników. Poniższe wzory przedstawiają sposób na jego obliczenie \ref{eq:moments_adam} \ref{eq:adam}.
+\begin{figure}[h!]
+\renewcommand{\figurename}{Wzór}%
+\begin{equation} \label{eq:moments_adam}
 \begin{align*}
 \hat{m_t} = \frac{m_t} {1 - \beta^t_1}, \\
 \hat{v_t} = \frac{v_t} {1 - \beta^t_2}, \\
 \end{align*}
 \end{equation}
+\caption{Wzór na obliczanie pierwszego \textit{(m)} i drugiego \testit{(v)} momentu centralnego}
+\end{figure}
 Obliczone momenty podstawiane są do wzoru
-\begin{equation}
+\begin{figure}[h!]
+\renewcommand{\figurename}{Wzór}%
+\begin{equation} \label{eq:adam}
 \theta_{t+1} = \theta_t - \frac {\eta} {\sqrt{\hat{v_t}} + \epsilon} \hat{m_t}
 \end{equation}
+\caption{Optymalizator Adam}
+\end{figure}
 gdzie najczęściej \textbeta \textsuperscript{t}\textsubscript{1} = 0.9 oraz
 \textbeta \textsuperscript{t}\textsubscript{2} = 0.99 a \straightepsilon = 10^{-8}\\
 
 \section{Procesy}
 
+Pracy z sieciami neuronowymi towarzyszy kilka procesów, które są niezbędne do tworzenia
+oraz korzystania z nich.
+
 \paragraph{Uczenie} \mbox{}\\
-Proces uczenia bądź treningu sieci służy zmianie wartości wag, najczęściej zainicjowanych
-pseudolosowymi wartościami oraz biasu. Uczenie sieci neuronowej jest bardzo
-kosztowne obliczeniowo, co wręcz uniemożliwiało trenowanie modeli w przeszłości,
-a obecnie jest jednym z powodów dużego zainteresowania rozwojem technologicznym kart
-graficznych. Operacje dodawania oraz mnożenia wektorów i macierzy wykonywane są miliony razy,
-mogą być przyśpieszone dzięki możliwościom zrównoleglenia obliczeń.\\
+Uczenie bądź trening sieci jest procesem, w którym wagi sieci dostosowują się do dostarczonych danych.
+Nauczona sieć powinna sprawnie realizować zamierzone zadanie, na przykład poprawnego
+rozpoznawania ilośći oczek wyrzuconych na kostce. Trening jest bardzo kosztowny obliczeniowo,
+ponieważ operacje dodawania i mnożenia wektorów oraz macierzy wykonywane są miliony razy.
 
 \paragraph{Epoka} \mbox{}\\
-Proces uczenia sieci podzielony jest na epoki. Każda epoka odpowiada przejściu
-wszystkich elementów z treningowego zbioru danych przez sieć. Ilość epok, podczas których sieć będzie się uczyć ustala się na co najmniej kilkanaście. W przypadku
-większych zbiorów danych lub większych modeli ilość epok jest zwiększana.\\
-Często spotykaną praktyką w wielu pracach naukowych jest przedstawianie wyników
-dla sieci po 100 epokach treningu.
+Podczas uczenia się, przez sieć przechodzą wszystkie elementy z treningowego zbioru danych.
+Jednorazowe przejście wszystkich tych elementów nazywane jest epoką. W praktycznym zastosowaniu
+ilość epok ustala się na co najmniej kilkanaście, chociaż w wielu pracach naukowych przedstawiane
+są wyniki po 100 epokach treningu.
 
 \paragraph{Testowanie} \mbox{}\\
-Model sieci neuronowej poddawany ocenie, dzięki której można określić, w jakim stopniu
-prawidłowo rozpoznaje obrazy. W przypadku wytrenowanych modeli istotne jest, aby zbiór służący do
-testowania nie był wcześniej użyty do treningu sieci. Nauczony model powinien być w stanie
-rozpoznawać nowe, nieużyte podczas procesu uczenia dane i poprawnie je klasyfikować.
+Testowanie polega na porównaniu wyników dla zbioru testowego z oczekiwanymi wartościami.
+Istotne jest, aby zbiór służący do testowania nie był wcześniej użyty do treningu sieci.
+Nauczony model powinien być w stanie rozpoznawać nowe, nieużyte podczas procesu uczenia
+dane i poprawnie je klasyfikować.
 
 \paragraph{Predykcja} \mbox{}\\
-Wartości zwrócone przez sieć po umieszczeniu w niej określonych danych są określane
-mianem predykcji. Pozwala to na wykorzystanie nauczonego modelu w praktycznym
-zastosowaniu.
+Wartości zwrócone przez sieć po umieszczeniu w niej określonych danych nazywane są
+predykcją. Pozwala to na wykorzystanie nauczonego modelu w praktycznym zastosowaniu.
 
 \paragraph{Przetrenowanie} \mbox{}\\
-Zjawisko przetrenowania \textit{(ang. Overfitting)}, wspomniane przy opisywaniu warstwy
-odrzucającej, jest jednym z największych problemów podczas pracy z sieciami neuronowymi.
-Podczas trenowania sieci, możemy obserwować oczekiwany wzrost dokładności i spadek wartości
-funkcji kosztu. Przetrenowanie wystepuje kiedy dla testowych danych sprawność sieci
-drastycznie spada. Istnieje duże ryzyko, że autor sieci nie będzie świadomy występowania tego
-problemu, który w ostateczności może doprowadzić do konieczności tworzenia sieci od nowa.
-sieci \cite{DropoutPreventOverfit}.
-Proces ten polega na nie wykorzystywaniu wyjść pewnych neuronów, zarówno
-w przypadku przechodzenia w przód oraz w tył \cite{DropConnect}. Stosuje się ją po warstwach w pełni
-połączonych, w celu zapobiegania rozległym zależnościom między neuronami. W warstwie
-tej określone jest prawdopodobieństwo \textit{p} z jakim neuron zostanie zachowany
-w warstwie oraz \textit{p - 1} z jakim zostanie odrzucony. Najczęstsza wartość jest
-z zakresu 0,5-0,8.
+Przetrenowanie \textit{(ang. Overfitting)} polega na błędnym rozpoznawaniu nowych danych,
+kiedy podczas treningu sieć uczyła się poprawnie. Może być ono bardzo trudne do wykrycia,
+co powoduje, że jest jednym z największych problemów podczas pracy z sieciami neuronowymi.
+Jedną z najlepszych technik na uniknięcie przetrenowania jest zastosowanie warstw
+odrzucających \cite{DropoutPreventOverfit}.
 
 \section{Inne}
 
 \paragraph{ILSVRC} \mbox{}\\
 ImageNet Large Scale Visual Recognition Competition \cite{ILSVRC} to coroczny konkurs organizowany
 od 2010 roku, w którym naukowcy walczą o najlepszy wynik w dziedzinie rozpoznawania
-obrazów przez skonstruowane przez siebie algorytmy. Sieć AlexNet, na której bazowało
-kilka stworzonych sieci neuronowych, została stworzona na potrzeby tego konkursu
-w 2012 roku.
+obrazów przez skonstruowane przez siebie algorytmy.
 
 \paragraph{MNIST} \mbox{}\\
 Baza danych MNIST \cite{MNIST} to zbiór 60000 treningowych i 10000 testowych czarno-białych obrazów
@@ -387,9 +383,3 @@ Zbiór CIFAR-10 \cite{CIFAR-10} składa się z 50000 treningowych i 10000 testow
 32x32x2. Jest podzielony na 10 klas: samolot, samochód, ptak, kot, jeleń, pies, żaba,
 koń, statek, ciężarówka; gdzie każdej z nich przypada po 6000 obrazów. Jest to podobnie
 jak MNIST jeden z najbardziej popularnych zbiorów do uczenia maszynowego i sieci neuronowych.
-
-\\\\\\
-Tematy do uwzględnienia:
-minibatch,
-momentum,
-one-hot encoding,
