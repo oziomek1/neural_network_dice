@@ -6,183 +6,247 @@ do próby stworzenia i nauczenia modelu sieci neuronowej rozpoznającego ilość
 wyrzuconych na kostce do gry.\\
 \textbf{Odnośniki do wszystkich modeli dostępne są pod linkami w części Dodatek B [\ref{dodatekB}] }
 
-\section{Hipotezy}
-Przed przystąpieniem do tworzenia zbioru danych pojawiła się spora ilość wątpliwości.
-Większość z nich dotyczyła kwestii możliwości jakiegokolwiek rozpoznania ilości oczek
-przez sieć. Obawy te wiązały się z faktem, że dla przykładu
-w zbiorze MNIST, położenie cyfr na obrazie było stałe. W przypadku kiedy na obrazach
-kolor biały był obszarem w kształcie przypominającym pionową kreskę, z dużym
+\section{Obawy przed rozpoczęciem uczenia}
+Przed przystąpieniem do treningu sieci pojawiły się wątpliwości w kwestii możliwości
+jakiegokolwiek rozpoznania ilości oczek przez sieć. Obawy te wiązały się z faktem, że dla
+przykładu w zbiorze MNIST, położenie cyfr na obrazie było stałe. W przypadku kiedy na
+obrazach kolor biały był obszarem w kształcie przypominającym pionową kreskę, z dużym
 prawdopodobieństwem można było założyć, że jest to cyfra 1 lub 7, a analogiczna
 sytuacja zachodziła dla innych cyfr. W rozpoznawaniu oczek na kostce, zarówno sama
 kostka mogła być umieszczona w różnych miejscach na obszarze całego obrazu, jak i
 dopuszczalny był jej obrót o dowolny kąt.\\
-Następną kwestią był niewielki rozmiar oczka w stosunku do powierzchnii całego ekranu.
-W przypadku zbioru MNIST średnio około 12-15\% obrazu stanowiła barwa biała, która
-decydowała o wartości zwróconej przez sieć. W przypadku kwadratowych zdjęć z kostkami rozmiar jednego oczka to jedynie 0,21\% powierzchni rozmiaru, a dla obrazów prostokątnych
-wartość ta maleje do około 0,08\%. Oznaczało to, że nawet niewielki szum lub
+Kolejną obawą była niewielka ilość pikseli, które przedstawiały dane oczko w
+stosunku do rozmiaru całego obrazu. Oznaczało to, że nawet niewielki szum lub
 zniekształcenia mogą utrudnić prawidłowe rozpoznanie kości.
 
-\section{Pierwsze eksperymenty z sieciami neuronowymi}
+\section{Pierwsze eksperymenty}
 \paragraph{Pierwszy model} \mbox{}\\
 Pierwsza próba stworzenia sieci, mając na uwadze wyżej wspomniane wątpliwości, miała
-na celu wytrenowanie możliwie prostego zbioru obrazów. W tym celu wykorzystano jedynie
-najbardziej liczny zbiór obrazów z czerwonym tłem, białą kością o czarnymi oczkami. Dla zwiększenia liczby zdjęć w zbiorze zmniejszono kąt obrotu każdego z nich do
-5\textsuperscript{o}, uzyskując 60480 zdjęć ze 120 oryginalnych.\\
+na celu wytrenowanie możliwie prostego, nigdy później niewykorzystywanego zbioru obrazów.
+W tym celu wykorzystano jedynie obrazy z czerwonym tłem, białą kością o czarnych oczkami.
+Kąt rotacji zmniejszono do 5\textsuperscript{o}, uzyskując 60480 zdjęć ze 120 oryginalnych.\\
 Architektura tej sieci, była dobierana bez większego wdrażania się w szczegóły i
 bazowała na modelach sieci udostępnionych na stronach Keras oraz TensorFlow,
 wykorzystywanych do analizy zbiorów MNIST oraz CIFAR10. Za optymalizator został wybrany
-Adam, a sam trening został ustalony na 25 epok w pierwszej turze oraz 10 epok w drugiej
-turze. Nigdzie wcześniej nie zauważono tego typu praktyki, aby rozdzielać epoki uczenia.
-Zrobiono to dlatego, aby umożliwić wcześniejsze zakończenie całego procesu w sytuacji, gdyby nie zauważono żadnych postępów. Dodatkowo pozwoliło to na zachowanie modelu
-po 25 epokach, który, mimo że mógłby nie osiągać dobrych rezultatów, pozwoliłby
-na wyciągnięcie wniosków lub dalszą naukę. Model sieci prezentował się następująco:\\
+Adam, a sam trening został podzielony na dwie tury, 25 epok w pierwszej oraz 10 epok w drugiej.
+Nigdzie wcześniej nie zauważono tego typu praktyki, aby rozdzielać epoki uczenia.
+Zrobiono to dlatego, aby umożliwić wcześniejsze zakończenie całego procesu w sytuacji,
+gdyby nie zauważono żadnych postępów. Model sieci prezentował się następująco \ref{fig:first_model}: \newpage
+\begin{figure}[h!]
+\centering
 \includegraphics[scale=0.35]{pierwszy_plot}
-\includegraphics[scale=0.55]{pierwszy_accloss.png}
-
-Rezulataty osiągnięte przez ten model były zdumiewające. Po pierwszej epoce
+\caption{Pierwszy model sieci}
+\label{fig:first_model}
+\end{figure}
+Rezultaty osiągnięte przez ten model były zdumiewające. Po pierwszej epoce
 sieć uzyskała 61,98\% skuteczności ostatecznie osiągając wynik 99,88\% po 25 epokach.
 Kolejne 10 epok praktycznie nie poprawiło już tego rezultatu.\\
-Po analizie tego dokonania, okazało się, że tak duża ilość zdjęć otrzymanych
-z każdego ze zdjęć początkowych stworzyła zbiór, w którym wiele zdjęć praktycznie się
-powtarzało. Sieć nie miała żadnych problemów podczas testowania na zbiorze, do którego w teorii nie miała dostępu podczas treningu. Ten fakt spowodował konieczność
-trenowania sieci na zbiorach zróżnicowanych pod kątem doboru różnych kolorów oraz
-ilości zdjęć otrzymanych z jednego początkowego zdjęcia.
+Po analizie wyniku okazało się, że wykorzystanie wielu bardzo podobnych obrazów o identycznym
+układzie barw, spowodowało występowanie niemal identycznych z testowymi, zdjęć treningowych.
+W sytuacji, gdyby zdjęcia były bardziej zróżnicowane, wynik okazałby się zdecydowanie gorszy.
+Występuje tu zjawisko przetrenowania, które pomimo bardzo dobrych wyników na zbiorze testowym,
+w praktyce osiągałoby niezadowalające rezultaty. Poniżej znajdują się wykresy 6.2
+dla sieć w kolejnych epokach:
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tabular}{cc}
+\includegraphics[width=0.49\linewidth]{pierwszy_acc.png} &
+\includegraphics[width=0.49\linewidth]{pierwszy_loss.png} \\
+ Skuteczność rozpoznawania kości & Wartość funkcji błędu\\
+\end{tabular}
+\label{fig:first_plots}
+\captionof{figure}{Wykresy dla pierwszego modelu}
+\end{center}
+\end{figure}
 
 \paragraph{Model ze zróżnicowanymi zdjęciami} \mbox{}\\
 Po stworzeniu modelu, który wykazał, że zadanie stworzenia dobrze działającej sieci dla
 tego problemu jest wykonalne, zabrano się do kolejnego etapu prac. W tym celu
-wykorzystano zbiór złożony z 13 różnych zestawów kolorystycznych kości, oczek oraz tła,
-liczący po 80640 i 20160 zdjęć na części treningową i testową.\\
-W tym modelu wykorzystano architekturę nieznacznie zmienioną w stosunku pierwszego modelu.\\
-Sieć uczona była przez 25, a następnie przez 10 epok.
+wykorzystano opisany w poprzednim rozdziale zbiór obrazów kwadratowych złożony ze 100800 zdjęć
+podzielonych na 80640 i 20160 w części treningowej i testowej.\\
+W modelu wykorzystano architekturę nieznacznie zmienioną w stosunku pierwszego modelu.
+Poniżej znajdują się wykresy 6.3 uczenia się modelu:
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tabular}{cc}
+\includegraphics[width=0.49\linewidth]{adam_acc} &
+\includegraphics[width=0.49\linewidth]{adam_loss} \\
+ Skuteczność rozpoznawania kości & Wartość funkcji błędu\\
+\end{tabular}
+\label{fig:adam_plots}
+\captionof{figure}{Wykresy dla modelu z optymalizatorem Adam}
+\end{center}
+\end{figure}
+
+Tak jak poprzednio sieć uczona była przez 25, a następnie przez 10 epok.
 Po pierwszych 25 epokach uzyskano dokładność 55,64\% co potwierdziło przypuszczenie
-z przedniej sieci o możliwości pokrycia się zdjęć w zbiorach treningowym i testowym.
-Kolejne 10 epok poprawiło wynik sieci do 65,30\%, pozwalając przy okazji zaobserwować
-istotny fakt. W pierwszej sesji 25 epok dokładność sieci przez ostatnie
-5 epok oscylowała w okolicach 52\%. W drugiej sesji niemalże od razu wartość
-podniosła się do 56\%. Prawdopodobnie miało to związek ze sposobem, w jaki dostarczane
-są dane do modelu. Dane były ustalane losowo, ale dla każdej epoki w jednej sesji,
-układ ten się nie zmieniał. Istniała szansa, że kiedy w następnej sesji zdjęcia
-były przetwarzane w innej kolejności, umożliwiło to lepsze dopasowanie sieci i efekt
-skoku jej dokładności.\\
-\includegraphics[scale=0.4]{modeladam_plot}
-\includegraphics[scale=0.55]{adam_acc}
+z poprzedniej sieci o przetrenowaniu i konieczności zróżnicowania danych.
+Kolejne 10 epok poprawiło wynik sieci do 65,30\%. Poniżej znajduje się opisywany model \ref{fig:adam}: \newpage
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.35]{modeladam_plot}
+\caption{Model bazujący na optymalizatorze Adam}
+\label{fig:adam}
+\end{figure}
 
 \paragraph{Model z wybranymi zdjęciami} \mbox{}\\
-Znacząca różnica w dokładności między modelem z jednolitymi oraz zróżnicowanymi zdjęciami
-doprowadziła do stworzenia sieci uczonej na zbiorze różnorodnych obrazów, ale
-dobranymi tak, aby kontrast między tłem, a kością był wyraźny. Architektura sieci
-jest identyczna jak w powyższych przykładach, jedyną różnicą jest przetwarzanie
-wyselekcjonowanych obrazów. Zastosowanie 25 epok wystarczyło aby uzyskać dokładność
+Kolejnym punktem sprawdzenia jak zróżnicowanie danych wpływa na wyniki sieci, było
+wykorzystanie tylko niektórych zestawów danych z całego zbioru 100800 kwadratowych obrazów.
+Zestawy były dobrane tak, by kontrast między tłem a kością był wyraźny. Architektura sieci
+była identyczna z powyższym przykładach, chociaż pominięto tu już, tak jak w każdym następnym
+przykładzie, uczenie z podziałem na dwie tury. 25 epok wystarczyło by uzyskać dokładność
 na poziomie 89,23\% co jest rezultatem zdecydowanie lepszym niż uzyskane wcześniej 55,64\%.\\
-\includegraphics[scale=0.55]{adam_wybrane_acc}
-\includegraphics[scale=0.55]{adam_wybrane_loss}
+Przebieg uczenia sieci widoczny jest poniżej 6.5: \newpage
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tabular}{cc}
+\includegraphics[width=0.49\linewidth]{adam_chosen_acc} &
+\includegraphics[width=0.49\linewidth]{adam_chosen_loss} \\
+ Skuteczność rozpoznawania kości & Wartość funkcji błędu\\
+\end{tabular}
+\label{fig:chosen_plots}
+\captionof{figure}{Wykresy dla modelu korzystającego z wybranych zestawów kolorystycznych}
+\end{center}
+\end{figure}
 
 \section{Analiza różnych optymalizatorów}
-Jeżeli sama różnica w doborze konkretnych obrazów potrafi w tak dużym stopniu zmienić wyniki
-otrzymane przez sieć, podjęto próbę przetestowania kilku z dostępnych w bibliotece Keras
-optymalizatorów dla identycznych sieci oraz zbiorów danych. W tym celu postanowiono użyć
-optymalizatorów RMSprop oraz SGD.\\
+Następnym krokiem analizy sieci neuronowych było przetestowaniu kilku z dostępnych
+w bibliotece Keras optymalizatorów dla identycznych sieci. Zbiorem danych był
+opisany w poprzednim rozdziale zbiór złożony z 100800 kwadratowych obrazów.
+W tym celu postanowiono użyć optymalizatorów RMSprop oraz SGD.\\
 Oba modele z optymalizatorami RMSprop oraz SGD, zostały podobnie jak wcześniej opisany model
-z optymalizatorem Adam poddane uczeniu przez 25 epok różnorodnych zbiorów obrazów. Wynik RMSprop
-był zdecydowanie najlepszy i wyniósł 84,34\% skuteczności. Najgorszy rezultat w zestawieniu
-uzyskał amodel korzystający z SGD, zdobywając jedynie 36,92\% poprawności. Pośrednim okazał
+z Adam, poddane uczeniu przez 25 epok różnorodnych zbiorów obrazów. Wynik RMSprop
+był zdecydowanie wyróżniający się i wyniósł 84,34\% skuteczności. Najgorszy rezultat w zestawieniu
+uzyskał model korzystający z SGD, zdobywając jedynie 36,92\% poprawności. Pośrednim okazał
 się Adam, który jak opisane wyżej, uzyskał 55,64\% po sesji uczenia przez 25 epok.\\
 Wyniki te dowiodły, że optymalizator jest kluczowym parametrem \textit{(ang. hyperparameter)}
 dla odpowiednio skutecznego uczenia. Uzyskany wynik dla RMSprop jest sporym zaskoczeniem,
 ponieważ w licznych tekstach naukowych to Adam uznawany jest za jeden z najlepszych
 optymalizatorów, ciesząc się ogromną popularnością. Również z tego powodu, pomimo
-gorszego niż RMSprop wyniku, Adam będzie wykorzystywany w następnych modelach.\\
-\textbf{Adam:}\\
-\includegraphics[scale=0.55]{adam_acc}
-\includegraphics[scale=0.55]{adam_loss}\\
-\textbf{RMSprop:}\\
-\includegraphics[scale=0.55]{rmsprop_acc}
-\includegraphics[scale=0.55]{rmsprop_loss}\\
-\textbf{SGD:}\\
-\includegraphics[scale=0.55]{sgd_acc}
-\includegraphics[scale=0.55]{sgd_loss}\\
+gorszego niż RMSprop wyniku, Adam będzie wykorzystywany w następnych modelach.
+Poniżej znajdują się wyniki dla każdego z analizowanych optymalizatorów 6.6 6.7 6.8:
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tabular}{cc}
+\includegraphics[width=0.49\linewidth]{adam_acc} &
+\includegraphics[width=0.49\linewidth]{adam_loss} \\
+ Skuteczność rozpoznawania kości & Wartość funkcji błędu\\
+\end{tabular}
+\label{fig:comparison_adam}
+\captionof{figure}{Wykresy dla modelu korzystającego z optymalizatora Adam}
+\end{center}
+\end{figure}
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tabular}{cc}
+\includegraphics[width=0.49\linewidth]{rmsprop_acc} &
+\includegraphics[width=0.49\linewidth]{rmsprop_loss} \\
+ Skuteczność rozpoznawania kości & Wartość funkcji błędu\\
+\end{tabular}
+\label{fig:comparison_rmsprop}
+\captionof{figure}{Wykresy dla modelu korzystającego z optymalizatora RMSprop}
+\end{center}
+\end{figure}
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tabular}{cc}
+\includegraphics[width=0.49\linewidth]{sgd_acc} &
+\includegraphics[width=0.49\linewidth]{sgd_loss} \\
+ Skuteczność rozpoznawania kości & Wartość funkcji błędu\\
+\end{tabular}
+\label{fig:comparison_sgd}
+\captionof{figure}{Wykresy dla modelu korzystającego z optymalizatora SGD}
+\end{center}
+\end{figure}
+\newpage
 
 \section{Wykorzystanie sieci AlexNet}
-Sieć o nazwie AlexNet \cite{AlexNetNVIDIA, AlexNetdesc, AlexNetpresentation} została zaprezentowana przez Alexa Krizhevskyego, Geoffreya Hintona oraz
-Ilya Sutskevera w 2012 roku. Jej ideą jest zastosowanie większej ilośći warstw konwolucyjnych,
-gdzie początkowe dwie warstwy mają filtry rozmiarów odpowiednio 11x11 oraz 5x5. Następnie
-umieszczone są trzy warstwy konwolucyjne z filtrami 3x3, które w przeciwieństwie do pierwszych
+Sieć o nazwie AlexNet \cite{AlexNetNVIDIA, AlexNetdesc, AlexNetpresentation} została
+zaprezentowana przez Alexa Krizhevskyego, Geoffreya Hintona oraz Ilya Sutskevera w 2012 roku.
+Jej ideą jest zastosowanie większej ilości warstw konwolucyjnych, gdzie początkowe dwie warstwy
+mają filtry rozmiarów odpowiednio 11x11 oraz 5x5. Następnie umieszczone są trzy warstwy
+konwolucyjne z filtrami 3x3, które w przeciwieństwie do pierwszych
 dwóch warstw nie są rozdzielone warstwami z maxpoolingiem. AlexNet zdeklasowała rywali
 w konkursie ILSVRC 2012 i swoimi rezultatami zszokowała wielu naukowców. Z racji tak świetnych
 rekomendacji, zdecydowano się na realizację modelu przypominającego jej budowę.\\
-Zastosowanie uproszczonej architektury, bazującej na idei sieci AlexNet pozwoliło
-na osiągnięcie poprawności wynoszącej 98.88\% po 25 epokach. Na wykresie uczenia się
-można zaobserwować, że przez pierwsze 10 epok precyzja przewidywań sieci w ogólnie nie
-rosła. Obserwacja sugeruje, że sieci głębsze mogą potrzebować większej ilości epok
-do rozpoczęcia procesu prawidłowego rozpoznawania obrazów.\\
-\includegraphics[scale=0.55]{alexnet_acc}
-\includegraphics[scale=0.55]{alexnet_loss}
+Zastosowano uproszczoną architekturę, bazującą na idei sieci AlexNet, na zbiorze 100800 kwadratowych
+obrazów. Po 25 epokach pozwoliło to na osiągnięcie poprawności wynoszącej aż 98.88\%.
+Na wykresach uczenia 6.9 można zaobserwować, że przez pierwsze 10 epok precyzja przewidywań
+i wartość funkcji kosztu sieci praktycznie się nie zmieniały. Obserwacja sugeruje, że sieci
+głębsze mogą potrzebować większej ilości epok do rozpoczęcia procesu prawidłowego rozpoznawania obrazów.\\
+\begin{figure}[h!]
+\begin{center}
+\begin{tabular}{cc}
+\includegraphics[width=0.49\linewidth]{alexnet_acc} &
+\includegraphics[width=0.49\linewidth]{alexnet_loss} \\
+ Skuteczność rozpoznawania kości & Wartość funkcji błędu\\
+\end{tabular}
+\label{fig:alexnet_idea}
+\captionof{figure}{Wykresy dla sieci opartej o AlexNet}
+\end{center}
+\end{figure}
 
 \section{Porównanie dla obrazów kolorowych i czarno-białych}
 Obraz w skali szarości posiada jedynie jeden kanał odpowiadający jasności. Obrazy kolorowe RGB
 posiadają trzy kanały informujące o nasyceniu odpowiednio czerwonego, zielonego i niebieskiego koloru.
 Wzrost ilości informacji wiąże się z większym obciążeniem pamięci i większą ilością parametrów.
 W celu weryfikacji różnicy między uczeniem obu rodzajów obrazów podjęto próbę porównania wyników
-uczenia dla dwóch jednakowych sieci.\\
-\textbf{Kolorowe RGB:}\\
-\includegraphics[scale=0.55]{comp_color_acc}
-\includegraphics[scale=0.55]{comp_color_loss}\\
-\textbf{Skala szarości:}\\
-\includegraphics[scale=0.55]{comp_gray_acc}
-\includegraphics[scale=0.55]{comp_gray_loss}\\
-Do tego eksperymentu wykorzystano narzędzie generatora dostępne w Keras, które umożliwia
-przekazywanie obrazów do sieci bez konieczności wcześniejszego ładowania całego zbioru
-do pamięci, umożliwiając pracę na bardzo dużych zestawach danych. Architektura obu
-sieci była uproszczona, by zniwelować długi czas uczenia. Modele obu sieci znajdują się poniżej:\\\\
-Oba modele po 20 epokach wykazały się bardzo zbliżonymi wynikami 98,47\% oraz 98,12\%
+uczenia dla dwóch jednakowych sieci. Pierwsza z sieci korzystała z kolorowej wersji zbioru
+obrazów kwadratowych, dla których zastosowano kąt obrotu 30\textsuperscript{o}, uzyskując
+50400 obrazów. Sieć korzystająca z czarno-białych obrazów miała te same zdjęcia z jednym
+zamiast trzech kanałów informujących o kolorze. Do tego eksperymentu
+wykorzystano narzędzie generatora dostępne w Keras, które przekazuje obrazy do sieci
+bez konieczności wcześniejszego ładowania całego zbioru do pamięci. Architektura obu
+sieci była uproszczona, by zniwelować długi czas uczenia. Pierwsze wykresy 6.10 przedstawiają
+proces uczenia na obrazach kolorowych:\\
+\begin{figure}[h!]
+\begin{center}
+\begin{tabular}{cc}
+\includegraphics[width=0.49\linewidth]{comp_color_acc} &
+\includegraphics[width=0.49\linewidth]{comp_color_loss} \\
+ Skuteczność rozpoznawania kości & Wartość funkcji błędu\\
+\end{tabular}
+\label{fig:comp_color}
+\captionof{figure}{Wykresy dla sieci z obrazami kolorowymi}
+\end{center}
+\end{figure} \\
+Wykresy 6.11 przedstawiają proces uczenia na obrazach w odcieniach skali szarości:\\
+\begin{figure}[h!]
+\begin{center}
+\begin{tabular}{cc}
+\includegraphics[width=0.49\linewidth]{comp_gray_acc} &
+\includegraphics[width=0.49\linewidth]{comp_gray_loss} \\
+ Skuteczność rozpoznawania kości & Wartość funkcji błędu\\
+\end{tabular}
+\label{fig:comp_gray}
+\captionof{figure}{Wykresy dla sieci z obrazami w skali szarości}
+\end{center}
+\end{figure}\newpage
+Jak widać na wykresach, oba modele po 20 epokach wykazały się bardzo zbliżonymi wynikami 98,47\% oraz 98,12\%
 na korzyść sieci z kolorowymi obrazami. Lepiej radzący sobie model, dodatkowo nauczył
 się bardzo szybko do poziomu 95\%, osiągając go już po 4 epoce, gdzie operujący na
 obrazach w skali szarości osiągnął ten wynik po 10 epokach. Obserwacja ta może sugerować,
 że większa różnica w wartościach dla kolorowych obrazów może przyśpieszać uczenie, ale
 wymaga większej ilości pamięci i spowalnia każdą epokę o 15\%.
 
-\section{Porównanie modelu sekwencyjnego i funkcyjnego biblioteki Keras}
-\paragraph{Pierwsze użycie modelu funkcyjnego} \mbox{}\\
-Standardowym sposobem na stworzenie sieci neuronowej w bibliotece Keras jest wykorzystanie
-sekwencyjnego modelu, opierającego się na zasadzie umieszczania warstw na stosie. Bardziej
-zaawansowaną możliwością jest wybranie modelu funkcyjnego API, który pozwala na budowę złożonych
-sieci neuronowy m.in. z wieloma wyjściami, współdzielonymi warstwami i acyklicznymi grafami.\\
-Zdecydowanie większe możliwości modelu funkcyjnego spowodowały chęć realizacji bardziej złożonych
-sieci neuronowych. Pierwsza próba miała za zadanie odtworzyć sieć o identycznej budowie jak w
-pierwszy model operujący na różnokolorowych zbiorach i porównać wyniki po uczeniu przez 25 epok.
-Model został przedstawiony poniżej:\\
-\includegraphics[scale=0.55]{adam_API_acc}
-\includegraphics[scale=0.55]{adam_API_loss}\\
-Zaskoczeniem była spora rozbieżność w ilości parametrów do nauczenia. W modelu sekwencyjnym
-ich ilość wynosiła 18 milionów, a w modelu funkcyjnym API aż 25 milionów parametrów, co oznacza
-40\% wzrost ich ilości oraz 50\% wzrost czasu potrzebnego na jedną epokę przy identycznie
-zdefiniowanych warstwach. Ciężko uzasadnić tę różnicę, z grafu można wywnioskować, że
-prawdopodobnie model ten inaczej uwzględniał filtry konwolucyjne, ponieważ rozmiar warstw
-po ich zastosowaniu nie był jednakowy.\\
-Niezależnie od tego, model osiągnął zdumiewająco dobry rezultat 95,17\% dokładności.
-Wadą tego rozwiązania była, przez zwiększoną ilość parametrów i konieczność zastosowania
-mniejszego rozmiaru partii obrazów jednocześnie dostarczanych sieci z powodów
-problemów z pamięcią.
-
-\paragraph{Pełne porównanie modeli} \mbox{}\\
-Brak sugestii dostępnych w internecie oraz dokumentacji biblioteki Keras wyjaśniających różnice
-w ilość parametrów w modelach sekwencyjnym, oraz API spowodował chęć stworzenia dwóch dużych,
-identycznych modeli, bezpośrednio porównujących ilość parametrów. Modele zostały jedynie
-skompilowane w celu wyciągnięcia informacji o ich rozmiarach, ich uczenie zajęłoby zbyt dużo czasu.\\
-Po kompilacji, model sekwencyjny uzyskał 47 milionów parametrów, a model funkcyjny API
-aż 500 milionów parametrów do nauczenia. Ta ogromna różnica spowodowała zaniechanie
-kolejnych prac nad modelami funkcyjnymi z uwagi na wielokrotne zwiększenie czasu potrzebnego
-na proces uczenia.
-
 \section{Próby wykorzystania prostokątnych obrazów}
+
 \paragraph{Doświadczenia zakończone niepowodzeniem} \mbox{}\\
 Dotychczasowe modele korzystały ze zbiorów o obrazach w kształcie kwadratów z kośćmi
 umieszczonymi w ich środkowej części. Drugi rodzaj przygotowanych zbiorów danych zwiększał
-trudność zadania, dzięki zastosowaniu obrazów prostokątnych z mniejszym obszarem, na którym znajdowała się kostka w stosunku do pierwsze rodzaju obrazów.\\
+trudność zadania, dzięki zastosowaniu obrazów prostokątnych z proporcjonalnie mniejszym
+rozmiarem kości w stosunku do pierwsze rodzaju obrazów.\\
 Po uzyskaniu wielu bardzo dobrych wyników powyżej 90\% na obrazach o rozmiarach 64x64
-przystapiono do prób znacznego zwiększenia obrazów prostokątnych.\\
-Pierwszą próbą było wykorzystanie obrazów 320x240 zarówno w wersjach kolorowych, jak i w skali szarości. Jeden z modeli bazował na architekturze AlexNet, drugi bezpośrednio
+przystąpiono do prób znacznego zwiększenia obrazów prostokątnych.\\
+Pierwszą próbą było wykorzystanie obrazów 320x240 zarówno w wersjach kolorowych, jak i w skali szarości.
+Jeden z modeli bazował na architekturze AlexNet, drugi bezpośrednio
 ją kopiował, ale pomimo świetnego wyniku na mniejszych obrazach, w obu przypadkach
 uczenie zakończyło się całkowitą klęską. Warto wspomnieć, że czas potrzebny na
 jedną epokę był około 15-krotnie większy niż w przypadku obrazów 64x64.\\
@@ -196,27 +260,46 @@ zmniejszenie rozmiarów obrazów, licząc, że pozwoli to na zaobserwowanie, cho
 postępów.\\
 Sieć bazująca na zdjęciach 160x120 była pierwszą próbą, gdzie zamiast jak dotychczas
 kwadratowych, użyto prostokątnych filtrów konwolucyjnych. Proces uczenia po 20 epokach
-niestety również zakończył się niepowodzeniem.\\
-\includegraphics[scale=0.55]{not_learned_acc}
-\includegraphics[scale=0.55]{not_learned_loss}
+niestety również zakończył się niepowodzeniem. Wykresy 6.12 uczenia się przedstawione sa poniżej: \newpage
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tabular}{cc}
+\includegraphics[width=0.49\linewidth]{not_learned_acc} &
+\includegraphics[width=0.49\linewidth]{not_learned_loss} \\
+ Skuteczność rozpoznawania kości & Wartość funkcji błędu\\
+\end{tabular}
+\label{fig:not_learned}
+\captionof{figure}{Wykresy dla nienauczonej sieci z obrazami 160x120}
+\end{center}
+\end{figure}
 
 \paragraph{Wytrenowany prostokątny model} \mbox{}\\
 Powyższe porażki oraz wcześniejsze sukcesy na kwadratowych obrazach sugerowały, że
-prawdopodobnie modele nie są błedne, jedynie obrazy mogą mieć za duży rozmiar. Ta hipoteza
-rozpoczeła proces dobierania odpowiedniej rozdzielczości zdjęć tak by były małe, jednocześnie
-unikając rozmycia oczek na kostce nie. Najlepszym wyborem okazały się zdjęcia w rozmiarze 106x79,
-zachowujące proporcje jak obrazy 160x120, ale posiadające o 50\% mniejszą liczbę parametrów.\\
+obrazy mogą mieć za duży rozmiar. To przypuszczenie rozpoczęło dobieranie
+odpowiedniej rozdzielczości zdjęć tak by rozmiar był mały, a jednocześnie nie powodował
+zanikania informacji o oczkach na kostce. Najlepszym wyborem okazały się zdjęcia w rozmiarze 106x79,
+zachowujące proporcje identyczne z obrazami 160x120, ale posiadające o 50\% mniejszą liczbę parametrów.\\
 Pierwsza próba przeprowadzona przez 20 epok z filtrami konwolucjnymi o prostokątnych
 kształtach wreszcie zakończyła się sukcesem. Sieć osiągnęła wynik 68,03\% co nie
-było świetnym rezultatem, ale dawało informację, że dalsza nauka jest możliwa.\\
-\includegraphics[scale=0.55]{rect_acc}
-\includegraphics[scale=0.55]{rect_loss}
+było świetnym rezultatem, ale sugerowało, że dalsza nauka jest możliwa. Wykres 6.13 uczenia znajduje się poniżej.\\
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tabular}{cc}
+\includegraphics[width=0.49\linewidth]{rect_acc} &
+\includegraphics[width=0.49\linewidth]{rect_loss} \\
+ Skuteczność rozpoznawania kości & Wartość funkcji błędu\\
+\end{tabular}
+\label{fig:rect_learned}
+\captionof{figure}{Wykresy dla nauczonej sieci z obrazami 106x79}
+\end{center}
+\end{figure}
 
 \section{Doskonalenie modelu z prostokątnymi obrazami}
 Po pierwszym sukcesie sieci z obrazami prostokątnymi, podjęto decyzję o jej ulepszeniu.
 Zaczęto od próby zmniejszenia ilości parametrów przez zamianę większych filtrów konwolucyjnych,
-większą ilością mniejszych, co znacząco zmniejszało ilość parametrów sieci potrzebną do nauczenia
-\textit{Substituting Big convolution} \cite{substBigConv}.
+większą ilością mniejszych, co znacząco zmniejszało ilość parametrów sieci potrzebną do nauczenia \cite{substBigConv}.
 Po zaaplikowaniu ulepszeń i nauce sieci okazało się, że sieć nie poprawiła się w żadnym
 stopniu. Prawdopodobnym powodem była zmiana architektury sieci wraz z powtórnym
 zastosowaniem kwadratowych filtrów.\\
@@ -226,21 +309,25 @@ możliwych do wystąpienia problemów z zanikającym neuronem. Ulepszenie jednak
 jak wcześniejsze nie sprawdziło się w ogóle i nie umożliwiło poprawy dokładności sieci.
 
 \section{Najskuteczniejszy model z prostokątnymi obrazami}
-Wykres procesu uczenia sieci z obrazami 106x79 kształtem przypominał funkcję logarytmiczną
+Wykres procesu uczenia sieci z obrazami 106x79 kształtem przypominał funkcję logarytmiczną,
 co nasunęło pomysł ze zwiększeniem ilości epok. Podjęto decyzję o kontynuacji uczenia
 do kolejno 40, 60, 80 i 100 epok.\\
 Podejście to okazało się bardzo skuteczne, ponieważ po każdych 20 epokach
 sieć odnosiła lepsze rezultaty, które prezentowały się następująco:\\
-20 epok: 68,03\%\\
-40 epok: 78,21\%\\
-60 epok: 81,59\%\\
-80 epok: 82,39\%\\
-100 epok: 84,67\%\\
-\begin{sidewaysfigure}
-\includegraphics[scale=0.36]{wykres_100}
-\caption{Wykres uczenia przez 100 epok}
-\end{sidewaysfigure}
+\begin{itemize}
+\item  20 epok: 68,03\%\\
+\item  40 epok: 78,21\%\\
+\item  60 epok: 81,59\%\\
+\item  80 epok: 82,39\%\\
+\item  100 epok: 84,67\%\\
+\end{itemize}
 Wyniki uświadamiają, że prawdopodobnie nawet nieudane próby z większymi zdjęciami
 mogłyby się powieść, konieczne byłoby jedynie zwiększenie ilości epok. Wiąże się to jednak
 z ogromnym nakładem czasu, ponieważ prawdopodobnie sensowne rezultaty można by osiągnąć
-dopiero po 100 epokach.
+dopiero po 100 epokach. Wykres \ref{fig:sideway_fig} dokładności sieci znajduje się na następnej stronie.
+
+\begin{sidewaysfigure}
+\includegraphics[scale=0.36]{wykres_100}
+\caption{Wykres uczenia przez 100 epok}
+\label{fig:sideway_fig}
+\end{sidewaysfigure}
