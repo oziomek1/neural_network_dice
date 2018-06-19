@@ -41,7 +41,7 @@ bez wcześniejszej znajomości lub wiedzy na temat przedmiotu, który mają rozp
 Neuron jest najmniejszym elementem sieci neuronowej, posiadającym wiele wejść i jedno wyjście \cite{CS231n_activ, NNbiology, NeuronAnimation}.
 Z neuronów w poprzednich warstwach, na każde z wejść docierają sygnały, które mają 
 przypisaną wagę. W neuronie obliczana jest suma ważona wejść, od której odejmowana jest
-wartość progowa. Jeśli suma przekroczy wartość progową, neuron jest uaktywniany, a suma
+wartość progowa, inaczej bias \cite{needForBias}. Jeśli suma przekroczy wartość progową, neuron jest uaktywniany, a suma
 przekazywana jest jako argument funkcji aktywacji neuronu na jego wyjście.\\
 Poniższy wzór \ref{eq:neuron} przedstawia sumę ważoną wejść neuronu wraz z dodatkową wagą.
 \begin{figure}[h!]
@@ -57,10 +57,6 @@ Jak opisano już wcześniej, neurony połączone są między sobą dzięki liczn
 Każde takie połączenie ma przypisaną wagę, która zmienia się podczas treningu,
 dostosowując sieć neuronową do danych treningowych. Efektem tego jest osiąganie
 coraz lepszych wyników w miarę trwania procesu uczenia.
-
-\paragraph{Bias} \mbox{}\\
-Bias, użyty już we wzorze \ref{eq:neuron} na sumę wag w neuronie jest dodatkową wagą wejściową,
-umożliwiająca jego lepsze dopasowanie neuronu do danych treningowych \cite{needForBias}.
 
 \paragraph{Warstwa} \mbox{}\\
 Neurony w sieci zorganizowana są w warstwach. Komunikacja odbywa się tylko między kolejnymi
