@@ -30,25 +30,23 @@ sieci na danych, które nie zostały przez nią przetworzone podczas treningu.
 Sieć neuronowa \textit{(ang. ANN Artificial Neural Network)} to struktura matematyczna,
 składająca się z neuronów połączonych w warstwy, mająca odzwierciedlać działanie
 biologicznych sieci neuronowych, a w szczególności mózgu \cite{intuitiveExplanation, WIKIcnn}.
-Sieci mają szerokie zastosowanie w bardzo wielu dziedzinach, co przejawia się ich
-popularyzacją w ostatnich latach. Wymagają kosztownego obliczeniowo i czasowo
+Sieci mają szerokie zastosowanie w bardzo wielu dziedzinach. Wymagają jednak kosztownego obliczeniowo i czasowo
 procesu uczenia, podczas którego dostosowują się do danego problemu. Użycie wytrenowanej
-sieci, nie wymaga powtarzania uczenia, co pozwala na jej natychmiastowe wykorzystanie.\\
-W dziedzinie rozpoznawania obrazów sieci są w stanie zidentyfikować elementy na obrazach,
-bez wcześniejszej znajomości lub wiedzy na temat przedmiotu, który mają rozpoznać.
+sieci, nie wymaga powtarzania uczenia, co pozwala na jej natychmiastowe wykorzystanie.
 
 \paragraph{Neuron} \mbox{}\\
 Neuron jest najmniejszym elementem sieci neuronowej, posiadającym wiele wejść i jedno wyjście \cite{CS231n_activ, NNbiology, NeuronAnimation}.
-Z neuronów w poprzednich warstwach, na każde z wejść docierają sygnały, które mają 
-przypisaną wagę. W neuronie obliczana jest suma ważona wejść, od której odejmowana jest
-wartość progowa, inaczej bias \cite{needForBias}. Jeśli suma przekroczy wartość progową, neuron jest uaktywniany, a suma
-przekazywana jest jako argument funkcji aktywacji neuronu na jego wyjście.\\
+Sygnały z neuronów w poprzednich warstwach docierają na każde z wejść neuronu z przypisaną mu wagą. 
+W neuronie obliczana jest suma ważona wejść, która porównywana jest zwartością progową,
+inaczej biasem \cite{needForBias}. Jeśli przekroczy ona wartość progową to neuron jest uaktywniany,
+a suma przekazywana jest do funkcji aktywacji. Wartość funkcji przekazywana jest na wyjście neuronu.\\
 Poniższy wzór \ref{eq:neuron} przedstawia sumę ważoną wejść neuronu wraz z dodatkową wagą.
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
 \begin{equation} \label{eq:neuron}
 f(x_{i}) = f\Big(\sum_{i}w_{i}x_{i} + b \Big)\\
-\end{equation}
+\end{equation}\centering
+gdzie: \textit{w} - wagi wejść neuronu, \textit{x} - wartość sygnału na wejściu, \textit{b} - bias
 \caption{Suma ważona w neuronie wraz z dodatkową wagą \textit{b}}
 \end{figure}
 
@@ -65,11 +63,12 @@ Istnieje wiele rodzajów warstw, a sygnał przechodzący przez całą sieć zacz
 warstwie wejściowej oraz kończy w tzw. warstwie wyjściowej.
 
 \paragraph{Funkcja kosztu} \mbox{}\\
-Do porównywania wyników otrzymywanych przez sieć neuronową wykorzystywana jest funkcja kosztu,
-funkcja oceniająca lub funkcja błędu. Jest ona niezbędna do prawidłowego przeprowadzenie
-procesu uczenia. Funkcja dostarcza informacje o różnicy między obecnym
-stanem sieci a optymalnym rozwiązaniem dla danych treningowych. Algorytm uczenia
-analizuje wartość funkcji kosztu w kolejnych krokach w celu jej zminimalizowania.\\
+Do uzyskiwania informacji o wartości błedu pomiędzy wartościami przewidzianymi przez sieć
+a wartościami docelowymi wykorzystywana jest funkcja kosztu lub funkcja błędu.
+Jest ona niezbędna do prawidłowego przeprowadzenie procesu uczenia.
+Funkcja dostarcza informacje o różnicy między obecnym stanem sieci a optymalnym
+rozwiązaniem dla danych treningowych. Algorytm uczenia
+oblicza wartość funkcji kosztu w kolejnych krokach w celu jej zminimalizowania.\\
 Najczęściej wykorzystywaną funkcją kosztu jest błąd średniokwadratowy \ref{eq:mse}.
 W tej pracy z uwagi na posiadanie 6 możliwych do uzyskania wyników na wyjściu sieci
 zastosowano wielowymiarową entropię krzyżową (\textit{ang. Categorical cross-entropy}) \ref{eq:categorical-crossentropy},
@@ -80,6 +79,8 @@ sugerowana przez bibliotekę Keras oraz wykorzystywana w wielu przykładowych mo
 \begin{equation} \label{eq:mse}
 J(\eta) = \frac {1}{2} \sum_{i}^{m} \Big(h_{\theta}(x^{(i)}) - y^{(i)} \Big)^2\\
 \end{equation}
+\centering
+gdzie: \textit{h\textsubscript{\straighttheta}(x)} - wartość przewidziana przez sieć, \textit{y} - wartość oczekiwana
 \caption{Błąd średniokwadratowy}
 \end{figure}
 \begin{figure}[h!]
@@ -88,22 +89,15 @@ J(\eta) = \frac {1}{2} \sum_{i}^{m} \Big(h_{\theta}(x^{(i)}) - y^{(i)} \Big)^2\\
 L_{i} = - \sum_{j} t_{i,j} log(p_{i,j})\\
 \end{equation}
 \centering
-gdzie: p - predykcje, t - cele, i - wartość, j - klasa
+gdzie: \textit{p} - predykcje, \textit{t} - cele, \textit{i} - wartość, \textit{j} - klasa
 \caption{Wielowymiarowa entropia krzyżowa}
 \end{figure}
-
-\paragraph{Współczynnik uczenia} \mbox{}\\
-Do ustalenia z jakąś szybkością sieć neuronowa będzie dostosowywać się do danych, wykorzystujemy
-współczynnik lub wskaźnik uczenia \textit{(ang. lerning rate)}. Wybranie zbyt małego
-współczynnika wydłuży proces uczenia, a zbyt duża jego wartość może spowodować problemy
-ze znalezieniem optymalnego rozwiązania. W niektórych algorytmach współczynnik uczenia
-zmniejsza się w czasie, by lepiej dostosować się do danych i zniwelować oba wspomniane problemy.
 
 \section{Propagacja wsteczna}
 Propagacja wsteczna lub wsteczna propagacja błędów \textit{(ang. Backpropagation)}
 jest algorytmem uczenia sieci neuronowych \cite{CS231n_backprop, backprop}.
 Służy do wyliczenia gradientu funkcji kosztu, który informuje o szybkości spadku wartości tej funkcji
-w danym kierunku z uwzględnieniem wag neuronów oraz biasu. Obliczenie gradientu w sieci propagowane
+z uwzględnieniem wag neuronów. Obliczenie gradientu w sieci propagowane
 jest od warstwy wyjściowej do wejściowe, czemu algorytm zawdzięcza swoją nazwę.
 
 \section{Konwolucyjna sieć neuronowa}
@@ -130,7 +124,7 @@ h[m, n] = (f * g)[m, n] = \sum_j^m \sum_k^n f[j, k] * g[m-j, n-k] \\
 \end{equation}
 \centering
 \captionsetup{justification=centering,margin=1cm}
-\caption{Splot funkcji. Funkcja f to dwuwymiarowa macierz z pikselami obrazu. Funkcja g to filtr. Funkcja h to nowo otrzymany obraz.}
+\caption{Splot funkcji. Funkcja \textit{f} to dwuwymiarowa macierz z pikselami obrazu. Funkcja \textit{g} to filtr. Funkcja \textit{h} to nowo otrzymany obraz.}
 \end{figure}
 
 \section{Warstwy sieci neuronowej}
@@ -140,7 +134,7 @@ można dopierać zależnie od sposobu rozwiązania danego problemu i typu posiad
 
 \paragraph{Wejściowa} \mbox{}\\
 W sytuacji, gdy danymi jest zbiór obrazów, warstwa wejściowa ma rozmiar identyczny z
-wymiarami obrazu. Pierwsza warstwa charakteryzuje się brakiem wejść oraz biasu.
+wymiarami obrazu. Pierwsza warstwa charakteryzuje się brakiem wejść.
 
 \paragraph{Wyjściowa} \mbox{}\\
 Rozmiar warstwy wyjściowej odpowiada ilości klas, do jakiej dane były klasyfikowane.
@@ -185,7 +179,7 @@ interpretacjami danych przez sieci.
 
 \section{Funkcje aktywacji}
 
-Jeśli wartość progowa danego neuronu zostanie przekroczona, to suma wag zostaje przekazana
+Pomnożona suma wartości wejściowych i ich wag zostaje przekazana
 jako argument do funkcji aktywacji, a obliczona wartości staje się wyjściem neuronu.
 Wybór funkcji jest jednym z kluczowych parametrów danej sieci, ponieważ niewłaściwy wybór
 może prowadzić do problemów podczas uczenia sieci.
@@ -201,6 +195,8 @@ W sigmoid gradient może zanikać obustronnie. Wzór funkcji sigmoidalnej pokaza
 \begin{equation} \label{eq:sigmoid}
 f(x) = \sigma(x) = \frac{1}{1 + e^{-x}} \\
 \end{equation}
+\centering
+gdzie: \textit{x} - wartość wyjścia
 \caption{Funkcja sigmoidalna}
 \end{figure}
 
@@ -214,6 +210,8 @@ zaprezentowany jest poniżej \ref{eq:tanh}.
 \begin{equation} \label{eq:tanh}
 f(x) = tanh(x) = \frac{(e^x - e^{-x})}{(e^x + e^{-x})} = \frac{2}{1+e^{-2x}} - 1 = 2 sigmoid(2x) - 1\\
 \end{equation}
+\centering
+gdzie: \textit{x} - wartość wyjścia
 \caption{Tangens hiperboliczny}
 \end{figure}
 
@@ -229,6 +227,8 @@ Wzór \ref{eq:relu} na obliczenie ReLU przedstawiony jest poniżej.
 \begin{equation} \label{eq:relu}
 f(x) = max(0, x)
 \end{equation}
+\centering
+gdzie: \textit{x} - wartość wyjścia
 \caption{ReLU - Rectified linear unit}
 \end{figure}
 
@@ -245,6 +245,8 @@ x & \text{if } x \geqslant 0 \\
 0.01x & \text{if } x < 0 \\
 \end{cases}
 \end{equation}
+\centering
+gdzie: \textit{x} - wartość wyjścia
 \caption{LeakyReLU}
 \end{figure}
 
@@ -255,31 +257,42 @@ elementu do jednej z wielu klas. Wzór funkcji \ref{eq:softmax} zaprezentowany j
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
 \begin{equation} \label{eq:softmax}
-f(x_{i}) = \frac{e^{x_{i}}} {\sum_{j = 0}^{k}(e^{x_{j}}}
+f(x_{i}) = \frac{e^{x_{i}}} {\sum_{j = 0}^{k}(e^{x_{j}})}
 \end{equation}
+\centering
+gdzie: \textit{x} - wartość wyjścia
 \caption{Funkcja softmax}
 \end{figure}
 
 \section{Optymalizator}
 
 Algorytmy optymalizacyjne wykorzystywane są do minimalizacji funkcji błędu poprzez
-znajdowanie nowych wartości wag neuronów i biasu w sieci neuronowej. Ma kluczowe
+znajdowanie nowych wartości wag neuronów w sieci neuronowej. Ma kluczowe
 znaczenie podczas procesu uczenia sieci w kwestii czasu oraz skuteczności.
 Z tego powodu to zagadnienie jest obiektem wielu obecnych badań i rozwoju sieci
 neuronowych \cite{typesOfOptimizationAlgorithms}.
 
+\paragraph{Współczynnik uczenia} \mbox{}\\
+Do ustalenia z jakąś szybkością sieć neuronowa będzie dostosowywać się do danych, wykorzystujemy
+współczynnik lub wskaźnik uczenia \textit{(ang. lerning rate)}. Wybranie zbyt małego
+współczynnika wydłuży proces uczenia, a zbyt duża jego wartość może spowodować problemy
+ze znalezieniem optymalnego rozwiązania. W niektórych algorytmach współczynnik uczenia
+zmniejsza się w czasie, by lepiej dostosować się do danych i zniwelować oba wspomniane problemy.
+
 \paragraph{Metoda największego spadku} \mbox{}\\
 Metoda największego spadku \textit{(ang. Gradient Descent)} jest podstawowym algorytmem
-służącym do zmiany wartości wag oraz biasu podczas procesu uczenia sieci.
+służącym do zmiany wartości wag podczas procesu uczenia sieci.
 Wadą tej metody jest przeprowadzanie jednorazowej aktualizacji po wyliczeniu gradientu dla
 całego zestawu danych. Spowalnia to uczenie i może powodować problem z ilością zajmowanego
 miejsca w pamięci. Sporą wadą jest możliwość doprowadzenia do stagnacji w jednym z
-lokalnych minimów funkcji. Wzór metody największego spadku \ref{eq:gradientdescent} znajduje się poniżej.
+lokalnych minimów funkcji. Wzór \ref{eq:gradientdescent} znajduje się poniżej.
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
 \begin{equation} \label{eq:gradientdescent}
 \theta = \theta - \eta * \nabla J(\theta)
 \end{equation}
+\centering
+gdzie: \texteta - współczynnik uczenia, \textit{J} - funkcja błedu
 \caption{Metoda największego spadku}
 \end{figure}
 
@@ -288,7 +301,7 @@ Stochastic gradient descent \textit{(skrót. SGD)} jest rozwinięciem metody gra
 prostego, bardzo często wykorzystywana w praktyce \cite{OptimizersOverview}.
 Ulepszenie polega na obliczaniu gradientu dla jednego lub niewielkiej ilości przykładów
 treningowych. Najczęściej korzysta się z więcej niż jednego przykładu, co zapewnia
-lepszą stabilność oraz wykorzystuje zrównoleglenie obliczeń. SGD zapewnia większą rozbieżność
+lepszą stabilność oraz wykorzystuje zrównoleglenie obliczeń. SGD pozwala na lepsze dopasowanie
 niż metoda gradientu prostego, ale wiąże się z koniecznością zastosowania mniejszego
 współczynnika uczenia. Sposób obliczania SGD \ref{eq:sgd} przedstawiony jest poniżej.
 \begin{figure}[h!]
@@ -296,6 +309,9 @@ współczynnika uczenia. Sposób obliczania SGD \ref{eq:sgd} przedstawiony jest 
 \begin{equation} \label{eq:sgd}
 \theta = \theta - \eta * \nabla J(\theta; x_i; y_i)
 \end{equation}
+\centering
+gdzie \texteta - współczynnik uczenia, \textit{J} - funkcja błedu,
+\textit{x, y} - wejściowe i wyjściowe dane treningowe dla określonej iteracji
 \caption{Stochastic gradient descent}
 \end{figure}
 
@@ -322,11 +338,11 @@ Obliczone momenty podstawiane są do wzoru
 \begin{equation} \label{eq:adam}
 \theta_{t+1} = \theta_t - \frac {\eta} {\sqrt{\hat{v_t}} + \epsilon} \hat{m_t}
 \end{equation}
-\caption{Optymalizator Adam}
-\end{figure}
-
+\centering
 gdzie najczęściej \textbeta \textsuperscript{t}\textsubscript{1} = 0.9 oraz
 \textbeta \textsuperscript{t}\textsubscript{2} = 0.99 a \straightepsilon = 10^{-8}\\
+\caption{Optymalizator Adam}
+\end{figure}
 
 \section{Procesy}
 
@@ -363,11 +379,6 @@ Jedną z najlepszych technik na uniknięcie przetrenowania jest zastosowanie war
 odrzucających \cite{DropoutPreventOverfit}.
 
 \section{Inne}
-
-\paragraph{ILSVRC} \mbox{}\\
-ImageNet Large Scale Visual Recognition Competition \cite{ILSVRC} to coroczny konkurs organizowany
-od 2010 roku, w którym naukowcy walczą o najlepszy wynik w dziedzinie rozpoznawania
-obrazów przez skonstruowane przez siebie algorytmy.
 
 \paragraph{MNIST} \mbox{}\\
 Baza danych MNIST \cite{MNIST} to zbiór 60000 treningowych i 10000 testowych czarno-białych obrazów

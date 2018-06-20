@@ -8,29 +8,28 @@ XX wieku.
 
 \section{Sztuczny neuron}
 
-Podstawowym modelem neuronu jest tzw. neuron McCullocha-Pittsa, nazywany
-również neuronem binarnym. Jest to prosta koncepcja zakładająca, że każdy neuron
-posiada wiele wejść, z których każde ma przypisaną wagę w postaci liczby
-rzeczywistej oraz jedno wyjście. Wyjściem neuronu jest wartość funkcji
-dla argumentu będącego sumą wszystkich wag pomnożonych przez odpowiednie
-wartości wejściowe, określana jako funkcja aktywacji, wyjaśniona w późniejszych rozdziałach.
-Wyjście danego neuronu połączone jest z wejściami innych
-neuronów, tak jak ma to miejsce w przypadku biologicznego neuronu \cite{CS231n}.\\
+
+Najprostszym modelem neuronu jest tzw. neuron McCullocha-Pittsa, nazywany
+również neuronem binarnym. Taki neuron posiada wiele wejść z których każde ma przypisaną
+wagę w postaci liczby rzeczywistej. Suma wartości wejściowych mnożona jest przez odpowiadające
+im wagi i podawana jako argument do funkcji aktywacji, wyjaśnionej w późniejszych rozdziałach.
+Wartość tej funkcji jest wyjściem neuronu i staje się wejściem innych neuronów,
+tak jak ma to miejsce w przypadku biologicznego neuronu \cite{CS231n}.\\
 Tak zbudowany, sztuczny model neuronu jest podstawowym składnikiem sztucznych sieci
-neuronowych z racji prostoty działania i łatwości implementacji.\\
-Wykorzystanie pojedynczego neuronu nie pozwala na rozwiązywanie skomplikowanych zadań.
+neuronowych.\\
+Neurony najczęściej łączone są w struktury nazywane sieciami neuronowymi, ponieważ wykorzystanie
+pojedynczego neuronu nie pozwala na rozwiązywanie skomplikowanych zadań.
 Przykładowo próba realizacji prostych funkcji logicznych ANR, OR, NOT i XOR okazuje
 się możliwa jedynie dla trzech pierwszych podanych funkcji \cite{XORproblem}.
 Problem wiąże się z brakiem możliwości uzyskania poprawnych rezultatów dla zbiorów które
-nie są liniowo separowalne, czego przykładem jest właśnie funkcja XOR. W takich przypadkach
-konieczne jest użycie większej ilości neuronów. Tworzenie rozbudowanych struktur z pojedynczych
-neuronów określanych mianem sieci neuronowych, znacząco zwiększa możliwości adaptacyjne
+nie są liniowo separowalne, czego przykładem jest właśnie funkcja XOR. Tworzenie rozbudowanych
+struktur z pojedynczych neuronów znacząco zwiększa możliwości adaptacyjne
 dla poszczególnych problemów, niejednokrotnie zaskakując osiąganymi wynikami.
 
 \section{Historia}
 
-Rozpoczęcie prac nad sztucznymi neuronami można datować na rok 1943 kiedy to
-Warren McCulloch i Walter Pitts przedstawili wspomniany już wcześniej model \cite{NNbiology}.
+Rozpoczęcie prac nad wspomnianym wyżej sztucznym neuronem można datować na rok 1943 kiedy
+Warren McCulloch i Walter Pitts przedstawili pierwszy jego model. \cite{NNbiology}.
 Pierwsze sieci neuronowe używane były do operacji bitowych oraz przewidywania kolejnych
 wystąpień bitów w ciągu. Mimo licznych prób zastosowania ich do realnych problemów
 nie zyskały one popularności. W początkowym okresie rozwoju sieci neuronowych

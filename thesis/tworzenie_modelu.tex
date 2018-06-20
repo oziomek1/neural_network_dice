@@ -6,32 +6,17 @@ do próby stworzenia i nauczenia modelu sieci neuronowej rozpoznającego ilość
 wyrzuconych na kostce do gry.\\
 \textbf{Odnośniki do wszystkich modeli dostępne są pod linkami w części Dodatek B [\ref{dodatekB}] }
 
-\section{Obawy przed rozpoczęciem uczenia}
-Przed przystąpieniem do treningu sieci pojawiły się wątpliwości w kwestii możliwości
-jakiegokolwiek rozpoznania ilości oczek przez sieć. Obawy te wiązały się z faktem, że dla
-przykładu w zbiorze MNIST, położenie cyfr na obrazie było stałe. W przypadku kiedy na
-obrazach kolor biały był obszarem w kształcie przypominającym pionową kreskę, z dużym
-prawdopodobieństwem można było założyć, że jest to cyfra 1 lub 7, a analogiczna
-sytuacja zachodziła dla innych cyfr. W rozpoznawaniu oczek na kostce, zarówno sama
-kostka mogła być umieszczona w różnych miejscach na obszarze całego obrazu, jak i
-dopuszczalny był jej obrót o dowolny kąt.\\
-Kolejną obawą była niewielka ilość pikseli, które przedstawiały dane oczko w
-stosunku do rozmiaru całego obrazu. Oznaczało to, że nawet niewielki szum lub
-zniekształcenia mogą utrudnić prawidłowe rozpoznanie kości.
-
 \section{Pierwsze eksperymenty}
 \paragraph{Pierwszy model} \mbox{}\\
-Pierwsza próba stworzenia sieci, mając na uwadze wyżej wspomniane wątpliwości, miała
-na celu wytrenowanie możliwie prostego, nigdy później niewykorzystywanego zbioru obrazów.
+Pierwsza próba stworzenia sieci, miała
+na celu wytrenowanie sieci na możliwie prostym, nigdy później niewykorzystywanym zbiorze obrazów.
 W tym celu wykorzystano jedynie obrazy z czerwonym tłem, białą kością o czarnych oczkami.
 Kąt rotacji zmniejszono do 5\textsuperscript{o}, uzyskując 60480 zdjęć ze 120 oryginalnych.\\
 Architektura tej sieci, była dobierana bez większego wdrażania się w szczegóły i
 bazowała na modelach sieci udostępnionych na stronach Keras oraz TensorFlow,
 wykorzystywanych do analizy zbiorów MNIST oraz CIFAR10. Za optymalizator został wybrany
-Adam, a sam trening został podzielony na dwie tury, 25 epok w pierwszej oraz 10 epok w drugiej.
-Nigdzie wcześniej nie zauważono tego typu praktyki, aby rozdzielać epoki uczenia.
-Zrobiono to dlatego, aby umożliwić wcześniejsze zakończenie całego procesu w sytuacji,
-gdyby nie zauważono żadnych postępów. Model sieci prezentował się następująco \ref{fig:first_model}: \newpage
+Adam, a sam trening został przeprowadzony przez 25 epok.
+Model sieci prezentował się następująco \ref{fig:first_model}: \newpage
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.35]{pierwszy_plot}
