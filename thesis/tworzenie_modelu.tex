@@ -62,7 +62,7 @@ Tak jak poprzednio sieć uczona była przez 25 epok.
 Po pierwszych 25 epokach uzyskano dokładność 55,64\% co potwierdziło przypuszczenie
 z poprzedniej sieci o przetrenowaniu i konieczności zróżnicowania danych.
 Poniżej znajdują się wykresy 6.4 uczenia się modelu:
-
+\newpage
 \begin{figure}[h!]
 \begin{center}
 \begin{tabular}{cc}
@@ -158,13 +158,13 @@ mają filtry rozmiarów odpowiednio 11x11 oraz 5x5. Następnie umieszczone są t
 konwolucyjne z filtrami 3x3, które w przeciwieństwie do pierwszych
 dwóch warstw nie są rozdzielone warstwami z maxpoolingiem. AlexNet zdeklasowała rywali
 w konkursie ILSVRC 2012 i swoimi rezultatami zszokowała wielu naukowców. Z racji tak świetnych
-wyników, zdecydowano się na realizację modelu przypominającego jej budowę.\\
-Zastosowano bazującą na idei sieci AlexNet, uproszczoną architekturę, która opisana jest poniżej \ref{fig:alexnet}.
-
+wyników, zdecydowano się na realizację modelu przypominającego jej budowę.
+Zastosowano model bazujący na idei AlexNet, z uproszczoną architekturę, która przedstawiona jest poniżej \ref{fig:alexnet}.
+\newpage
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.35]{dice_AlexNet_plot}
-\caption{Model bazujący na optymalizatorze Adam}
+\caption{Model bazujący na Alexnet}
 \label{fig:alexnet}
 \end{figure}
 Na zbiorze 100800 kwadratowych obrazów, po 25 epokach osiągnięto poprawność wynoszącą aż 98.88\%.
@@ -181,7 +181,7 @@ głębsze mogą potrzebować większej ilości epok do rozpoczęcia procesu praw
 \label{fig:alexnet_plot}
 \captionof{figure}{Wykresy dla sieci opartej o AlexNet}
 \end{center}
-\end{figure}
+\end{figure}\\
 
 \section{Porównanie dla obrazów kolorowych i czarno-białych}
 Obraz w skali szarości posiada jedynie jeden kanał odpowiadający jasności. Obrazy kolorowe RGB
@@ -270,7 +270,15 @@ Powyższe porażki oraz wcześniejsze sukcesy na kwadratowych obrazach sugerowa�
 obrazy mogą mieć za duży rozmiar. To przypuszczenie rozpoczęło dobieranie
 odpowiedniej rozdzielczości zdjęć tak by rozmiar był mały, a jednocześnie nie powodował
 zanikania informacji o oczkach na kostce. Najlepszym wyborem okazały się zdjęcia w rozmiarze 106x79,
-zachowujące proporcje identyczne z obrazami 160x120, ale posiadające o 50\% mniejszą liczbę parametrów.\\
+zachowujące proporcje identyczne z obrazami 160x120, ale posiadające o 50\% mniejszą liczbę parametrów.
+Poniżej przedstawiony jest model tej sieci \ref{fig:simple_106x79}:
+\newpage
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.35]{simple_NN_106x79_plot.png}
+\caption{Model bazujący na Alexnet}
+\label{fig:simple_106x79}
+\end{figure}
 Pierwsza próba przeprowadzona przez 20 epok z filtrami konwolucjnymi o prostokątnych
 kształtach wreszcie zakończyła się sukcesem. Sieć osiągnęła wynik 68,03\% co nie
 było świetnym rezultatem, ale sugerowało, że dalsza nauka jest możliwa. Wykres 6.13 uczenia znajduje się poniżej.\\
