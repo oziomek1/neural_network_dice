@@ -16,14 +16,13 @@ procesie uczenia sieci jako docelowa informacja, którą ma zwrócić sieć po w
 
 \paragraph{Zbiór treningowy} \mbox{}\\
 Część zbioru danych, która wykorzystywana jest w procesie uczenia sieci, określana jest jako zbiór
-treningowy lub zbioru uczący. Jego liczebność to zazwyczaj 60-80\% całego zbioru danych.
-Praktycznie zawsze dane znajdujące się w tym zbiorze, przed rozpoczęciem uczenia,
-poddawane są losowej permutacji.
+treningowy lub zbiór uczący. Jego liczebność to zazwyczaj 60-80\% całego zbioru danych.
+Zawsze przed rozpoczęciem uczenia, dane znajdujące się w tym zbiorze poddawane są losowej permutacji.
 
 \paragraph{Zbiór testowy} \mbox{}\\
 Do oceny zdolności sieci neuronowej do rozpoznawania danych służy zbiór testowy lub
-walidacyjny. Celem rozdzielenia tego zbioru od danych testowych jest weryfikacja
-sieci na danych, które nie zostały przez nią przetworzone podczas treningu.
+walidacyjny. Zbiór jest rozdzielony od treningowego, by podczas weryfikacji sieci operowano
+na nieznanych jej wcześniej danych.
 
 \section{Budowa sieci neuronowej}
 \paragraph{Sieć neuronowa} \mbox{}\\
@@ -57,13 +56,13 @@ dostosowując sieć neuronową do danych treningowych. Efektem tego jest osiąga
 coraz lepszych wyników w miarę trwania procesu uczenia.
 
 \paragraph{Warstwa} \mbox{}\\
-Neurony w sieci zorganizowana są w warstwach. Komunikacja odbywa się tylko między kolejnymi
+Neurony w sieci zorganizowane są w warstwach. Komunikacja odbywa się tylko między kolejnymi
 warstwami, neurony w danej warstwie nie są ze sobą połączone \cite{CS231n, substBigConv}.
 Istnieje wiele rodzajów warstw, a sygnał przechodzący przez całą sieć zaczyna się w tzw.
 warstwie wejściowej oraz kończy w tzw. warstwie wyjściowej.
 
 \paragraph{Funkcja kosztu} \mbox{}\\
-Do uzyskiwania informacji o wartości błedu pomiędzy wartościami przewidzianymi przez sieć
+Do uzyskiwania informacji o wartości błędu pomiędzy wartościami przewidzianymi przez sieć
 a wartościami docelowymi wykorzystywana jest funkcja kosztu lub funkcja błędu.
 Jest ona niezbędna do prawidłowego przeprowadzenie procesu uczenia.
 Funkcja dostarcza informacje o różnicy między obecnym stanem sieci a optymalnym
@@ -72,7 +71,7 @@ oblicza wartość funkcji kosztu w kolejnych krokach w celu jej zminimalizowania
 Najczęściej wykorzystywaną funkcją kosztu jest błąd średniokwadratowy \ref{eq:mse}.
 W tej pracy z uwagi na posiadanie 6 możliwych do uzyskania wyników na wyjściu sieci
 zastosowano wielowymiarową entropię krzyżową (\textit{ang. Categorical cross-entropy}) \ref{eq:categorical-crossentropy},
-która jest preferowana, ponieważ uwypukla aż tak bardzo nieprawidłowych wartości \cite{whyNotMSE}. Jest również
+która jest preferowana, ponieważ zapobiega uwypukleniu nieprawidłowych wartości \cite{whyNotMSE}. Jest również
 sugerowana przez bibliotekę Keras oraz wykorzystywana w wielu przykładowych modelach sieci neuronowych.
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
@@ -103,16 +102,16 @@ jest od warstwy wyjściowej do wejściowe, czemu algorytm zawdzięcza swoją naz
 \section{Konwolucyjna sieć neuronowa}
 
 Przy wykorzystywaniu sieci neuronowych do operowania na zdjęciach, pojawia się problem
-dużą ilością parametrów odpowiadających wartościom każdego z pikseli.
+z dużą ilością parametrów odpowiadających wartościom każdego z pikseli.
 W celu ich zmniejszenia stosuje się konwolucyjne sieci neuronowe \textit{(ang. CNN - Convolutuinal Neural Network)}.
-Do kolejnych warstw zamiast przekazywania informacje o wszystkich pikselach znajdujących się
-na obrazach, sieć analizuje obraz przy użyciu filtrów konwolucyjnych i
-przesyła dalej informacje o zaobserwowanych cechach.\\
+Zamiast przekazywać informacje o wszystkich pikselach znajdujących się
+na obrazach, sieć analizuje je przy użyciu filtrów konwolucyjnych.
+Te wartości przesyłane są dalej do następnej warstwy.\\
 Obecnie ten typ sieci odnosi największe osiągnięcia w dziedzinie rozpoznawania obrazów,
 w wielu przypadkach dorównując lub nawet pokonująć ludzkie wyniki.
 
 \paragraph{Konwolucja} \mbox{}\\
-Wymieniona wyżej konwolucja, inaczej splot polega na złożeniu dwóch funkcji. W przypadku obrazów
+Wymieniona wyżej konwolucja, inaczej splot, polega na złożeniu dwóch funkcji. W przypadku obrazów
 jedna z tych funkcji to obraz, który ma rozmiary większe niż druga funkcja określana
 mianem filtra konwolucyjnego. Zastosowanie splotu, w zależności od przypadku,
 pozwala na rozmycie, wyostrzanie lub wydobycie głębi z danego obrazu \cite{konwolucja}.
@@ -130,16 +129,16 @@ h[m, n] = (f * g)[m, n] = \sum_j^m \sum_k^n f[j, k] * g[m-j, n-k] \\
 \section{Warstwy sieci neuronowej}
 
 W sieciach neuronowych wyróżniamy kilka rodzajów warstw, które poza wejściową i wyjściową,
-można dopierać zależnie od sposobu rozwiązania danego problemu i typu posiadanych danych.
+można dobierać zależnie od sposobu rozwiązania danego problemu i typu posiadanych danych.
 
 \paragraph{Wejściowa} \mbox{}\\
 W sytuacji, gdy danymi jest zbiór obrazów, warstwa wejściowa ma rozmiar identyczny z
-wymiarami obrazu. Pierwsza warstwa charakteryzuje się brakiem wejść.
+wymiarami obrazu.
 
 \paragraph{Wyjściowa} \mbox{}\\
-Rozmiar warstwy wyjściowej odpowiada ilości klas, do jakiej dane były klasyfikowane.
-W tej pracy, gdzie czekiwanym wyjściem była liczba oczek możliwych do wyrzucenia na
-kostce, odpowiada to 6 klasom. Wyjściem takiej sieci jest więc wektor o wymiarach 6x1.
+Rozmiar warstwy wyjściowej odpowiada ilości klas, do jakiej dane były rozdzielane.
+W tej pracy, gdzie oczekiwanym wyjściem była liczba oczek możliwych do wyrzucenia na
+kostce, odpowiada on 6 klasom. Wyjściem takiej sieci jest więc wektor o wymiarach 6x1.
 
 \paragraph{Konwolucyjna} \mbox{}\\
 Warstwa konwolucyjna służy do przetworzenia danych z poprzedniej warstwy przy użyciu
@@ -148,12 +147,11 @@ na obrazach lub ich fragmentach. Zastosowanie wielu warstw konwolucyjnych umożl
 analizowanie bardziej złożonych zależności na obrazach.
 
 \paragraph{W pełni połączona} \mbox{}\\
-Najbardziej rozpowszechnionymi typami warstw są w pełni połączone \textit{(ang. Fully Connected, Dense)}.
-Każdy neuron łączy się ze wszystkimi neuronami następnej warstwy. Skutkuje to dużą ilością
-potrzebnych do wykonania obliczeń, choć są stosunkowo proste do zaaplikowania.
-W sieciach konwolucyjnych umieszczane są po lub między warstwami konwolucyjnymi
-i służą do powiązania nieliniowych kombinacji, które zostały wygenerowane przez
-warstwy konwolucyjne oraz ich sklasyfikowania.
+Najpopularniejszy typ warstwy to w pełni połączony \textit{(ang. Fully Connected, Dense)}.
+Każdy neuron łączy się ze wszystkimi neuronami następnej warstwy, co skutkuje dużą ilością
+potrzebnych do wykonania obliczeń.
+W sieciach konwolucyjnych umieszczane są zwykle po warstwach konwolucyjnych
+i służą do powiązania nieliniowych kombinacji i ich sklasyfikowania.
 
 \paragraph{Flatten} \mbox{}\\
 Warstwa spłaszczająca \textit{(ang. Flatten)} stosowana jest w celu połączenia warstw
@@ -195,8 +193,6 @@ W sigmoid gradient może zanikać obustronnie. Wzór funkcji sigmoidalnej pokaza
 \begin{equation} \label{eq:sigmoid}
 f(x) = \sigma(x) = \frac{1}{1 + e^{-x}} \\
 \end{equation}
-\centering
-gdzie: \textit{x} - wartość wyjścia
 \caption{Funkcja sigmoidalna}
 \end{figure}
 
@@ -210,8 +206,6 @@ zaprezentowany jest poniżej \ref{eq:tanh}.
 \begin{equation} \label{eq:tanh}
 f(x) = tanh(x) = \frac{(e^x - e^{-x})}{(e^x + e^{-x})} = \frac{2}{1+e^{-2x}} - 1 = 2 sigmoid(2x) - 1\\
 \end{equation}
-\centering
-gdzie: \textit{x} - wartość wyjścia
 \caption{Tangens hiperboliczny}
 \end{figure}
 
@@ -227,8 +221,6 @@ Wzór \ref{eq:relu} na obliczenie ReLU przedstawiony jest poniżej.
 \begin{equation} \label{eq:relu}
 f(x) = max(0, x)
 \end{equation}
-\centering
-gdzie: \textit{x} - wartość wyjścia
 \caption{ReLU - Rectified linear unit}
 \end{figure}
 
@@ -245,8 +237,6 @@ x & \text{if } x \geqslant 0 \\
 0.01x & \text{if } x < 0 \\
 \end{cases}
 \end{equation}
-\centering
-gdzie: \textit{x} - wartość wyjścia
 \caption{LeakyReLU}
 \end{figure}
 
@@ -259,8 +249,6 @@ elementu do jednej z wielu klas. Wzór funkcji \ref{eq:softmax} zaprezentowany j
 \begin{equation} \label{eq:softmax}
 f(x_{i}) = \frac{e^{x_{i}}} {\sum_{j = 0}^{k}(e^{x_{j}})}
 \end{equation}
-\centering
-gdzie: \textit{x} - wartość wyjścia
 \caption{Funkcja softmax}
 \end{figure}
 
@@ -344,6 +332,13 @@ gdzie najczęściej \textbeta \textsuperscript{t}\textsubscript{1} = 0.9 oraz
 \caption{Optymalizator Adam}
 \end{figure}
 
+\section{Przetrenowanie}
+Zjawisko przetrenowania \textit{(ang. Overfitting)} polega na błędnym rozpoznawaniu nowych danych,
+kiedy podczas treningu sieć uczyła się poprawnie. Może być ono bardzo trudne do wykrycia,
+co powoduje, że jest jednym z największych problemów podczas pracy z sieciami neuronowymi.
+Istnieje wiele sposobów na ograniczenie przetrenowania, a jedną z najlepszych technik
+jest zastosowanie warstw odrzucających \cite{DropoutPreventOverfit}.
+
 \section{Procesy}
 
 Pracy z sieciami neuronowymi towarzyszy kilka procesów, które są niezbędne do tworzenia
@@ -370,13 +365,6 @@ dane i poprawnie je klasyfikować.
 \paragraph{Predykcja} \mbox{}\\
 Wartości zwrócone przez sieć po umieszczeniu w niej określonych danych nazywane są
 predykcją. Pozwala to na wykorzystanie nauczonego modelu w praktycznym zastosowaniu.
-
-\paragraph{Przetrenowanie} \mbox{}\\
-Przetrenowanie \textit{(ang. Overfitting)} polega na błędnym rozpoznawaniu nowych danych,
-kiedy podczas treningu sieć uczyła się poprawnie. Może być ono bardzo trudne do wykrycia,
-co powoduje, że jest jednym z największych problemów podczas pracy z sieciami neuronowymi.
-Jedną z najlepszych technik na uniknięcie przetrenowania jest zastosowanie warstw
-odrzucających \cite{DropoutPreventOverfit}.
 
 \section{Inne}
 

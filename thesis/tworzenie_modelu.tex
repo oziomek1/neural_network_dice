@@ -24,8 +24,7 @@ Model sieci prezentował się następująco \ref{fig:first_model}: \newpage
 \label{fig:first_model}
 \end{figure}
 Rezultaty osiągnięte przez ten model były zdumiewające. Po pierwszej epoce
-sieć uzyskała 61,98\% skuteczności ostatecznie osiągając wynik 99,88\% po 25 epokach.
-Kolejne 10 epok praktycznie nie poprawiło już tego rezultatu.\\
+sieć uzyskała 61,98\% skuteczności ostatecznie osiągając wynik 99,88\% po 25 epokach.\\
 Po analizie wyniku okazało się, że wykorzystanie wielu bardzo podobnych obrazów o identycznym
 układzie barw, spowodowało występowanie niemal identycznych z testowymi, zdjęć treningowych.
 W sytuacji, gdyby zdjęcia były bardziej zróżnicowane, wynik okazałby się zdecydowanie gorszy.
@@ -51,7 +50,18 @@ tego problemu jest wykonalne, zabrano się do kolejnego etapu prac. W tym celu
 wykorzystano opisany w poprzednim rozdziale zbiór obrazów kwadratowych złożony ze 100800 zdjęć
 podzielonych na 80640 i 20160 w części treningowej i testowej.\\
 W modelu wykorzystano architekturę nieznacznie zmienioną w stosunku pierwszego modelu.
-Poniżej znajdują się wykresy 6.3 uczenia się modelu:
+Poniżej znajduje się opisywany model \ref{fig:adam}: \newpage
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.35]{modeladam_plot}
+\caption{Model bazujący na optymalizatorze Adam}
+\label{fig:adam}
+\end{figure}
+Tak jak poprzednio sieć uczona była przez 25 epok.
+Po pierwszych 25 epokach uzyskano dokładność 55,64\% co potwierdziło przypuszczenie
+z poprzedniej sieci o przetrenowaniu i konieczności zróżnicowania danych.
+Poniżej znajdują się wykresy 6.4 uczenia się modelu:
 
 \begin{figure}[h!]
 \begin{center}
@@ -63,18 +73,6 @@ Poniżej znajdują się wykresy 6.3 uczenia się modelu:
 \label{fig:adam_plots}
 \captionof{figure}{Wykresy dla modelu z optymalizatorem Adam}
 \end{center}
-\end{figure}
-
-Tak jak poprzednio sieć uczona była przez 25, a następnie przez 10 epok.
-Po pierwszych 25 epokach uzyskano dokładność 55,64\% co potwierdziło przypuszczenie
-z poprzedniej sieci o przetrenowaniu i konieczności zróżnicowania danych.
-Kolejne 10 epok poprawiło wynik sieci do 65,30\%. Poniżej znajduje się opisywany model \ref{fig:adam}: \newpage
-
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.35]{modeladam_plot}
-\caption{Model bazujący na optymalizatorze Adam}
-\label{fig:adam}
 \end{figure}
 
 \paragraph{Model z wybranymi zdjęciami} \mbox{}\\
@@ -160,10 +158,17 @@ mają filtry rozmiarów odpowiednio 11x11 oraz 5x5. Następnie umieszczone są t
 konwolucyjne z filtrami 3x3, które w przeciwieństwie do pierwszych
 dwóch warstw nie są rozdzielone warstwami z maxpoolingiem. AlexNet zdeklasowała rywali
 w konkursie ILSVRC 2012 i swoimi rezultatami zszokowała wielu naukowców. Z racji tak świetnych
-rekomendacji, zdecydowano się na realizację modelu przypominającego jej budowę.\\
-Zastosowano uproszczoną architekturę, bazującą na idei sieci AlexNet, na zbiorze 100800 kwadratowych
-obrazów. Po 25 epokach pozwoliło to na osiągnięcie poprawności wynoszącej aż 98.88\%.
-Na wykresach uczenia 6.9 można zaobserwować, że przez pierwsze 10 epok precyzja przewidywań
+wyników, zdecydowano się na realizację modelu przypominającego jej budowę.\\
+Zastosowano bazującą na idei sieci AlexNet, uproszczoną architekturę, która opisana jest poniżej \ref{fig:alexnet}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.35]{dice_AlexNet_plot}
+\caption{Model bazujący na optymalizatorze Adam}
+\label{fig:alexnet}
+\end{figure}
+Na zbiorze 100800 kwadratowych obrazów, po 25 epokach osiągnięto poprawność wynoszącą aż 98.88\%.
+Na wykresach uczenia 6.10 można zaobserwować, że przez pierwsze 10 epok precyzja przewidywań
 i wartość funkcji kosztu sieci praktycznie się nie zmieniały. Obserwacja sugeruje, że sieci
 głębsze mogą potrzebować większej ilości epok do rozpoczęcia procesu prawidłowego rozpoznawania obrazów.\\
 \begin{figure}[h!]
@@ -173,7 +178,7 @@ głębsze mogą potrzebować większej ilości epok do rozpoczęcia procesu praw
 \includegraphics[width=0.49\linewidth]{alexnet_loss} \\
  Skuteczność rozpoznawania kości & Wartość funkcji błędu\\
 \end{tabular}
-\label{fig:alexnet_idea}
+\label{fig:alexnet_plot}
 \captionof{figure}{Wykresy dla sieci opartej o AlexNet}
 \end{center}
 \end{figure}
@@ -229,11 +234,12 @@ umieszczonymi w ich środkowej części. Drugi rodzaj przygotowanych zbiorów da
 trudność zadania, dzięki zastosowaniu obrazów prostokątnych z proporcjonalnie mniejszym
 rozmiarem kości w stosunku do pierwsze rodzaju obrazów.\\
 Po uzyskaniu wielu bardzo dobrych wyników powyżej 90\% na obrazach o rozmiarach 64x64
-przystąpiono do prób znacznego zwiększenia obrazów prostokątnych.\\
+przystąpiono do prób ze znacznie zwiększonymi obrazami prostokątnymi.\\
 Pierwszą próbą było wykorzystanie obrazów 320x240 zarówno w wersjach kolorowych, jak i w skali szarości.
 Jeden z modeli bazował na architekturze AlexNet, drugi bezpośrednio
 ją kopiował, ale pomimo świetnego wyniku na mniejszych obrazach, w obu przypadkach
-uczenie zakończyło się całkowitą klęską. Warto wspomnieć, że czas potrzebny na
+uczenie zakończyło się całkowitą klęską. Przez wszystkie 25 epok skuteczność nie poprawiła się,
+pozostając na poziomie około 16,6\%. Warto wspomnieć, że czas potrzebny na
 jedną epokę był około 15-krotnie większy niż w przypadku obrazów 64x64.\\
 Ostania próba z obrazami w tym rozmiarze, zakładała użycie uproszczonej architektury
 podobnie jak przy porównaniu uczenia obrazów RGB i w skali szarości. Finalnie, tak jak
@@ -281,24 +287,11 @@ było świetnym rezultatem, ale sugerowało, że dalsza nauka jest możliwa. Wyk
 \end{center}
 \end{figure}
 
-\section{Doskonalenie modelu z prostokątnymi obrazami}
-Po pierwszym sukcesie sieci z obrazami prostokątnymi, podjęto decyzję o jej ulepszeniu.
-Zaczęto od próby zmniejszenia ilości parametrów przez zamianę większych filtrów konwolucyjnych,
-większą ilością mniejszych, co znacząco zmniejszało ilość parametrów sieci potrzebną do nauczenia \cite{substBigConv}.
-Po zaaplikowaniu ulepszeń i nauce sieci okazało się, że sieć nie poprawiła się w żadnym
-stopniu. Prawdopodobnym powodem była zmiana architektury sieci wraz z powtórnym
-zastosowaniem kwadratowych filtrów.\\
-Drugim pomysłem na ulepszenie sieci było zastosowanie zastępowania większych filtrów
-kilkoma mniejszymi połączonego ze zamianą funkcji aktywacji ReLU na LeakyReLU w celu uniknięcia
-możliwych do wystąpienia problemów z zanikającym neuronem. Ulepszenie jednak podobnie
-jak wcześniejsze nie sprawdziło się w ogóle i nie umożliwiło poprawy dokładności sieci.
-
 \section{Najskuteczniejszy model z prostokątnymi obrazami}
-Wykres procesu uczenia sieci z obrazami 106x79 kształtem przypominał funkcję logarytmiczną,
-co nasunęło pomysł ze zwiększeniem ilości epok. Podjęto decyzję o kontynuacji uczenia
-do kolejno 40, 60, 80 i 100 epok.\\
+Wyżej przedstawiony wykres uczenia kształtem przypominał funkcję logarytmiczną, co wskazywało na możliwość 
+dalszej nauki sieci z obrazami 106x79 pikseli. Nauka była kontynuowana do kolejno 40, 60, 80 i 100 epok.\\
 Podejście to okazało się bardzo skuteczne, ponieważ po każdych 20 epokach
-sieć odnosiła lepsze rezultaty, które prezentowały się następująco:\\
+sieć odnosiła coraz lepsze rezultaty, które prezentowały się następująco:\\
 \begin{itemize}
 \item  20 epok: 68,03\%\\
 \item  40 epok: 78,21\%\\
@@ -307,7 +300,7 @@ sieć odnosiła lepsze rezultaty, które prezentowały się następująco:\\
 \item  100 epok: 84,67\%\\
 \end{itemize}
 Wyniki uświadamiają, że prawdopodobnie nawet nieudane próby z większymi zdjęciami
-mogłyby się powieść, konieczne byłoby jedynie zwiększenie ilości epok. Wiąże się to jednak
+mogłyby się powieść, konieczne byłoby jedynie zwiększenie ilości epok. Wiąże się to
 z ogromnym nakładem czasu, ponieważ prawdopodobnie sensowne rezultaty można by osiągnąć
 dopiero po 100 epokach. Wykres \ref{fig:sideway_fig} dokładności sieci znajduje się na następnej stronie.
 
@@ -316,3 +309,14 @@ dopiero po 100 epokach. Wykres \ref{fig:sideway_fig} dokładności sieci znajduj
 \caption{Wykres uczenia przez 100 epok}
 \label{fig:sideway_fig}
 \end{sidewaysfigure}
+
+\section{Doskonalenie modelu z prostokątnymi obrazami}
+Po sukcesie sieci z obrazami prostokątnymi, podjęto decyzję o jej ulepszeniu.
+Zaczęto od próby zmniejszenia ilości parametrów przez zamianę większych filtrów konwolucyjnych,
+większą ilością mniejszych. Zabieg ten znacząco zmniejszał ilość parametrów sieci potrzebną do nauczenia \cite{substBigConv}.
+Po zaaplikowaniu ulepszeń i nauce sieci okazało się, że model nie poprawiła się w żadnym
+stopniu. Prawdopodobnym powodem była zmiana architektury sieci wraz z powtórnym
+zastosowaniem kwadratowych filtrów.\\
+Drugim pomysłem na ulepszenie sieci było zastosowanie zastępowania większych filtrów
+kilkoma mniejszymi. Dodatkowo w celu uniknięcia problemów z zanikającym neuronem zmieniono z ReLU na LeakyReLU.
+Ulepszenie jednak podobnie jak wcześniejsze nie sprawdziło się w ogóle i nie umożliwiło poprawy dokładności sieci.
