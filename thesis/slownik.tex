@@ -56,9 +56,9 @@ a wartość sumy przekazywana jest do funkcji aktywacji. Wartość funkcji przek
 Poniższy wzór \ref{eq:neuron} przedstawia sumę ważoną wejść neuronu wraz z dodatkową wagą.
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
-\begin{equation}
+\begin{equation*}
 f(x_{i}) = f\Big(\sum_{i}w_{i}x_{i} + b \Big)\\
-\end{equation}\centering
+\end{equation*}\centering
 gdzie: \textit{w} - wagi wejść neuronu, \textit{x} - wartość sygnału na wejściu, \textit{b} - bias
 \caption{Suma ważona w neuronie wraz z dodatkową wagą \textit{b}}
 \label{eq:neuron}
@@ -89,9 +89,9 @@ która zapobiega uwypukleniu nieprawidłowych wartości \cite{whyNotMSE}. Jest r
 sugerowana przez bibliotekę Keras oraz wykorzystywana w wielu przykładowych modelach sieci neuronowych.
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
-\begin{equation}
+\begin{equation*}
 J(\eta) = \frac {1}{2} \sum_{i}^{m} \Big(h_{\theta}(x^{(i)}) - y^{(i)} \Big)^2\\
-\end{equation}
+\end{equation*}
 \centering
 gdzie: \textit{h\textsubscript{\straighttheta}(x)} - wartość przewidziana przez sieć, \textit{y} - wartość oczekiwana
 \caption{Błąd średniokwadratowy}
@@ -99,9 +99,9 @@ gdzie: \textit{h\textsubscript{\straighttheta}(x)} - wartość przewidziana prze
 \end{figure}
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
-\begin{equation}
+\begin{equation*}
 L_{i} = - \sum_{j} t_{i,j} log(p_{i,j})\\
-\end{equation}
+\end{equation*}
 \centering
 gdzie: \textit{p} - predykcje, \textit{t} - cele, \textit{i} - wartość, \textit{j} - klasa
 \caption{Wielowymiarowa entropia krzyżowa}
@@ -134,9 +134,9 @@ pozwala na rozmycie, wyostrzanie lub wydobycie głębi z danego obrazu \cite{kon
 Poniższy wzór \ref{eq:conv} przedstawia sposób obliczenia splotu dwóch funkcji.
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
-\begin{equation}
+\begin{equation*}
 h[m, n] = (f * g)[m, n] = \sum_j^m \sum_k^n f[j, k] * g[m-j, n-k] \\
-\end{equation}
+\end{equation*}
 \centering
 \captionsetup{justification=centering,margin=1cm}
 \caption{Splot funkcji. Funkcja \textit{f} to dwuwymiarowa macierz z pikselami obrazu. Funkcja \textit{g} to filtr. Funkcja \textit{h} to nowo otrzymany obraz.}
@@ -215,9 +215,9 @@ gradient staje się bardzo mały, co jest równoznaczne z zaprzestaniem procesu 
 W sigmoid gradient może zanikać obustronnie. Wzór funkcji sigmoidalnej pokazany jest poniżej \ref{eq:sigmoid}.
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
-\begin{equation}
+\begin{equation*}
 f(x) = \sigma(x) = \frac{1}{1 + e^{-x}} \\
-\end{equation}
+\end{equation*}
 \caption{Funkcja sigmoidalna}
 \label{eq:sigmoid}
 \end{figure}
@@ -229,9 +229,9 @@ jej powoduje większe wahania gradientu. Wzór na obliczenie tangensu hiperbolic
 zaprezentowany jest poniżej \ref{eq:tanh}.
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
-\begin{equation}
+\begin{equation*}
 f(x) = tanh(x) = \frac{(e^x - e^{-x})}{(e^x + e^{-x})} = \frac{2}{1+e^{-2x}} - 1 = 2 sigmoid(2x) - 1\\
-\end{equation}
+\end{equation*}
 \caption{Tangens hiperboliczny}
 \label{eq:tanh}
 \end{figure}
@@ -245,9 +245,9 @@ sigmoidalnej, ponieważ występuje on tylko z jednej strony.
 Wzór \ref{eq:relu} na obliczenie ReLU przedstawiony jest poniżej.
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
-\begin{equation}
+\begin{equation**}
 f(x) = max(0, x)
-\end{equation}
+\end{equation**}
 \caption{ReLU - Rectified linear unit}
 \label{eq:relu}
 \end{figure}
@@ -258,13 +258,13 @@ gradientu w sytuacji, dla której ReLU jest nieaktywne. Zmiana ta pozwala na uni
 problemu znikającego gradientu. Jej wzór \ref{eq:leakyrelu} przedstawiony jest poniżej.
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
-\begin{equation}
+\begin{equation*}
 f(x) =
 \begin{cases}
 x & \text{if } x \geqslant 0 \\
 0.01x & \text{if } x < 0 \\
 \end{cases}
-\end{equation}
+\end{equation*}
 \caption{LeakyReLU}
 \label{eq:leakyrelu}
 \end{figure}
@@ -276,9 +276,9 @@ elementu do jednej z wielu klas. \\W tej pracy wykorzystywana jest w ostatniej w
 przypisania ilości rozpoznanych oczek do każdego ze zdjęć. Wzór funkcji \ref{eq:softmax} zaprezentowany jest poniżej.
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
-\begin{equation}
+\begin{equation*}
 f(x_{i}) = \frac{e^{x_{i}}} {\sum_{j = 0}^{k}(e^{x_{j}})}
-\end{equation}
+\end{equation*}
 \caption{Funkcja softmax}
 \label{eq:softmax}
 \end{figure}
@@ -307,9 +307,9 @@ miejsca w pamięci. Sporą wadą jest możliwość doprowadzenia do stagnacji w 
 lokalnych minimów funkcji. Wzór \ref{eq:gradientdescent} znajduje się poniżej.
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
-\begin{equation}
+\begin{equation*}
 \theta = \theta - \eta * \nabla J(\theta)
-\end{equation}
+\end{equation*}
 \centering
 gdzie: \texteta - współczynnik uczenia, \textit{J} - funkcja błedu
 \caption{Metoda największego spadku}
@@ -325,9 +325,9 @@ niż metoda gradientu prostego, ale wiąże się z koniecznością zastosowania 
 współczynnika uczenia. Sposób obliczania SGD przedstawiony jest poniżej \ref{eq:sgd}.
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
-\begin{equation}
+\begin{equation*}
 \theta = \theta - \eta * \nabla J(\theta; x_i; y_i)
-\end{equation}
+\end{equation*}
 \centering
 gdzie \texteta - współczynnik uczenia, \textit{J} - funkcja błedu,
 \textit{x, y} - wejściowe i wyjściowe dane treningowe dla określonej iteracji
@@ -344,21 +344,21 @@ korzystając przy tym z pierwszego i drugiego momentu centralnego, czyli odpowie
 i osiąganie bardzo dobrych wyników. Poniższe wzory przedstawiają sposób na jego obliczenie \ref{eq:moments_adam}, \ref{eq:adam}.
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
-\begin{equation}
+\begin{equation*}
 \begin{align*}
 \hat{m_t} = \frac{m_t} {1 - \beta^t_1}, \\
 \hat{v_t} = \frac{v_t} {1 - \beta^t_2}, \\
 \end{align*}
-\end{equation}
+\end{equation*}
 \caption{Wzór na obliczanie pierwszego \textit{(m)} i drugiego \testit{(v)} momentu centralnego}
 \label{eq:moments_adam}
 \end{figure}
 Obliczone momenty podstawiane są do wzoru
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
-\begin{equation}
+\begin{equation*}
 \theta_{t+1} = \theta_t - \frac {\eta} {\sqrt{\hat{v_t}} + \epsilon} \hat{m_t}
-\end{equation}
+\end{equation*}
 \centering
 gdzie najczęściej \textbeta \textsuperscript{t}\textsubscript{1} = 0.9 oraz
 \textbeta \textsuperscript{t}\textsubscript{2} = 0.99 a \straightepsilon = 10^{-8}\\
