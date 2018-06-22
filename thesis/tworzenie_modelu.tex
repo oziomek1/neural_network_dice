@@ -2,17 +2,16 @@
 
 \chapter{Sieć rozpoznająca ilość oczek}
 W momencie zrobienia zbioru danych składających się z kwadratowych obrazów, przystąpiono
-do próby stworzenia i nauczenia modelu sieci neuronowej rozpoznającego ilość oczek
-wyrzuconych na kostce do gry.\\
+do tworzenia sieci neuronowych rozpoznających ilość oczek wyrzuconych na kostce do gry.\\
 \textbf{Odnośniki do wszystkich modeli dostępne są pod linkami w części Dodatek B [\ref{dodatekB}] }
 
 \section{Pierwsze eksperymenty}
 \paragraph{Pierwszy model} \mbox{}\\
-Pierwsza próba stworzenia sieci, miała
+Pierwsza próba stworzenia sieci miała
 na celu wytrenowanie sieci na możliwie prostym, nigdy później niewykorzystywanym zbiorze obrazów.
-W tym celu wykorzystano jedynie obrazy z czerwonym tłem, białą kością o czarnych oczkami.
+W tym celu wykorzystano jedynie obrazy z czerwonym tłem, białą kością i czarnych oczkami.
 Kąt rotacji zmniejszono do 5\textsuperscript{o}, uzyskując 60480 zdjęć ze 120 oryginalnych.\\
-Architektura tej sieci, była dobierana bez większego wdrażania się w szczegóły i
+Architektura tej sieci była dobierana bez większego wdrażania się w szczegóły i
 bazowała na modelach sieci udostępnionych na stronach Keras oraz TensorFlow,
 wykorzystywanych do analizy zbiorów MNIST oraz CIFAR10. Za optymalizator został wybrany
 Adam, a sam trening został przeprowadzony przez 25 epok.
@@ -49,7 +48,7 @@ Po stworzeniu modelu, który wykazał, że zadanie stworzenia dobrze działając
 tego problemu jest wykonalne, zabrano się do kolejnego etapu prac. W tym celu
 wykorzystano opisany w poprzednim rozdziale zbiór obrazów kwadratowych złożony ze 100800 zdjęć
 podzielonych na 80640 i 20160 w części treningowej i testowej.\\
-W modelu wykorzystano architekturę nieznacznie zmienioną w stosunku pierwszego modelu.
+W modelu wykorzystano architekturę nieznacznie zmienioną w stosunku do pierwszego modelu.
 Poniżej znajduje się opisywany model \ref{fig:adam}: \newpage
 
 \begin{figure}[h!]
@@ -79,8 +78,7 @@ Poniżej znajdują się wykresy 6.4 uczenia się modelu:
 Kolejnym punktem sprawdzenia jak zróżnicowanie danych wpływa na wyniki sieci, było
 wykorzystanie tylko niektórych zestawów danych z całego zbioru 100800 kwadratowych obrazów.
 Zestawy były dobrane tak, by kontrast między tłem a kością był wyraźny. Architektura sieci
-była identyczna z powyższym przykładach, chociaż pominięto tu już, tak jak w każdym następnym
-przykładzie, uczenie z podziałem na dwie tury. 25 epok wystarczyło by uzyskać dokładność
+była identyczna z powyższym przykładem. 25 epok wystarczyło by uzyskać dokładność
 na poziomie 89,23\% co jest rezultatem zdecydowanie lepszym niż uzyskane wcześniej 55,64\%.\\
 Przebieg uczenia sieci widoczny jest poniżej 6.5: \newpage
 
@@ -159,7 +157,7 @@ konwolucyjne z filtrami 3x3, które w przeciwieństwie do pierwszych
 dwóch warstw nie są rozdzielone warstwami z maxpoolingiem. AlexNet zdeklasowała rywali
 w konkursie ILSVRC 2012 i swoimi rezultatami zszokowała wielu naukowców. Z racji tak świetnych
 wyników, zdecydowano się na realizację modelu przypominającego jej budowę.
-Zastosowano model bazujący na idei AlexNet, z uproszczoną architekturę, która przedstawiona jest poniżej \ref{fig:alexnet}.
+Zastosowano model bazujący na idei AlexNet, z uproszczoną architekturą, która przedstawiona jest poniżej \ref{fig:alexnet}.
 \newpage
 \begin{figure}[h!]
 \centering
@@ -220,11 +218,10 @@ Wykresy 6.11 przedstawiają proces uczenia na obrazach w odcieniach skali szaro�
 \end{center}
 \end{figure}\newpage
 Jak widać na wykresach, oba modele po 20 epokach wykazały się bardzo zbliżonymi wynikami 98,47\% oraz 98,12\%
-na korzyść sieci z kolorowymi obrazami. Lepiej radzący sobie model, dodatkowo nauczył
-się bardzo szybko do poziomu 95\%, osiągając go już po 4 epoce, gdzie operujący na
-obrazach w skali szarości osiągnął ten wynik po 10 epokach. Obserwacja ta może sugerować,
-że większa różnica w wartościach dla kolorowych obrazów może przyśpieszać uczenie, ale
-wymaga większej ilości pamięci i spowalnia każdą epokę o 15\%.
+na korzyść sieci z kolorowymi obrazami. Model z lepszym wynikiem nauczył się bardzo szybko
+do poziomu 95\%, osiągając go już po 4 epoce, gdzie drugi osiągnął ten wynik po 10 epokach.
+Obserwacja ta może sugerować, że większa różnica w wartościach dla kolorowych obrazów
+może przyśpieszać uczenie, ale wymaga większej ilości pamięci i spowalnia każdą epokę o 15\%.
 
 \section{Próby wykorzystania prostokątnych obrazów}
 
@@ -241,11 +238,11 @@ ją kopiował, ale pomimo świetnego wyniku na mniejszych obrazach, w obu przypa
 uczenie zakończyło się całkowitą klęską. Przez wszystkie 25 epok skuteczność nie poprawiła się,
 pozostając na poziomie około 16,6\%. Warto wspomnieć, że czas potrzebny na
 jedną epokę był około 15-krotnie większy niż w przypadku obrazów 64x64.\\
-Ostania próba z obrazami w tym rozmiarze, zakładała użycie uproszczonej architektury
+Ostania próba z obrazami w tym rozmiarze zakładała użycie uproszczonej architektury,
 podobnie jak przy porównaniu uczenia obrazów RGB i w skali szarości. Finalnie, tak jak
 wcześniej, pomimo 20 epok sieć nie wykazała żadnego postępu w rozpoznawaniu kości.\\\\
 Niepowodzenia spowodowały konieczność zmniejszenia zbiorów przez ograniczenie rozmiarów obrazów.
-Problemem podczas zmniejszania była chęć uniknięcia problemów z brakiem ostrości
+Kluczowa przy tym była chęć uniknięcia problemów z brakiem ostrości
 oczek na kostce co mogłoby uniemożliwić skuteczną naukę. Zdecydowano się na dwukrotne
 zmniejszenie rozmiarów obrazów, licząc, że pozwoli to na zaobserwowanie, chociaż niewielkich
 postępów.\\
@@ -319,10 +316,10 @@ dopiero po 100 epokach. Wykres \ref{fig:sideway_fig} dokładności sieci znajduj
 \end{sidewaysfigure}
 
 \section{Doskonalenie modelu z prostokątnymi obrazami}
-Po sukcesie sieci z obrazami prostokątnymi, podjęto decyzję o jej ulepszeniu.
+Po sukcesie sieci z obrazami prostokątnymi podjęto decyzję o jej ulepszeniu.
 Zaczęto od próby zmniejszenia ilości parametrów przez zamianę większych filtrów konwolucyjnych,
 większą ilością mniejszych. Zabieg ten znacząco zmniejszał ilość parametrów sieci potrzebną do nauczenia \cite{substBigConv}.
-Po zaaplikowaniu ulepszeń i nauce sieci okazało się, że model nie poprawiła się w żadnym
+Po zaaplikowaniu ulepszeń i nauce sieci okazało się, że model nie poprawił się w żadnym
 stopniu. Prawdopodobnym powodem była zmiana architektury sieci wraz z powtórnym
 zastosowaniem kwadratowych filtrów.\\
 Drugim pomysłem na ulepszenie sieci było zastosowanie zastępowania większych filtrów

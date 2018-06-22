@@ -21,7 +21,7 @@ Zawsze przed rozpoczęciem uczenia, dane znajdujące się w tym zbiorze poddawan
 
 \paragraph{Zbiór testowy} \mbox{}\\
 Do oceny zdolności sieci neuronowej do rozpoznawania danych służy zbiór testowy lub
-walidacyjny. Zbiór jest rozdzielony od treningowego, by podczas weryfikacji sieci operowano
+walidacyjny. Zbiór jest oddzielony od treningowego, by podczas weryfikacji sieci operowano
 na nieznanych jej wcześniej danych.
 
 \section{Budowa sieci neuronowej}
@@ -193,10 +193,10 @@ Wybór funkcji jest jednym z kluczowych parametrów danej sieci, ponieważ niew�
 może prowadzić do problemów podczas uczenia sieci.
 
 \paragraph{Sigmoid} \mbox{}\\
-Sigmoid popularną funkcją aktywacji. Problemem z nią związanym
+Sigmoid jest popularną funkcją aktywacji. Problemem z nią związanym
 jest ryzyko zaniknięcia gradientu, co może prowadzić do problemu tzw. umierającego
 neuronu \cite{activationFunctions}. Występuje ono, gdy dla danej funkcji aktywacji,
-gradient staję się bardzo mały, co jest równoznaczne z zaprzestaniem procesu uczenia.
+gradient staje się bardzo mały, co jest równoznaczne z zaprzestaniem procesu uczenia.
 W sigmoid gradient może zanikać obustronnie. Wzór funkcji sigmoidalnej pokazany jest poniżej \ref{eq:sigmoid}.
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
@@ -357,7 +357,7 @@ oraz korzystania z nich.
 \paragraph{Uczenie} \mbox{}\\
 Uczenie bądź trening sieci jest procesem, w którym wagi sieci dostosowują się do dostarczonych danych.
 Nauczona sieć powinna sprawnie realizować zamierzone zadanie, na przykład poprawnego
-rozpoznawania ilośći oczek wyrzuconych na kostce. Trening jest bardzo kosztowny obliczeniowo,
+rozpoznawania ilości oczek wyrzuconych na kostce. Trening jest bardzo kosztowny obliczeniowo,
 ponieważ operacje dodawania i mnożenia wektorów oraz macierzy wykonywane są miliony razy.
 
 \paragraph{Epoka} \mbox{}\\
