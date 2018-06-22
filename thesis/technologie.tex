@@ -9,24 +9,23 @@ aspektów.
 \section{Język programowania i środowisko}
 
 \paragraph{Python} \mbox{}\\
-Kod stworzony na potrzeby tej pracy został napisany w jezyku programowania Python, który
+Kod stworzony na potrzeby tej pracy został napisany w języku programowania Python, który
 obecnie jest bardzo popularnym narzędziem wykorzystywanym w pracy naukowej.
-Podowem tego wyboru jest bardzo czytelna i zwięzła składnia. Python jest także domyślnym
+Powodem tego wyboru jest bardzo czytelna i zwięzła składnia. Python jest także domyślnym
 językiem używany w bibliotekach wykorzystywanych do tworzenia modeli sieci neuronowych.
 
 \paragraph{Jupyter Notebook} \mbox{}\\
 Do łatwiejszego tworzenia i analizowania modeli sieci neuronowych wykorzystano aplikację
-Jupyter Notebook, pozwalającą uruchamiać w przeglądarce pliki, nazywane notebookami,
-które składają się z wielu bloków. W blokach może znajdować się wykonywalny kod programu
-lub jego fragment, a w pozostałych można prezentować m.in. teksty, wykresy bądź tabele,
-co zdecydowanie ułatwia pracę.\\
+Jupyter Notebook, pozwalającą uruchamiać w przeglądarce pliki, składające się z wielu bloków.
+W blokach może znajdować się wykonywalny kod programu m.in. w języku Python,
+a w pozostałych można umieszczać teksty, wykresy bądź tabele, co zdecydowanie ułatwia pracę.\\
 
 \section{Biblioteki}
 
 \paragraph{OpenCV} \mbox{}\\
-Posiadanie mniejszych niż otrzymywanych bezpośrednio z kamery obrazów bardzo przyśpiesza
+Praca na mniejszych niż otrzymywanych bezpośrednio z kamery obrazów bardzo przyśpiesza
 naukę sieci neuronowych. Do obróbki obrazów wykorzystano bibliotekę OpenCV.
-Najczęsciej wykorzystywana jest w językach C++ oraz Python, pozwalając m.in. na
+Najczęściej wykorzystywana jest w językach C++ oraz Python, pozwalając m.in. na
 skalowanie, kadrowanie i obracanie obrazów.
 
 \paragraph{TensorFlow} \mbox{}\\
@@ -37,7 +36,7 @@ kilkukrotnie szybsza niż na procesorze, co znacząco przyśpiesza proces uczeni
 Biblioteka najlepiej wspiera języki programowania C++ oraz Python.
 
 \paragraph{Keras} \mbox{}\\
-Wykorzystywaną w tej pracy biblioteką do tworzenia modeli sieci neuronowych jest Keras,
+Używaną w tej pracy biblioteką do tworzenia modeli sieci neuronowych jest Keras,
 wykorzystujący bardziej niskopoziomowe biblioteki jak TensorFlow.
 Zaletami Kerasa są zarówno przystępny interfejs pozwalający w krótkim czasie stworzyć model
 sieci oraz możliwość tworzenia zaawansowanych modeli przy średnim pogorszeniu czasu
@@ -48,13 +47,12 @@ osoby niezrozumiałe, jest to świetna alternatywa do wdrożenia się w to zagad
 \paragraph{Numpy} \mbox{}\\
 Wykonywanie operacji na dużych zbiorach danych dostarczanych do sieci zostało przyśpieszone
 dzięki wykorzystaniu modułu Numpy. Moduł umożliwia wykonywanie zaawansowanych operacji na macierzach
-oraz wektorach, wspierający liczne funkcje matematyczne. Jest bardzo rozpowszechniony
-i wykorzystywany w wielu, głównie naukowych zastosowaniach. Numpy wprowadza własne
+oraz wektorach, wspierający liczne funkcje matematyczne. Ponadto Numpy wprowadza własne
 typy danych oraz funkcje niedostępne w standardowej instalacji Pythona.
 
 \paragraph{Matplotlib} \mbox{}\\
 Wykresy potrzebne do analizy sieci neuronowych tworzone były przy użyciu narzędzia Matplotlib.
-Posiada bardzo duże możliwości pozostając jednocześnie prostym w użyciu co sprawia
+Posiada bardzo duże możliwości pozostając jednocześnie prostym w użyciu co sprawia, że
 jest bardzo popularny. Dodatkowo zawiera moduł pyplot, który w założeniu ma maksymalnie przypominać
 interfejs w programie MATLAB.
 
@@ -65,18 +63,18 @@ formie graficznej. Ogromną zaletą jest możliwość tworzenia w tekście zaawa
 wzorów matematycznych. Tekst niniejszej pracy napisany został przy pomocy tego narzędzia.
 
 \section{Technologie wspomagające}
-Kilkukrotne przyśpieszenie tworzenia modeli do tej pracy możliwe było dzieki wykorzystaniu
+Kilkukrotne przyśpieszenie tworzenia modeli do tej pracy możliwe było dzięki wykorzystaniu
 możliwości oferowanych przez szybkie karty graficzne.
 
 \paragraph{NVIDIA CUDA} \mbox{}\\
 Technologia obecna w kartach firmy NVIDIA to równoległa architektura obliczeniowa,
-pozwalająca na wielokrotne przyśpieszneie obliczeń podczas uczenia się sieci neuronowych.
+pozwalająca na wielokrotne przyśpieszenie obliczeń podczas uczenia się sieci neuronowych.
 Dzięki bibliotekom TensorFlow i Keras, które wspierają obliczenia na kartach graficznych,
 czas uczenia sieci drastycznie maleje. Podczas tej pracy wykorzystana została
 karta NVIDIA TESLA K80 12GB GPU dostępna na Amazon AWS oraz Google Compute Engine.
 
 \paragraph{Amazon AWS EC2} \mbox{}\\
-Szybkie karty graficzne wykorzytane w tej pracy były dostępne na plaftormie z
+Szybkie karty graficzne wykorzystane w tej pracy były dostępne na platformie z
 wirtualnymi maszynami, które można dostosować do potrzeb klienta. Wykorzystano maszyny
 zoptymalizowane do obliczeń na kartach graficznych i uczenia maszynowego.
 Dzięki wykorzystaniu Amazon AWS, czas uczenia sieci zmniejszył się średnio 6-10 krotnie
