@@ -32,11 +32,11 @@ na nieznanych jej wcześniej danych.
 \paragraph{Sieć neuronowa} \mbox{}\\
 Sieć neuronowa \textit{(ang. ANN Artificial Neural Network)} to struktura matematyczna,
 składająca się z neuronów połączonych w warstwy, mająca odzwierciedlać działanie
-biologicznych sieci neuronowych, a w szczególności mózgu \cite{intuitiveExplanation, WIKIcnn}.
+biologicznych sieci neuronowych, a w szczególności mózgu \cite{CS231n_activ}.
 Sieci mają szerokie zastosowanie w bardzo wielu dziedzinach. Wymagają jednak kosztownego obliczeniowo i czasowo
 procesu uczenia, podczas którego dostosowują się do danego problemu. Użycie wytrenowanej
 sieci, nie wymaga powtarzania uczenia, co pozwala na jej natychmiastowe wykorzystanie.
-Przykładowa ilustracja sieci neuronowej przedstawiona jest poniżej \ref{fig:cnn_layers}:
+Przykładowa ilustracja sieci neuronowej przedstawiona jest poniżej (zob. rys. \ref{fig:cnn_layers})
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.35]{cnn_layers}
@@ -48,7 +48,7 @@ https://www.mathworks.com/solutions/deep-learning/convolutional-neural-network.h
 \end{figure}
 
 \paragraph{Neuron} \mbox{}\\
-Neuron jest najmniejszym elementem sieci neuronowej, posiadającym wiele wejść i jedno wyjście \cite{CS231n_activ, NNbiology, NeuronAnimation}.
+Neuron jest najmniejszym elementem sieci neuronowej, posiadającym wiele wejść i jedno wyjście \cite{NNbiology, NeuronAnimation}.
 Sygnały z neuronów w poprzednich warstwach docierają na każde z wejść neuronu z przypisaną mu wagą.
 W neuronie obliczana jest suma ważona wejść, która porównywana jest z wartością progową,
 inaczej biasem \cite{needForBias}. Przekroczenie wartości progowej uaktywnia neuron,
@@ -77,7 +77,7 @@ warstwie wejściowej oraz kończy w tzw. warstwie wyjściowej.
 
 \paragraph{Funkcja kosztu} \mbox{}\\
 Informacje o wartości błędu pomiędzy wartościami przewidzianymi przez sieć
-a wartościami docelowymi wykorzystywana można uzyskiwać dzięki funkcji kosztu lub funkcji błędu.
+a wartościami docelowymi można uzyskiwać dzięki funkcji kosztu lub funkcji błędu.
 Jest ona niezbędna do prawidłowego przeprowadzenie procesu uczenia.
 Funkcja dostarcza informacje o różnicy między obecnym stanem sieci a optymalnym
 rozwiązaniem dla danych treningowych. Algorytm uczenia
@@ -100,10 +100,10 @@ gdzie: \textit{h\textsubscript{\straighttheta}(x)} - wartość przewidziana prze
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
 \begin{equation*}
-L_{i} = - \sum_{j} t_{i,j} log(p_{i,j})\\
+L(p, q) = - \sum_{i} p_{i} log(q_{i})\\
 \end{equation*}
 \centering
-gdzie: \textit{p} - predykcje, \textit{t} - cele, \textit{i} - wartość, \textit{j} - klasa
+gdzie: \textit{p} - rozkład prawdopodobieństwa dla prawdziwych wartości, \textit{q} - rozkład prawdopodobieństwa dla predykcji
 \caption{Wielowymiarowa entropia krzyżowa}
 \label{eq:categorical-crossentropy}
 \end{figure}
@@ -117,9 +117,9 @@ jest od warstwy wyjściowej do wejściowej, czemu algorytm zawdzięcza swoją na
 
 \section{Konwolucyjna sieć neuronowa}
 
-Korzystanie z sieci neuronowych do operowania na zdjęciach sprawia
+Korzystanie z sieci neuronowych do operowania na zdjęciach sprawia problemy
 z dużą ilością parametrów odpowiadających wartościom każdego z pikseli.
-Zapobiega temu stosowanie konwolucyjnych sieci neuronowych \textit{(ang. CNN - Convolutuinal Neural Network)}.
+Zapobiega temu stosowanie konwolucyjnych sieci neuronowych \textit{(ang. CNN - Convolutuinal Neural Network)} \cite{intuitiveExplanation, WIKIcnn}.
 Zamiast przekazywać informacje o wszystkich pikselach
 na obrazie, sieć analizuje je przy użyciu filtrów konwolucyjnych.
 Te wartości przesyłane są dalej do następnej warstwy.\\
@@ -142,7 +142,7 @@ h[m, n] = (f * g)[m, n] = \sum_j^m \sum_k^n f[j, k] * g[m-j, n-k] \\
 \caption{Splot funkcji. Funkcja \textit{f} to dwuwymiarowa macierz z pikselami obrazu. Funkcja \textit{g} to filtr. Funkcja \textit{h} to nowo otrzymany obraz.}
 \label{eq:conv}
 \end{figure}\\
-Poniżej przedstawiono przykładowy obraz na wyjściu filtra konwolucyjnego \ref{fig:filter_conv}:
+Poniżej przedstawiono przykładowy obraz na wyjściu filtra konwolucyjnego (zob. rys. \ref{fig:filter_conv}):
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=1]{filter_conv}
@@ -176,7 +176,7 @@ Najpopularniejszy typ warstwy to w pełni połączony \textit{(ang. Fully Connec
 Każdy neuron łączy się ze wszystkimi neuronami następnej warstwy, co skutkuje dużą ilością
 potrzebnych do wykonania obliczeń.
 W sieciach konwolucyjnych umieszczane są zwykle po warstwach konwolucyjnych
-i służą do powiązania nieliniowych kombinacji i ich sklasyfikowania.
+i służą do powiązania nieliniowych kombinacji.
 
 \paragraph{Flatten} \mbox{}\\
 Warstwa spłaszczająca \textit{(ang. Flatten)} stosowana jest w celu połączenia warstw
@@ -188,7 +188,7 @@ do kolejnych warstw.
 Użycie warstwy odrzucającej \textit{(ang. Dropout)} jest jednym z najlepszych sposobów
 na poradzenie sobie ze zjawiskiem przetrenowania, opisanym na końcu tego rozdziału
 \cite{DropoutPreventOverfit}. Warstwa odrzucająca nie wykorzystuje wyjść pewnych neuronów,
-co zapobiega rozległym zależnościom między neuronami. W warstwie tej określamy prawdopodobieństwo,
+co powoduje rozpoznawanie wyraźniejszych cech. W warstwie tej określamy prawdopodobieństwo,
 z jakim neurony zostaną zachowane. Najczęściej stosuje się ją po warstwach w pełni
 połączonych, zarówno przy przechodzeniu w przód, jak i tył \cite{DropConnect}.
 
@@ -196,21 +196,19 @@ połączonych, zarówno przy przechodzeniu w przód, jak i tył \cite{DropConnec
 Warstwa ta wykorzystywana jest do zmniejszenia rozmiaru pamięci oraz ilości obliczeń
 w sieci neuronowej. Operacja polega na wybraniu jednego piksela z danego obszaru i przekazaniu
 go do następnej warstwy. Najczęściej wykorzystywany jest tzw. MaxPooling, wybierający
-piksel o największej wartości. Pooling jest krytykowany za brak zachowywania informacji
-o położeniu piksela przekazanego na wyjście warstwy, co może objawiać się błędnymi
-interpretacjami danych przez sieci.
+piksel o największej wartości.
 
 \section{Funkcje aktywacji}
 
 Pomnożona suma wartości wejściowych i ich wag zostaje przekazana
 jako argument do funkcji aktywacji, a obliczona wartości staje się wyjściem neuronu.
 Wybór funkcji jest jednym z kluczowych parametrów danej sieci, ponieważ niewłaściwy wybór
-może prowadzić do problemów podczas uczenia sieci.
+może prowadzić do problemów podczas uczenia sieci \cite{activationFunctions, activationFunctionsV2}.
 
 \paragraph{Sigmoid} \mbox{}\\
 Sigmoid jest popularną funkcją aktywacji. Problemem z nią związanym
 jest ryzyko zaniknięcia gradientu, co może prowadzić do problemu tzw. umierającego
-neuronu \cite{activationFunctions}. Występuje ono, gdy dla danej funkcji aktywacji,
+neuronu. Występuje ono, gdy dla danej funkcji aktywacji,
 gradient staje się bardzo mały, co jest równoznaczne z zaprzestaniem procesu uczenia.
 W sigmoid gradient może zanikać obustronnie. Wzór funkcji sigmoidalnej pokazany jest poniżej \ref{eq:sigmoid}.
 \begin{figure}[h!]
@@ -220,20 +218,6 @@ f(x) = \sigma(x) = \frac{1}{1 + e^{-x}} \\
 \end{equation*}
 \caption{Funkcja sigmoidalna}
 \label{eq:sigmoid}
-\end{figure}
-
-\paragraph{Tangens hiperboliczny} \mbox{}\\
-Tangens hiperboliczny lub tanh jest w istocie przekształconą funkcją sigmoidalną
-\cite{activationFunctions, activationFunctionsV2}. Wykorzystanie
-jej powoduje większe wahania gradientu. Wzór na obliczenie tangensu hiperbolicznego
-zaprezentowany jest poniżej \ref{eq:tanh}.
-\begin{figure}[h!]
-\renewcommand{\figurename}{Wzór}%
-\begin{equation*}
-f(x) = tanh(x) = \frac{(e^x - e^{-x})}{(e^x + e^{-x})} = \frac{2}{1+e^{-2x}} - 1 = 2 sigmoid(2x) - 1\\
-\end{equation*}
-\caption{Tangens hiperboliczny}
-\label{eq:tanh}
 \end{figure}
 
 \paragraph{ReLU} \mbox{}\\
@@ -270,8 +254,8 @@ x & \text{if } x \geqslant 0 \\
 \end{figure}
 
 \paragraph{Softmax} \mbox{}\\
-Softmax jest funkcją obliczającą rozkład prawdopodobieństwa wystąpienia danego zdarzenia
-ze wszystkich możliwych. Wykorzystywana jest w sytuacjach wymagających przyporządkowania
+Softmax jest funkcją wyznaczającą rozkład prawdopodobieństwa wystąpienia danego zdarzenia.
+Wykorzystywana jest w sytuacjach wymagających przyporządkowania
 elementu do jednej z wielu klas. \\W tej pracy wykorzystywana jest w ostatniej warstwie do
 przypisania ilości rozpoznanych oczek do każdego ze zdjęć. Wzór funkcji \ref{eq:softmax} zaprezentowany jest poniżej.
 \begin{figure}[h!]
@@ -287,9 +271,7 @@ f(x_{i}) = \frac{e^{x_{i}}} {\sum_{j = 0}^{k}(e^{x_{j}})}
 
 Algorytmy optymalizacyjne wykorzystywane są do minimalizacji funkcji błędu poprzez
 znajdowanie nowych wartości wag neuronów w sieci. Mają kluczowe
-znaczenie podczas procesu uczenia sieci w kwestii czasu oraz skuteczności.
-Z tego powodu są obiektem wielu obecnych badań i rozwoju sieci
-neuronowych \cite{typesOfOptimizationAlgorithms}.
+znaczenie podczas procesu uczenia sieci w kwestii czasu oraz skuteczności \cite{typesOfOptimizationAlgorithms}.
 
 \paragraph{Współczynnik uczenia} \mbox{}\\
 Do ustalenia z jakąś szybkością sieć neuronowa będzie dostosowywać się do danych, wykorzystujemy
@@ -337,7 +319,7 @@ gdzie \texteta - współczynnik uczenia, \textit{J} - funkcja błedu,
 
 \paragraph{Adam} \mbox{}\\
 Adam to skrót od angielskiej nazwy \textit{Adaptive Moment Estimation} i jest rozwinięciem
-metody Stochastic Gradient Descent \cite{AdamOptimizer, OptimizersOverview}.
+metody Stochastic Gradient Descent \cite{OptimizersOverview,AdamOptimizer}.
 Metoda ta zapewnia dostosowanie współczynnika uczenia do każdego z parametrów z osobna,
 korzystając przy tym z pierwszego i drugiego momentu centralnego, czyli odpowiednio ze
 średniej oraz wariancji. Adam obecnie jest bardzo popularny z uwagi na szybkość działania

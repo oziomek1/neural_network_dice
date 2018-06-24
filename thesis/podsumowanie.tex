@@ -8,9 +8,20 @@ modeli załadowanych do pamięci, które analizują obraz dostarczany z kamery
 podłączonej do komputera. Modele są przystosowane do rozpoznawania kości na
 obrazach o wielkościach 64x64 oraz 106x79 pikseli.\\
 Obraz 1600x1200 dostarczany z kamery jest wielokrotnie większy, co wymusiło wyznaczenie jego
-części, która jest analizowana przez zaaplikowane sieci neuronowe. Ta część obrazu
-oznaczona jest białymi krawędziami dla łatwiejszego zlokalizowania miejsca, w którym
-powinna być umieszczona kość pod kamerą.
+części, która jest analizowana przez zaaplikowane sieci neuronowe. Ta część obrazu została
+oznaczona białymi krawędziami dla łatwiejszego zlokalizowania miejsca, w którym
+powinna być umieszczona kość pod kamerą (zob. rys. \ref{fig:recognize}) :\\
+\begin{figure}[h!]
+\begin{center}
+\begin{tabular}{cc}
+\includegraphics[width=0.49\linewidth]{neural_network_recognition} &
+\includegraphics[width=0.49\linewidth]{neural_network_recognition_106x79} \\
+Rozpoznawanie obrazów 64x64 & Rozpoznawanie obrazów 106x79\\
+\end{tabular}
+\captionof{figure}{Przykłady działania sieci neuronowych}
+\label{fig:recognize}
+\end{center}
+\end{figure}\\
 Dla obrazów 64x64 wykonano kilka modeli sieci, które osiągnęły powyżej 90\% skuteczności.
 Program umożliwia porównanie wyników dzięki zaaplikowaniu ich do analizy tego
 samego obszaru na zdjęciu. Pozwala to zauważyć między innymi lepsze rozpoznawanie

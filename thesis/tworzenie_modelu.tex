@@ -3,7 +3,7 @@
 \chapter{Sieć rozpoznająca ilość oczek}
 Po zrobieniu zbioru danych składających się z kwadratowych obrazów, przystąpiono
 do tworzenia sieci neuronowych rozpoznających ilość oczek wyrzuconych na kostce do gry.\\
-\textbf{Odnośniki do wszystkich modeli dostępne są pod linkami w części Dodatek B [\ref{dodatekB}] }
+\textbf{Odnośniki do wszystkich modeli dostępne są pod linkami w części Dodatek B [\ref{dodatekB}.] }
 
 \section{Pierwsze eksperymenty}
 \paragraph{Pierwszy model} \mbox{}\\
@@ -15,7 +15,7 @@ Architektura tej sieci była dobierana bez większego wdrażania się w szczegó
 bazowała na modelach sieci udostępnionych na stronach Keras oraz TensorFlow,
 wykorzystywanych do analizy zbiorów MNIST oraz CIFAR10. Za optymalizator został wybrany
 Adam, a sam trening został przeprowadzony przez 25 epok.
-Model sieci prezentował się następująco \ref{fig:first_model}: \newpage
+Model sieci prezentował się następująco (zob. rys. \ref{fig:first_model}): \newpage
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.35]{pierwszy_plot}
@@ -23,16 +23,16 @@ Model sieci prezentował się następująco \ref{fig:first_model}: \newpage
 \label{fig:first_model}
 \end{figure}
 Ta oraz wszystkie kolejne sieci korzystają z ReLU jako funkcji aktywacji,
-co pozwoliło na uniknięcie dodatkowych rozbieżności między modelami.\\
-Na końcu każdej z sieci zastosowana jest funkcja softmax, która decyduje o ilości oczek
-na kostce na podstawie największego prawdopobieństwa.\\\\
+co pozwoliło na zmniejszenie ilości rożnic między modelami.\\
+Na końcu każdej z sieci zastosowana jest funkcja softmax, która oblicza prawdopodobieństwo
+wyrzucenia danej ilości oczek na kostce.\\\\
 Rezultaty osiągnięte przez ten model były zdumiewające. Po pierwszej epoce
 sieć uzyskała 61,98\% skuteczności ostatecznie osiągając wynik 99,88\% po 25 epokach.\\
 Po analizie wyniku okazało się, że wykorzystanie wielu bardzo podobnych obrazów o identycznym
 układzie barw, spowodowało występowanie niemal identycznych z treningowymi, zdjęć testowych.
 Przy bardziej zróżnicowanych zdjęciach, wynik okazałby się zdecydowanie gorszy.
 Występuje tu zjawisko przetrenowania, które pomimo bardzo dobrych wyników na zbiorze testowym,
-w praktyce osiągałoby niezadowalające rezultaty. Poniżej znajdują się wykresy \ref{fig:first_plots}
+w praktyce osiągałoby niezadowalające rezultaty. Poniżej znajdują się wykresy (zob. rys. \ref{fig:first_plots})
 dla sieć w kolejnych epokach:
 
 \begin{figure}[h!]
@@ -53,7 +53,7 @@ tego problemu jest wykonalne, zabrano się do kolejnego etapu prac. W tym celu
 wykorzystano opisany w poprzednim rozdziale zbiór obrazów kwadratowych złożony ze 100800 zdjęć
 podzielonych na 80640 i 20160 w części treningowej i testowej.\\
 W modelu wykorzystano architekturę nieznacznie zmienioną w stosunku do pierwszego modelu.
-Poniżej znajduje się opisywany model \ref{fig:adam}: \newpage
+Poniżej znajduje się opisywany model (zob. rys. \ref{fig:adam}): \newpage
 
 \begin{figure}[h!]
 \centering
@@ -64,7 +64,7 @@ Poniżej znajduje się opisywany model \ref{fig:adam}: \newpage
 Tak jak poprzednio sieć uczona była przez 25 epok.
 Po pierwszych 25 epokach uzyskano dokładność 55,64\% co potwierdziło przypuszczenie
 z poprzedniej sieci o przetrenowaniu i konieczności zróżnicowania danych.
-Poniżej znajdują się wykresy \ref{fig:adam_plots} uczenia się modelu:
+Poniżej znajdują się wykresy (zob. rys. \ref{fig:adam_plots}) uczenia się modelu:
 \newpage
 \begin{figure}[h!]
 \begin{center}
@@ -84,7 +84,7 @@ wykorzystanie tylko niektórych zestawów danych z całego zbioru 100800 kwadrat
 Zestawy były dobrane tak, by kontrast między tłem a kością był wyraźny. Architektura sieci
 była identyczna z powyższym przykładem. 25 epok wystarczyło do uzyskania dokładności
 na poziomie 89,23\% co jest rezultatem zdecydowanie lepszym niż uzyskane wcześniej 55,64\%.\\
-Przebieg uczenia sieci widoczny jest poniżej \ref{fig:chosen_plots}: \newpage
+Przebieg uczenia sieci widoczny jest poniżej (zob. rys. \ref{fig:chosen_plots}): \newpage
 
 \begin{figure}[h!]
 \begin{center}
@@ -114,7 +114,7 @@ ponieważ w licznych tekstach naukowych to Adam uznawany jest za jeden z najleps
 optymalizatorów, ciesząc się ogromną popularnością. Również z tego powodu, pomimo
 gorszego niż RMSprop wyniku, Adam będzie wykorzystywany w następnych modelach.
 Poniżej znajdują się wyniki dla każdego z analizowanych optymalizatorów
-\ref{fig:comparison_adam}, \ref{fig:comparison_rmsprop}, \ref{fig:comparison_sgd}:
+(zob. rys. \ref{fig:comparison_adam}, \ref{fig:comparison_rmsprop}, \ref{fig:comparison_sgd}):
 
 \begin{figure}[h!]
 \begin{center}
@@ -154,7 +154,7 @@ Poniżej znajdują się wyniki dla każdego z analizowanych optymalizatorów
 \newpage
 
 \section{Wykorzystanie sieci AlexNet}
-Sieć o nazwie AlexNet \cite{AlexNetNVIDIA, AlexNetdesc, AlexNetpresentation} została
+Sieć o nazwie AlexNet \cite{AlexNetNVIDIA, AlexNetpresentation} została
 zaprezentowana przez Alexa Krizhevskyego, Geoffreya Hintona oraz Ilya Sutskevera w 2012 roku.
 Jej ideą jest zastosowanie większej ilości warstw konwolucyjnych, gdzie początkowe dwie warstwy
 mają filtry rozmiarów odpowiednio 11x11 oraz 5x5. Następnie umieszczone są trzy warstwy
@@ -162,7 +162,7 @@ konwolucyjne z filtrami 3x3, które w przeciwieństwie do pierwszych
 dwóch warstw nie są rozdzielone warstwami z maxpoolingiem. AlexNet zdeklasowała rywali
 w konkursie ILSVRC 2012 i swoimi rezultatami zszokowała wielu naukowców. Z racji tak świetnych
 wyników, zdecydowano się na realizację modelu przypominającego jej budowę.
-Zastosowano model bazujący na idei AlexNet, z uproszczoną architekturą, która przedstawiona jest poniżej \ref{fig:alexnet}.
+Zastosowano model bazujący na idei AlexNet, z uproszczoną architekturą, która przedstawiona jest poniżej (zob. rys. \ref{fig:alexnet}):
 \newpage
 \begin{figure}[h!]
 \centering
@@ -171,7 +171,7 @@ Zastosowano model bazujący na idei AlexNet, z uproszczoną architekturą, któr
 \label{fig:alexnet}
 \end{figure}
 Na zbiorze 100800 kwadratowych obrazów, po 25 epokach osiągnięto poprawność wynoszącą aż 98.88\%.
-Na wykresach uczenia \ref{fig:alexnet_plot} można zaobserwować, że przez pierwsze 10 epok precyzja przewidywań
+Na wykresach uczenia (zob. rys. \ref{fig:alexnet_plot}) można zaobserwować, że przez pierwsze 10 epok precyzja przewidywań
 i wartość funkcji kosztu sieci praktycznie się nie zmieniały. Obserwacja sugeruje, że sieci
 głębsze mogą potrzebować większej ilości epok do rozpoczęcia procesu prawidłowego rozpoznawania obrazów.\\
 \begin{figure}[h!]
@@ -197,8 +197,8 @@ obrazów kwadratowych, dla których zastosowano kąt obrotu 30\textsuperscript{o
 zamiast trzech kanałów informujących o kolorze. Do tego eksperymentu
 wykorzystano narzędzie generatora dostępne w Keras, które przekazuje obrazy do sieci
 bez konieczności wcześniejszego ładowania całego zbioru do pamięci. Architektura obu
-sieci była uproszczona, by zniwelować długi czas uczenia. Wykresy \ref{fig:comp_color} przedstawiają
-proces uczenia na obrazach kolorowych, a wykresy \ref{fig:comp_gray} na obrazach w odcieniach skali szarości:\\
+sieci była uproszczona, by zniwelować długi czas uczenia. Wykresy (zob. rys. \ref{fig:comp_color}) przedstawiają
+proces uczenia na obrazach kolorowych, a wykresy (zob. rys. \ref{fig:comp_gray}) na obrazach w odcieniach skali szarości:\\
 \begin{figure}[h!]
 \begin{center}
 \begin{tabular}{cc}
@@ -228,8 +228,6 @@ Obserwacja ta może sugerować, że większa różnica w wartościach dla koloro
 może przyśpieszać uczenie, ale wymaga większej ilości pamięci i spowalnia każdą epokę o 15\%.
 
 \section{Próby wykorzystania prostokątnych obrazów}
-
-\paragraph{Doświadczenia zakończone niepowodzeniem} \mbox{}\\
 Dotychczasowe modele korzystały ze zbiorów o obrazach w kształcie kwadratów z kośćmi
 umieszczonymi w ich środkowej części. Drugi rodzaj przygotowanych zbiorów danych zwiększał
 trudność zadania, dzięki zastosowaniu obrazów prostokątnych z proporcjonalnie mniejszym
@@ -252,7 +250,7 @@ zmniejszenie rozmiarów obrazów, licząc, że pozwoli to na zaobserwowanie, cho
 postępów.\\
 Sieć bazująca na zdjęciach 160x120 była pierwszą próbą, gdzie zamiast jak dotychczas
 kwadratowych, użyto prostokątnych filtrów konwolucyjnych. Proces uczenia po 20 epokach
-niestety również zakończył się niepowodzeniem. Wykresy \ref{fig:not_learned} uczenia się przedstawione sa poniżej: \newpage
+niestety również zakończył się niepowodzeniem. Wykresy (zob. rys. \ref{fig:not_learned}) uczenia się przedstawione sa poniżej: \newpage
 
 \begin{figure}[h!]
 \begin{center}
@@ -272,7 +270,7 @@ obrazy mogą mieć za duży rozmiar. To przypuszczenie rozpoczęło dobieranie
 odpowiedniej rozdzielczości zdjęć tak by rozmiar był mały, a jednocześnie nie powodował
 zanikania informacji o oczkach na kostce. Najlepszym wyborem okazały się zdjęcia w rozmiarze 106x79,
 zachowujące proporcje identyczne z obrazami 160x120, ale posiadające o 50\% mniejszą liczbę parametrów.
-Poniżej przedstawiony jest model tej sieci \ref{fig:simple_106x79}:
+Poniżej przedstawiony jest model tej sieci (zob. rys. \ref{fig:simple_106x79}):
 \newpage
 \begin{figure}[h!]
 \centering
@@ -282,7 +280,7 @@ Poniżej przedstawiony jest model tej sieci \ref{fig:simple_106x79}:
 \end{figure}
 Pierwsza próba przeprowadzona przez 20 epok z filtrami konwolucjnymi o prostokątnych
 kształtach wreszcie zakończyła się sukcesem. Sieć osiągnęła wynik 68,03\% co nie
-było świetnym rezultatem, ale sugerowało, że dalsza nauka jest możliwa. Wykres \ref{fig:rect_learned} uczenia znajduje się poniżej.\\
+było świetnym rezultatem, ale sugerowało, że dalsza nauka jest możliwa. Wykres (zob. rys. \ref{fig:rect_learned}) uczenia znajduje się poniżej.\\
 
 \begin{figure}[h!]
 \begin{center}
@@ -311,7 +309,7 @@ sieć odnosiła coraz lepsze rezultaty, które prezentowały się następująco:
 Wyniki uświadamiają, że prawdopodobnie nawet nieudane próby z większymi zdjęciami
 mogłyby się powieść, konieczne byłoby jedynie zwiększenie ilości epok. Wiąże się to
 z ogromnym nakładem czasu, ponieważ prawdopodobnie sensowne rezultaty można by osiągnąć
-dopiero po 100 epokach. Wykres \ref{fig:sideway_fig} dokładności sieci znajduje się na następnej stronie.
+dopiero po 100 epokach. Wykres (zob. rys. \ref{fig:sideway_fig}) dokładności sieci znajduje się na następnej stronie.
 
 \begin{sidewaysfigure}
 \includegraphics[scale=0.36]{wykres_100}
