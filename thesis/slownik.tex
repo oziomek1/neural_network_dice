@@ -50,17 +50,17 @@ https://www.mathworks.com/solutions/deep-learning/convolutional-neural-network.h
 \paragraph{Neuron} \mbox{}\\
 Neuron jest najmniejszym elementem sieci neuronowej, posiadającym wiele wejść i jedno wyjście \cite{NNbiology, NeuronAnimation}.
 Sygnały z neuronów w poprzednich warstwach docierają na każde z wejść neuronu z przypisaną mu wagą.
-W neuronie obliczana jest suma ważona wejść, która porównywana jest z wartością progową,
-inaczej biasem \cite{needForBias}. Przekroczenie wartości progowej uaktywnia neuron,
+W neuronie obliczana jest suma ważona wejść, od której odejmowana jest z wartość progowa
+inaczej bias \cite{needForBias}. Przekroczenie wartości progowej uaktywnia neuron,
 a wartość sumy przekazywana jest do funkcji aktywacji. Wartość funkcji przekazywana jest na wyjście neuronu.
-Poniższy wzór \ref{eq:neuron} przedstawia sumę ważoną wejść neuronu wraz z dodatkową wagą.
+Poniższy wzór \ref{eq:neuron} przedstawia sumę ważoną wejść neuronu.
 \begin{figure}[h!]
 \renewcommand{\figurename}{Wzór}%
 \begin{equation*}
-f(x_{i}) = f\Big(\sum_{i}w_{i}x_{i} + b \Big)\\
+f(x_{i}) = f\Big(\sum_{i}w_{i}x_{i} - b \Big)\\
 \end{equation*}\centering
 gdzie: \textit{w} - wagi wejść neuronu, \textit{x} - wartość sygnału na wejściu, \textit{b} - bias
-\caption{Suma ważona w neuronie wraz z dodatkową wagą \textit{b}}
+\caption{Suma ważona w neuronie wraz biasem \textit{b}}
 \label{eq:neuron}
 \end{figure}
 
@@ -72,8 +72,7 @@ Efektem tego jest osiąganie coraz lepszych wyników w miarę trwania procesu uc
 \paragraph{Warstwa} \mbox{}\\
 Neurony w sieci zorganizowane są w warstwach. Komunikacja odbywa się tylko między kolejnymi
 warstwami, neurony w danej warstwie nie są ze sobą połączone \cite{CS231n, substBigConv}.
-Istnieje wiele rodzajów warstw, a sygnał przechodzący przez całą sieć zaczyna się w tzw.
-warstwie wejściowej oraz kończy w tzw. warstwie wyjściowej.
+Istnieje wiele rodzajów warstw, które opisane będą w dalszej części tego rozdziału.
 
 \paragraph{Funkcja kosztu} \mbox{}\\
 Informacje o wartości błędu pomiędzy wartościami przewidzianymi przez sieć
@@ -188,7 +187,7 @@ do kolejnych warstw.
 Użycie warstwy odrzucającej \textit{(ang. Dropout)} jest jednym z najlepszych sposobów
 na poradzenie sobie ze zjawiskiem przetrenowania, opisanym na końcu tego rozdziału
 \cite{DropoutPreventOverfit}. Warstwa odrzucająca nie wykorzystuje wyjść pewnych neuronów,
-co powoduje rozpoznawanie wyraźniejszych cech. W warstwie tej określamy prawdopodobieństwo,
+co skutkuje rozpoznawaniem wyraźniejszych cech. W warstwie tej określamy prawdopodobieństwo,
 z jakim neurony zostaną zachowane. Najczęściej stosuje się ją po warstwach w pełni
 połączonych, zarówno przy przechodzeniu w przód, jak i tył \cite{DropConnect}.
 
@@ -196,7 +195,8 @@ połączonych, zarówno przy przechodzeniu w przód, jak i tył \cite{DropConnec
 Warstwa ta wykorzystywana jest do zmniejszenia rozmiaru pamięci oraz ilości obliczeń
 w sieci neuronowej. Operacja polega na wybraniu jednego piksela z danego obszaru i przekazaniu
 go do następnej warstwy. Najczęściej wykorzystywany jest tzw. MaxPooling, wybierający
-piksel o największej wartości.
+piksel o największej wartości. Pooling nie zachowuje informacji o położeniu piksela przekazanego
+na wyjście warstwy, co moze objawiać sie błędnymi interpretacjami przez sieci.
 
 \section{Funkcje aktywacji}
 
@@ -254,7 +254,7 @@ x & \text{if } x \geqslant 0 \\
 \end{figure}
 
 \paragraph{Softmax} \mbox{}\\
-Softmax jest funkcją wyznaczającą rozkład prawdopodobieństwa wystąpienia danego zdarzenia.
+Softmax jest funkcją obliczającą rozkład prawdopodobieństwa wystąpienia danego zdarzenia.
 Wykorzystywana jest w sytuacjach wymagających przyporządkowania
 elementu do jednej z wielu klas. \\W tej pracy wykorzystywana jest w ostatniej warstwie do
 przypisania ilości rozpoznanych oczek do każdego ze zdjęć. Wzór funkcji \ref{eq:softmax} zaprezentowany jest poniżej.
@@ -380,9 +380,8 @@ W praktycznym zastosowaniu ilość epok ustala się na co najmniej kilkanaście,
 wielu pracach naukowych przedstawiane są wyniki po 100 epokach treningu.
 
 \section{Inne}
-Ważnym elementem pracy była analiza innych przykładów zastosowania sieci neuronowych do
-rozpoznawania obrazów. Poniżej przedstawiono dwa najbardziej rozpowszechnione w tej dziedzinie
-zbiory danych.
+Poniżej przedstawiono dwa najbardziej rozpowszechnione zbiory danych do rozpoznawania obrazów.
+Architektura pierwszej sieci bazowała na modelach służących do rozponawania tych zbiorów.
 
 \paragraph{MNIST} \mbox{}\\
 Baza danych MNIST \cite{MNIST} to zbiór 60000 treningowych i 10000 testowych czarno-białych obrazów
